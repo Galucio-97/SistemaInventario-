@@ -1,11 +1,86 @@
-# 🏛️ Arquitectura, Changelog de Features y Backlog de Tickets
-**Proyecto:** Sistema de Inventarios con Pruebas de Software (.NET 8 + Razor Pages + EF Core + SQL Server + xUnit)
+# 📦 Sistema de Inventarios (SI) [![Version]()]
+
+> **Sistema integral de administración y valoración de inventarios con valuación dual (PEPS y Costo Promedio Ponderado Móvil), transacciones ACID y suite exhaustiva de pruebas de software.**
+
+[![.NET 8](https://img.shields.io/badge/.NET-8.0-512BD4?logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
+[![C# 12](https://img.shields.io/badge/C%23-12.0-239120?logo=csharp&logoColor=white)](https://learn.microsoft.com/dotnet/csharp/)
+[![ASP.NET Core](https://img.shields.io/badge/ASP.NET%20Core-Razor%20Pages-512BD4)](https://learn.microsoft.com/aspnet/core/razor-pages/)
+[![Entity Framework Core 8](https://img.shields.io/badge/EF%20Core-8.0-512BD4)](https://learn.microsoft.com/ef/core/)
+[![SQL Server 2022](https://img.shields.io/badge/SQL%20Server-2022-CC292B?logo=microsoftsqlserver&logoColor=white)](https://www.microsoft.com/sql-server)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
+[![Tests](https://img.shields.io/badge/xUnit-19%20Test%20Cases-brightgreen?logo=xunit&logoColor=white)](https://xunit.net/)
+[![TDD](https://img.shields.io/badge/Methodology-TDD%20Red%20→%20Green-blue)](docs/00-workflow-operativo.md)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
 
-## 1. Modelo de Datos Simplificado (3 Tablas, Cero Sobreingeniería)
+## 📑 Tabla de Contenidos
 
-Para mantener la base de datos al mínimo indispensable sin sacrificar ningún requisito de la rúbrica, utilizamos **únicamente 3 tablas**:
+1. [Descripción General](#-descripción-general)
+2. [Características Principales](#-características-principales)
+3. [Stack Tecnológico](#-stack-tecnológico)
+4. [Arquitectura y Modelo de Datos](#-arquitectura-y-modelo-de-datos)
+5. [Prerrequisitos del Sistema](#-prerrequisitos-del-sistema)
+6. [Instalación y Puesta en Marcha](#-instalación-y-puesta-en-marcha)
+7. [Uso de Docker para Base de Datos](#-uso-de-docker-para-base-de-datos)
+8. [Ejecución de la Aplicación](#-ejecución-de-la-aplicación)
+9. [Suite de Pruebas Automatizadas](#-suite-de-pruebas-automatizadas)
+10. [Estructura del Repositorio](#-estructura-del-repositorio)
+11. [Centro de Documentación (`docs/`)](#-centro-de-documentación-docs)
+12. [Flujo de Trabajo y Contribución](#-flujo-de-trabajo-y-contribución)
+13. [Licencia](#-licencia)
+
+---
+
+## 💡 Descripción General
+
+El **Sistema de Inventarios (SI)** es una solución web desarrollada en **.NET 8** con **ASP.NET Core Razor Pages** y **Entity Framework Core 8** sobre **SQL Server 2022**. Su objetivo fundamental es proporcionar un control riguroso, verificable y matemáticamente auditable sobre las existencias y la valoración económica de mercancías mediante dos métodos contables estándar:
+
+1. **PEPS (Primeras Entradas, Primeras Salidas / FIFO):** Valuación basada en el consumo cronológico de capas o lotes de adquisición.
+2. **Costo Promedio Ponderado Móvil:** Recálculo dinámico y ponderado del costo unitario tras cada entrada de mercancía.
+
+El proyecto está diseñado bajo un paradigma de **Ingeniería de Calidad y Pruebas de Software**, aplicando **Desarrollo Guiado por Pruebas (TDD)**, trazabilidad bidireccional de requisitos a casos de prueba, y ejecución garantizada bajo transacciones ACID con reversión automática (*rollback*) ante fallos.
+
+> [!NOTE]
+> Todo el seguimiento del backlog, tickets de desarrollo (SI-001 al SI-047), criterios de aceptación, planes de prueba, casos de prueba y matrices de trazabilidad residen en la carpeta [`docs/`](docs/).
+
+---
+
+## ✨ Características Principales
+
+* **Gestión de Catálogo de Productos:** Alta, edición, consulta y baja lógica con clave única obligatoria (`Codigo`), unidad de medida y estado activo/inactivo (RF-01).
+* **Control Transaccional de Movimientos:** Registro estricto de Entradas y Salidas con validación de cantidades positivas, costos válidos y existencia suficiente para evitar saldos negativos (RF-02, RF-03).
+* **Valuación Dual en Tiempo Real:** Visualización y comparación del costo de salida y saldo patrimonial del inventario aplicando PEPS y Promedio Ponderado sobre el mismo conjunto histórico de operaciones (RF-04, RF-05).
+* **Política de Precisión y Redondeo Bancario:**
+  * Uso estricto de aritmética decimal (`decimal` en C# y tipos `decimal(18,4)` / `decimal(18,2)` en SQL Server).
+  * Redondeo bancario (*Half to Even* vía `MidpointRounding.ToEven`) para mitigar el sesgo estadístico acumulativo.
+  * Cantidades y costos unitarios a 4 decimales; importes totales y saldos a 2 decimales.
+  * Ajuste por residuo automático cuando la existencia física llega a cero (saldo valor = 0.00).
+* **Persistencia Aislada y Confiable:**
+  * Base de datos principal para la aplicación (`SistemaInventarioDb`).
+  * Base de datos dedicada y aislada para pruebas de integración (`SistemaInventarioDb_Tests`) en contenedor SQL Server real (sin mocks en memoria).
+* **Suite de Pruebas xUnit:** 19 casos de prueba formalmente especificados (CP-01 a CP-19) que cubren pruebas unitarias, de integración, funcionales y de regresión (CP-14).
+
+---
+
+## 🛠️ Stack Tecnológico
+
+| Capa / Rol | Tecnología / Herramienta | Versión | Propósito |
+|---|---|---|---|
+| **Lenguaje de Programación** | C# | 12.0 | Lenguaje principal de tipado fuerte y alta precisión |
+| **Plataforma / Runtime** | .NET SDK | 8.0.x LTS | Runtime y compilador del ecosistema |
+| **Framework Web** | ASP.NET Core Razor Pages | 8.0 | Interfaz de usuario basada en componentes de página |
+| **ORM / Acceso a Datos** | Entity Framework Core | 8.0 | Mapeo objeto-relacional, migraciones y LINQ |
+| **Motor de Base de Datos** | Microsoft SQL Server | 2022 | Almacenamiento relacional transaccional ACID |
+| **Contenedores** | Docker & Docker Compose | Engine 24+ | Aislamiento y portabilidad de SQL Server |
+| **Framework de Pruebas** | xUnit | 2.5.3+ | Ejecución de pruebas unitarias, integración y regresión |
+| **Cobertura de Código** | Coverlet Collector | 6.0.0+ | Métricas de cobertura de código cruzado |
+
+---
+
+## 🏛️ Arquitectura y Modelo de Datos
+
+El diseño del modelo de datos fue optimizado para evitar sobreingeniería y cumplir con los más altos estándares de trazabilidad y rendimiento, utilizando **3 entidades relacionales principales**:
 
 ```mermaid
 erDiagram
@@ -15,309 +90,305 @@ erDiagram
 
     PRODUCTOS {
         int Id PK
-        nvarchar(50) Codigo UK "Clave única (CP-02)"
-        nvarchar(150) Nombre
-        nvarchar(500) Descripcion "Opcional"
-        nvarchar(30) UnidadMedida
-        bit Activo "Estado"
-        decimal(18_4) ExistenciaActual "Stock físico"
+        nvarchar(50) Codigo UK "Clave única (RF-01, CP-02)"
+        nvarchar(150) Nombre "Nombre comercial"
+        nvarchar(500) Descripcion "Detalle opcional"
+        nvarchar(30) UnidadMedida "Pza, Kg, Lt, etc."
+        bit Activo "Baja lógica (RB-10)"
+        decimal(18_4) ExistenciaActual "Stock físico disponible"
         decimal(18_4) CostoPromedioActual "Promedio móvil vigente"
-        decimal(18_2) ValorInventarioPeps "Suma de capas activas"
-        decimal(18_2) ValorInventarioPromedio "Stock * Promedio vigente"
+        decimal(18_2) ValorInventarioPeps "Valorización según capas"
+        decimal(18_2) ValorInventarioPromedio "Stock * CostoPromedioActual"
     }
 
     MOVIMIENTOS {
         int Id PK
-        int ProductoId FK
-        datetime2 Fecha
+        int ProductoId FK "Producto afectado"
+        datetime2 Fecha "Momento del movimiento"
         nvarchar(10) Tipo "ENTRADA | SALIDA"
-        decimal(18_4) Cantidad "Siempre > 0 (CP-05)"
-        decimal(18_4) CostoUnitarioEntrada "Solo en ENTRADA > 0 (CP-06)"
-        decimal(18_4) ExistenciaResultante "Stock tras movimiento"
+        decimal(18_4) Cantidad "Cantidad (> 0, RB-01)"
+        decimal(18_4) CostoUnitarioEntrada "Solo en ENTRADA (> 0, RB-02)"
+        decimal(18_4) ExistenciaResultante "Stock resultante"
         decimal(18_4) CostoUnitarioPeps "Costo unitario asignado PEPS"
-        decimal(18_2) CostoTotalPeps "Costo total salida/entrada PEPS"
-        decimal(18_2) SaldoValorPeps "Valor inventario tras mov (PEPS)"
-        decimal(18_4) CostoUnitarioPromedio "Costo unitario asignado Promedio"
-        decimal(18_2) CostoTotalPromedio "Costo total salida/entrada Promedio"
-        decimal(18_2) SaldoValorPromedio "Valor inventario tras mov (Promedio)"
+        decimal(18_2) CostoTotalPeps "Costo total asignado PEPS"
+        decimal(18_2) SaldoValorPeps "Saldo patrimonial PEPS"
+        decimal(18_4) CostoUnitarioPromedio "Costo unitario vigente"
+        decimal(18_2) CostoTotalPromedio "Costo total asignado Promedio"
+        decimal(18_2) SaldoValorPromedio "Saldo patrimonial Promedio"
     }
 
     CAPAS_PEPS {
         int Id PK
-        int ProductoId FK
-        int MovimientoEntradaId FK
-        datetime2 FechaEntrada "Orden FIFO"
-        decimal(18_4) CantidadInicial
-        decimal(18_4) CantidadDisponible "Se descuenta en salidas PEPS"
-        decimal(18_4) CostoUnitario "Costo de adquisición del lote"
+        int ProductoId FK "Producto asociado"
+        int MovimientoEntradaId FK "Movimiento de entrada origen"
+        datetime2 FechaEntrada "Orden FIFO (Fecha ASC, Id ASC)"
+        decimal(18_4) CantidadInicial "Lote original adquirido"
+        decimal(18_4) CantidadDisponible "Saldo restante de la capa"
+        decimal(18_4) CostoUnitario "Costo de compra del lote"
     }
+```
+
+### Reglas Clave de Negocio (RB)
+
+* **RB-01 / RB-02:** Cantidades y costos unitarios de entrada deben ser estrictamente positivos (`> 0`).
+* **RB-03:** Salidas superiores a la existencia física disponible son rechazadas sin excepción.
+* **RB-06 / RNF-04:** Cualquier operación rechazada o con fallo de ejecución ejecuta `ROLLBACK`, garantizando cero actualizaciones parciales.
+* **RB-08 / RB-09:** Redondeo bancario uniforme en memoria C# previo a persistir; tipos con precisión explícita `decimal(18,4)` y `decimal(18,2)`.
+* **RB-10:** Prohibido registrar movimientos sobre productos con estado inactivo.
+
+---
+
+## 📋 Prerrequisitos del Sistema
+
+Antes de comenzar, asegúrate de tener instalados los siguientes componentes:
+
+1. **.NET 8 SDK** (v8.0.100 o superior):
+   ```bash
+   dotnet --version
+   ```
+2. **Docker Desktop** o **Docker Engine + Docker Compose Plugin**:
+   ```bash
+   docker --version
+   docker compose version
+   ```
+3. **Git**:
+   ```bash
+   git --version
+   ```
+4. *(Opcional)* Herramienta global de Entity Framework Core CLI:
+   ```bash
+   dotnet tool install --global dotnet-ef
+   ```
+
+---
+
+## 🚀 Instalación y Puesta en Marcha
+
+### 1. Clonar el repositorio
+
+```bash
+git clone https://github.com/Riguidix/SistemaInventario.git
+cd SistemaInventario
+```
+
+### 2. Configurar la Base de Datos con Docker
+
+El repositorio incluye un archivo [`docker-compose.yml`](docker-compose.yml) listo para desplegar SQL Server 2022 en segundos:
+
+```bash
+docker compose up -d
+```
+
+Verifica que el contenedor esté corriendo y saludable:
+
+```bash
+docker compose ps
+```
+
+> **Credenciales por Defecto del Contenedor:**
+> * **Host:** `localhost,1433`
+> * **Usuario:** `sa`
+> * **Contraseña:** `YourStrong@Passw0rd`
+> * **Base de Datos Principal:** `SistemaInventarioDb`
+> * **Base de Datos de Pruebas:** `SistemaInventarioDb_Tests`
+
+### 3. Configuración de Conexión (`appsettings.Development.json`)
+
+Verifica o agrega la cadena de conexión en `SI.Web/appsettings.Development.json`:
+
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost,1433;Database=SistemaInventarioDb;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;MultipleActiveResultSets=true",
+    "TestConnection": "Server=localhost,1433;Database=SistemaInventarioDb_Tests;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;MultipleActiveResultSets=true"
+  }
+}
+```
+
+### 4. Aplicar Migraciones / Crear Esquema
+
+Para inicializar la base de datos con las tablas e índices requeridos:
+
+```bash
+dotnet ef database update --project SI.Web
 ```
 
 ---
 
-## 2. Changelog Planificado (Hoja de Ruta por Releases)
+## 🐳 Uso de Docker para Base de Datos
 
-Este *Changelog* define cómo evoluciona el producto desde el esqueleto inicial hasta el paquete final de entrega:
+Si prefieres levantar el contenedor de SQL Server de forma individual sin Docker Compose, puedes ejecutar el siguiente comando:
 
-* **`v0.1.0` — Infraestructura Base y Persistencia (Foundation)**
-  * *Features:* Creación de la solución `.sln` con 2 proyectos, `docker-compose.yml` para SQL Server, configuración de `InventarioDbContext` con EF Core 8, definición de las 3 entidades y generación del script SQL (`database/scripts.sql`).
-* **`v0.2.0` — Módulo de Productos (RF-01)**
-  * *Features:* Registro, consulta, edición y baja lógica de productos; validación de clave única (`Codigo`) y campos obligatorios; pantallas Razor Pages de catálogo de productos.
-* **`v0.3.0` — Motor Matemático de Costeo: PEPS y Promedio Ponderado (RF-04)**
-  * *Features:* Política de redondeo bancario (`MidpointRounding.ToEven`, 4 decimales internos / 2 visibles), calculadora pura de PEPS por consumo de capas y calculadora pura de Promedio Ponderado Móvil.
-* **`v0.4.0` — Módulo de Movimientos Transaccionales y Consultas (RF-02, RF-03, RF-05)**
-  * *Features:* Registro de Entradas y Salidas con transacciones ACID (`COMMIT`/`ROLLBACK`), actualización de existencias, recálculo/consulta comparativa de valoración (PEPS vs. Promedio) y vistas Razor Pages de Kardex/Historial.
-* **`v0.5.0` — Suite de Pruebas Unitarias, Integración y Funcionales (CP-01 a CP-13)**
-  * *Features:* Implementación de casos de prueba automatizados en `xUnit`, verificación del ejercicio obligatorio de referencia (Sección 6.3) y simulación de fallo transaccional (`CP-13`).
-* **`v1.0.0` — Ciclo de Defectos, Regresión, Documentación y Empaquetado Final (CP-14)**
-  * *Features:* Registro y corrección de defectos reales detectados, suite de regresión, matriz de trazabilidad, informe PDF con evidencias gráficas y archivo `.ZIP` reproducible.
+```bash
+docker run -e "ACCEPT_EULA=Y" \
+           -e "MSSQL_SA_PASSWORD=YourStrong@Passw0rd" \
+           -e "MSSQL_PID=Developer" \
+           -p 1433:1433 \
+           --name sqlserver-inventario \
+           -d mcr.microsoft.com/mssql/server:2022-latest
+```
 
----
+### Gestión del Contenedor
 
-## 3. Backlog Detallado de Tickets
-
-> [!TIP]
-> **Guía de Asignación para el Equipo:**
-> * **🟢 Nivel Básico (Ideal para el compañero menos experimentado en C#):** Lógica directa, validaciones claras, CRUD sencillo o pruebas unitarias siguiendo plantilla.
-> * **🟡 Nivel Intermedio:** Páginas Razor con formularios o pruebas de casos de negocio.
-> * **🔴 Nivel Avanzado (Arquitecto / Dev con más experiencia en C#):** Configuración de EF Core, transacciones ACID, motor de capas PEPS y pruebas de integración con Docker.
+* **Detener el servicio:** `docker compose stop`
+* **Reiniciar el servicio:** `docker compose start`
+* **Eliminar contenedor y preservar datos:** `docker compose down`
+* **Eliminar contenedor y purgar volumen de datos:** `docker compose down -v`
 
 ---
 
-### ÉPICA 1: Cimientos y Base de Datos (`v0.1.0`)
+## 💻 Ejecución de la Aplicación
 
-#### 🎫 TICKET-01: Inicialización de Solución .NET 8 y Docker SQL Server
-* **Nivel:** 🔴 Avanzado
-* **Requisito / CP:** RNF-02 (Persistencia), RNF-05 (Mantenibilidad), Entregable 1 y 2.
-* **Dónde (Archivos a crear/modificar):**
-  * `/SistemaInventarios.sln`
-  * `/docker-compose.yml`
-  * `/.gitignore`
-  * `/src/SistemaInventarios.Web/SistemaInventarios.Web.csproj`
-  * `/tests/SistemaInventarios.Tests/SistemaInventarios.Tests.csproj`
-* **Qué se debe implementar:**
-  1. Crear la solución con los 2 proyectos y referenciar `SistemaInventarios.Web` desde `SistemaInventarios.Tests`.
-  2. Crear las 4 carpetas base en `src/SistemaInventarios.Web/`: `Productos/`, `Movimientos/`, `Costeo/`, `Persistencia/`.
-  3. Crear las 4 carpetas base en `tests/SistemaInventarios.Tests/`: `Unitarias/`, `Integracion/`, `Funcionales/`, `Regresion/`.
-  4. Configurar `docker-compose.yml` con la imagen oficial de SQL Server (`mcr.microsoft.com/mssql/server:2022-latest`), puerto `1433` y contraseña de desarrollo definida en `appsettings.json`.
+Para compilar y correr el servidor web localmente:
 
-#### 🎫 TICKET-02: Entidades de Datos, DbContext y Script SQL
-* **Nivel:** 🔴 Avanzado
-* **Requisito / CP:** RNF-01, RNF-02, Regla de negocio #8 (Precisión decimal).
-* **Dónde:**
-  * `/src/SistemaInventarios.Web/Productos/Producto.cs`
-  * `/src/SistemaInventarios.Web/Movimientos/Movimiento.cs`
-  * `/src/SistemaInventarios.Web/Costeo/CapaPeps.cs`
-  * `/src/SistemaInventarios.Web/Persistencia/InventarioDbContext.cs`
-  * `/database/scripts.sql`
-* **Qué se debe implementar:**
-  1. Definir las clases `Producto`, `Movimiento` (con enum `TipoMovimiento { Entrada, Salida }`) y `CapaPeps`.
-  2. Configurar en `OnModelCreating` de `InventarioDbContext`:
-     * Índice único (`HasIndex(p => p.Codigo).IsUnique()`) en `Producto` para garantizar rechazo de duplicados a nivel BD y aplicación.
-     * Precisión explícita `HasPrecision(18, 4)` para cantidades y costos unitarios, y `HasPrecision(18, 2)` para importes totales y saldos monetarios.
-  3. Generar la primera migración de EF Core y exportar el DDL a `/database/scripts.sql`.
+```bash
+dotnet run --project SI.Web
+```
+
+Una vez iniciado, abre tu navegador en la URL indicada en la consola:
+* **HTTPS:** `https://localhost:7xxx`
+* **HTTP:** `http://localhost:5xxx`
+
+### Módulos Disponibles en la Interfaz:
+1. **/Productos:** Catálogo con alta, edición, estado y consulta de existencias.
+2. **/Movimientos/RegistrarEntrada:** Registro de compras/entradas con cantidad y costo de adquisición.
+3. **/Movimientos/RegistrarSalida:** Registro de salidas con validación de stock y costeo automático.
+4. **/Inventario/Consulta:** Kardex detallado, capas PEPS activas y comparativa simultánea PEPS vs. Promedio Ponderado.
 
 ---
 
-### ÉPICA 2: Módulo de Productos (`v0.2.0`)
+## 🧪 Suite de Pruebas Automatizadas
 
-#### 🎫 TICKET-03: Reglas de Validación y Servicio de Productos (RF-01)
-* **Nivel:** 🟢 Básico *(Excelente primer ticket para tu compañero)*
-* **Requisito / CP:** RF-01, RNF-03 (Validación con mensajes claros), CP-01, CP-02, CP-11.
-* **Dónde:**
-  * `/src/SistemaInventarios.Web/Productos/ValidadorProducto.cs`
-  * `/src/SistemaInventarios.Web/Productos/ProductoService.cs`
-* **Qué se debe implementar:**
-  1. En `ValidadorProducto`: validar que `Codigo`, `Nombre` y `UnidadMedida` no sean nulos ni vacíos, y devolver mensajes de error comprensibles en español.
-  2. En `ProductoService`:
-     * `RegistrarProductoAsync`: verificar con `ValidadorProducto`, comprobar que no exista otro producto con el mismo `Codigo` (lanzando excepción de dominio o resultado de error claro si está duplicado -> **CP-02**) y guardar en BD (**CP-01**).
-     * `ObtenerPorIdAsync` / `ObtenerPorCodigoAsync`: devolver el producto o informar claramente que no existe (**CP-11**).
-     * `ListarProductosAsync` y `ActualizarProductoAsync` (permitiendo modificar nombre, descripción, unidad de medida y estado activo/inactivo).
+El proyecto implementa una batería exhaustiva de pruebas en **xUnit** con categorización por atributos `[Trait]` para facilitar la ejecución granular y la trazabilidad (RNF-06):
 
-#### 🎫 TICKET-04: Interfaz Web de Administración de Productos (Razor Pages)
-* **Nivel:** 🟢 Básico / 🟡 Intermedio
-* **Requisito / CP:** RF-01, RNF-03.
-* **Dónde:**
-  * `/src/SistemaInventarios.Web/Pages/Productos/Index.cshtml` (y `.cshtml.cs`)
-  * `/src/SistemaInventarios.Web/Pages/Productos/Crear.cshtml` (y `.cshtml.cs`)
-  * `/src/SistemaInventarios.Web/Pages/Productos/Editar.cshtml` (y `.cshtml.cs`)
-* **Qué se debe implementar:**
-  1. Tabla de productos mostrando: Código, Nombre, Descripción, Unidad de Medida, Estado (Activo/Inactivo) y Existencia Actual.
-  2. Formulario de alta y edición que muestre en pantalla las alertas de error cuando se intente meter un código duplicado o campos vacíos (ideal para tomar las capturas de pantalla de **CP-01** y **CP-02**).
+```csharp
+[Trait("CP", "CP-08")]
+[Trait("RF", "RF-04")]
+[Trait("Nivel", "Unitaria")]
+```
 
----
+### Comandos de Ejecución
 
-### ÉPICA 3: Motor Matemático de Costeo (`v0.3.0`)
+#### 1. Ejecutar Toda la Suite de Pruebas
+```bash
+dotnet test
+```
 
-#### 🎫 TICKET-05: Política de Redondeo Bancario y Reglas de Movimiento
-* **Nivel:** 🟢 Básico *(Muy formativo y acotado para tu compañero)*
-* **Requisito / CP:** Reglas de negocio #1, #2, #8 y #9, CP-05, CP-06.
-* **Dónde:**
-  * `/src/SistemaInventarios.Web/Costeo/PoliticaRedondeo.cs`
-  * `/src/SistemaInventarios.Web/Movimientos/ValidadorMovimiento.cs`
-* **Qué se debe implementar:**
-  1. En `PoliticaRedondeo`:
-     * Método `RedondearCostoUnitario(decimal valor)` -> `Math.Round(valor, 4, MidpointRounding.ToEven)`.
-     * Método `RedondearImporteMonetario(decimal valor)` -> `Math.Round(valor, 2, MidpointRounding.ToEven)`.
-  2. En `ValidadorMovimiento`:
-     * Rechazar cualquier entrada o salida con `Cantidad <= 0` (**CP-05**).
-     * Rechazar cualquier entrada con `CostoUnitario <= 0` (**CP-06**).
-     * Rechazar cualquier salida donde `Cantidad > ExistenciaDisponible` (**CP-07**).
+#### 2. Ejecutar por Nivel de Prueba
+```bash
+# Pruebas Unitarias (Validaciones, redondeo bancario, algoritmos puros de costeo)
+dotnet test --filter "Nivel=Unitaria"
 
-#### 🎫 TICKET-06: Calculadora de Costo Promedio Ponderado Móvil
-* **Nivel:** 🟡 Intermedio
-* **Requisito / CP:** RF-04, Sección 6.2, Sección 6.3, CP-09.
-* **Dónde:**
-  * `/src/SistemaInventarios.Web/Costeo/CalculadoraPromedioPonderado.cs`
-  * `/src/SistemaInventarios.Web/Costeo/ResultadoCosteo.cs`
-* **Qué se debe implementar:**
-  1. Función pura para **Entrada**: recibe `(cantidadAnterior, valorAnterior, cantidadEntrada, costoUnitarioEntrada)` y calcula:
-     * `valorEntrada = RedondearImporteMonetario(cantidadEntrada * costoUnitarioEntrada)`
-     * `nuevoValorTotal = valorAnterior + valorEntrada`
-     * `nuevaCantidadTotal = cantidadAnterior + cantidadEntrada`
-     * `nuevoCostoPromedio = RedondearCostoUnitario(nuevoValorTotal / nuevaCantidadTotal)`
-  2. Función pura para **Salida**: recibe `(cantidadAnterior, valorAnterior, costoPromedioVigente, cantidadSalida)` y calcula:
-     * `costoUnitarioSalida = costoPromedioVigente` (la salida no altera el costo promedio unitario de las unidades restantes).
-     * `costoTotalSalida = RedondearImporteMonetario(cantidadSalida * costoUnitarioSalida)`
-     * `valorRestante = RedondearImporteMonetario(valorAnterior - costoTotalSalida)`
-  3. Método de proyección `RecalcularHistorial(IEnumerable<Movimiento> movimientos)` para reconstruir la tabla completa bajo el método Promedio (**CP-10**).
+# Pruebas de Integración (Persistencia EF Core, índices únicos, transacciones y rollback en SQL Server)
+dotnet test --filter "Nivel=Integracion"
 
-#### 🎫 TICKET-07: Calculadora de Costeo PEPS (Consumo de Capas FIFO)
-* **Nivel:** 🔴 Avanzado
-* **Requisito / CP:** RF-04, Sección 6.1, Sección 6.3, CP-08.
-* **Dónde:**
-  * `/src/SistemaInventarios.Web/Costeo/CalculadoraPeps.cs`
-* **Qué se debe implementar:**
-  1. Función para **Entrada**: crea una nueva `CapaPeps` con `CantidadInicial = cantidad`, `CantidadDisponible = cantidad` y `CostoUnitario = costoEntrada`.
-  2. Función para **Salida**:
-     * Recibe las capas con `CantidadDisponible > 0` ordenadas por `FechaEntrada ASC, Id ASC` (la más antigua primero).
-     * Recorre las capas consumiendo unidades hasta cubrir la `cantidadSalida` solicitada (soportando salidas que abarquen 1 o múltiples capas).
-     * Calcula el `costoTotalSalida` sumando `(unidadesTomadasDeCapa * costoUnitarioCapa)` de cada capa afectada.
-     * Calcula el `costoUnitarioSalidaEquivalente = RedondearCostoUnitario(costoTotalSalida / cantidadSalida)`.
-     * Calcula el `valorInventarioRestante` sumando `(CantidadDisponible * CostoUnitario)` de las capas sobrevivientes.
-  3. Método de proyección `RecalcularHistorial(IEnumerable<Movimiento> movimientos)` para reconstruir el estado PEPS completo desde el historial original (**CP-10**).
+# Pruebas Funcionales (Flujos completos de negocio de inicio a fin)
+dotnet test --filter "Nivel=Funcional"
+
+# Pruebas de Regresión (Verificación tras resolución de defectos, CP-14)
+dotnet test --filter "Nivel=Regresion"
+```
+
+#### 3. Ejecutar un Caso de Prueba Específico
+```bash
+# Ejemplo: Caso de prueba de PEPS (Ejercicio de referencia CP-08)
+dotnet test --filter "CP=CP-08"
+
+# Ejemplo: Caso de prueba de Atomicidad y Rollback (CP-13)
+dotnet test --filter "CP=CP-13"
+```
+
+#### 4. Generar Cobertura de Código y Reporte TRX
+```bash
+dotnet test --collect:"XPlat Code Coverage" \
+            --logger "trx;LogFileName=resultado-pruebas.trx" \
+            --results-directory ./evidencias/ciclos
+```
 
 ---
 
-### ÉPICA 4: Movimientos Transaccionales y Consultas (`v0.4.0`)
+## 📂 Estructura del Repositorio
 
-#### 🎫 TICKET-08: Servicio Transaccional de Inventario (Entradas, Salidas y Rollback)
-* **Nivel:** 🔴 Avanzado
-* **Requisito / CP:** RF-02, RF-03, RF-04, RF-05, RNF-01, RNF-04 (Consistencia atómica), CP-03, CP-04, CP-07, CP-10, CP-13.
-* **Dónde:**
-  * `/src/SistemaInventarios.Web/Movimientos/InventarioService.cs`
-* **Qué se debe implementar:**
-  1. `RegistrarEntradaAsync(productoId, fecha, cantidad, costoUnitario)`:
-     * Verificar existencia del producto (**CP-11**) y validar datos con `ValidadorMovimiento` (**CP-05, CP-06**).
-     * Abrir transacción explícita (`await _dbContext.Database.BeginTransactionAsync()`).
-     * Calcular impacto en `CalculadoraPeps` y `CalculadoraPromedioPonderado`.
-     * Insertar registro en `Movimientos`, insertar nueva capa en `CapasPeps`, actualizar existencias y valores en `Productos`.
-     * Confirmar transacción (`CommitAsync`). Si ocurre cualquier excepción, ejecutar `RollbackAsync` garantizando cero cambios parciales (**RNF-04, CP-13**).
-  2. `RegistrarSalidaAsync(productoId, fecha, cantidad)`:
-     * Verificar producto y validar que `cantidad <= producto.ExistenciaActual` (**CP-07**).
-     * Dentro de transacción explícita: consumir capas en `CapasPeps` usando `CalculadoraPeps`, calcular salida en `CalculadoraPromedioPonderado`, insertar el movimiento y actualizar el producto.
-  3. `ConsultarEstadoInventarioAsync(productoId, MetodoCosteo metodo)`:
-     * Devuelve las existencias actuales, el costo unitario vigente según el método elegido (`PEPS` o `Promedio`), el valor del inventario, las capas PEPS activas y el historial proyectado bajo ese método sin alterar ni duplicar los movimientos originales (**RF-04, RF-05, CP-10**).
-
-#### 🎫 TICKET-09: Interfaz Web de Entradas, Salidas y Consulta Comparativa (Kardex)
-* **Nivel:** 🟡 Intermedio
-* **Requisito / CP:** RF-02, RF-03, RF-04, RF-05, Sección 6.3.
-* **Dónde:**
-  * `/src/SistemaInventarios.Web/Pages/Movimientos/RegistrarEntrada.cshtml` (y `.cshtml.cs`)
-  * `/src/SistemaInventarios.Web/Pages/Movimientos/RegistrarSalida.cshtml` (y `.cshtml.cs`)
-  * `/src/SistemaInventarios.Web/Pages/Inventario/Consulta.cshtml` (y `.cshtml.cs`)
-* **Qué se debe implementar:**
-  1. Formularios para registrar Entrada y Salida con retroalimentación clara de errores (para evidenciar rechazos de **CP-05, CP-06, CP-07**).
-  2. En `Pages/Inventario/Consulta.cshtml`:
-     * Un selector/conmutador de Método de Costeo (`PEPS` | `Promedio Ponderado` | `Vista Comparativa Dual`).
-     * Tarjetas de resumen con: **Existencias Actuales**, **Costo Unitario (según método)** y **Valor Final del Inventario**.
-     * Tabla de historial de movimientos y tabla de capas PEPS activas.
-     * Un botón opcional *"Cargar Ejercicio de Referencia 6.3"* para demostrar en vivo ante el profesor el caso obligatorio con un clic.
-
----
-
-### ÉPICA 5: Estrategia de Pruebas Automatizadas (`v0.5.0`)
-
-#### 🎫 TICKET-10: Pruebas Unitarias de Validación y Redondeo
-* **Nivel:** 🟢 Básico *(Ideal para tu compañero)*
-* **Requisito / CP:** Sección 7 (Pruebas unitarias), Sección 7.2 (Partición de equivalencia y Valores límite), CP-05, CP-06.
-* **Dónde:**
-  * `/tests/SistemaInventarios.Tests/Unitarias/ValidadorMovimientoTests.cs`
-  * `/tests/SistemaInventarios.Tests/Unitarias/PoliticaRedondeoTests.cs`
-* **Qué se debe implementar:**
-  1. Pruebas parametrizadas (`[Theory]` / `[InlineData]`) aplicando **Análisis de Valores Límite** en cantidades (`-10`, `-0.0001`, `0`, `0.0001`, `10`) y costos unitarios (`-5`, `0`, `0.01`, `20`).
-  2. Pruebas unitarias de `PoliticaRedondeo` verificando el redondeo bancario (`MidpointRounding.ToEven`).
-
-#### 🎫 TICKET-11: Pruebas Unitarias del Motor PEPS y Promedio (Escenario Obligatorio 6.3)
-* **Nivel:** 🟡 Intermedio
-* **Requisito / CP:** Sección 6.3, Sección 7 (Pruebas unitarias), CP-08, CP-09, CP-10.
-* **Dónde:**
-  * `/tests/SistemaInventarios.Tests/Unitarias/CalculadoraPepsTests.cs`
-  * `/tests/SistemaInventarios.Tests/Unitarias/CalculadoraPromedioTests.cs`
-* **Qué se debe implementar:**
-  1. Test del **Ejercicio de Referencia 6.3 en PEPS (`CP-08`)**:
-     * Entrada 10 a \$20 (\$200) + Entrada 10 a \$30 (\$300) + Salida 5 unidades.
-     * Asentar (`Assert`) que: Existencias previas = `20`, Costo unitario salida = `$20.00`, Costo total salida = `$100.00`, Existencias finales = `15`, Valor final = `$400.00`.
-  2. Test del **Ejercicio de Referencia 6.3 en Promedio Ponderado (`CP-09`)**:
-     * Con los mismos movimientos, asentar que: Existencias previas = `20`, Costo unitario salida = `$25.00`, Costo total salida = `$125.00`, Existencias finales = `15`, Valor final = `$375.00`.
-  3. Test de consumo multi-capa en PEPS (ej. retirar 15 unidades que agoten la Capa 1 completa y tomen 5 unidades de la Capa 2).
-
-#### 🎫 TICKET-12: Pruebas de Integración con Base de Datos y Transacciones ACID
-* **Nivel:** 🔴 Avanzado
-* **Requisito / CP:** Sección 7 (Pruebas de integración), RNF-02, RNF-04, CP-01, CP-02, CP-12, CP-13.
-* **Dónde:**
-  * `/tests/SistemaInventarios.Tests/Integracion/PersistenciaInventarioTests.cs`
-  * `/tests/SistemaInventarios.Tests/Integracion/TransaccionRollbackTests.cs`
-* **Qué se debe implementar:**
-  1. Verificar que al guardar un producto (`CP-01`) o movimientos, desechar la instancia del `DbContext` (`Dispose`) y abrir una nueva conexión (simulando reinicio de aplicación, `CP-12`), los datos siguen intactos en la base de datos.
-  2. Verificar rechazo de clave duplicada (`CP-02`) en la base de datos.
-  3. **Prueba del `CP-13` (Provocar fallo durante operación):** Simular una excepción controlada a mitad del registro de un movimiento (después de modificar el stock en memoria/BD pero antes del commit final) y verificar en la base de datos que la transacción hizo `ROLLBACK` y que ni las existencias ni el historial sufrieron modificaciones parciales.
-
-#### 🎫 TICKET-13: Pruebas Funcionales End-to-End de los Casos CP-01 a CP-12
-* **Nivel:** 🟡 Intermedio
-* **Requisito / CP:** Sección 7 (Pruebas funcionales), CP-01 al CP-12.
-* **Dónde:**
-  * `/tests/SistemaInventarios.Tests/Funcionales/FlujoInventarioFuncionalTests.cs`
-* **Qué se debe implementar:**
-  1. Pruebas que ejecuten los flujos completos desde los servicios/handlers verificando el comportamiento observable de principio a fin: alta de producto, entradas, salidas válidas (`CP-03`, `CP-04`), rechazo por falta de stock (`CP-07`), consulta de producto inexistente (`CP-11`) y cambio de método de costeo (`CP-10`) comprobando que las cantidades físicas y el número de transacciones en la tabla `Movimientos` permanecen inalterados.
+```text
+SistemaInventario/
+├── SistemaInventario.sln           # Solución global .NET 8
+├── global.json                     # Versión fijada del SDK de .NET
+├── docker-compose.yml              # Configuración oficial de SQL Server 2022
+├── LICENSE                         # Licencia del proyecto (MIT)
+├── README.md                       # Documentación principal de inicio y ejecución
+│
+├── SI.Web/                         # Proyecto Principal (ASP.NET Core Razor Pages)
+│   ├── Pages/                      # Vistas y PageModels (Productos, Movimientos, Kardex)
+│   ├── Costeo/                     # Calculadoras PEPS, Promedio y Política de Redondeo
+│   ├── Productos/                  # Servicios de dominio y validadores de producto
+│   ├── Movimientos/                # Servicio transaccional y validadores de movimiento
+│   ├── Persistencia/               # DbContext, entidades y configuraciones de EF Core
+│   ├── appsettings.json            # Configuración general
+│   ├── appsettings.Development.json# Cadenas de conexión de desarrollo
+│   └── Program.cs                  # Configuración de servicios y pipeline HTTP
+│
+├── SI.Tests/                       # Proyecto de Pruebas Automatizadas (xUnit)
+│   ├── Unitarias/                  # Pruebas de validación, redondeo y fórmulas matemáticas
+│   ├── Integracion/                # Pruebas con BD real, persistencia y transacciones ACID
+│   ├── Funcionales/                # Pruebas de flujos de negocio end-to-end
+│   ├── Regresion/                  # Pruebas de regresión por defectos cerrados (CP-14)
+│   └── Fixtures/                   # Configuración y recreación de BD de pruebas
+│
+├── docs/                           # 📚 Centro de Documentación Formal del Proyecto
+│   ├── 00-workflow-operativo.md    # Ciclo de desarrollo TDD (Red → Green → Refactor)
+│   ├── 01-plan-de-pruebas.md       # Estrategia, niveles de prueba, roles y cronograma
+│   ├── 02-requisitos-y-decisiones.md# Requisitos (RF, RNF), Reglas (RB) y Redondeo
+│   ├── 03-diseno-casos-de-prueba.md# Casos de prueba (CP-01 a CP-19) y oráculos calculados
+│   ├── 04-matriz-trazabilidad.md   # Matriz bidireccional Requisitos ↔ Casos de Prueba
+│   ├── 05-registro-defectos.md     # Bitácora formal de defectos (DEF-001...)
+│   ├── 06-informe-ejecucion.md     # Estructura de resultados y estado de ejecución
+│   ├── 07-estimacion-esfuerzo.md   # Estimación dual: Story Points y Function Points
+│   └── backlog.md                  # Backlog completo de tickets (SI-001 a SI-047)
+```
 
 ---
 
-### ÉPICA 6: Gestión de Defectos, Regresión y Entregables (`v1.0.0`)
+## 📚 Centro de Documentación (`docs/`)
 
-#### 🎫 TICKET-14: Ciclo de Defectos Reales y Pruebas de Regresión (CP-14)
-* **Nivel:** 🟡 Intermedio / 🔴 Avanzado
-* **Requisito / CP:** Sección 7.3, CP-14, Rúbrica (10% Defectos y regresión).
-* **Dónde:**
-  * `/tests/SistemaInventarios.Tests/Regresion/DefectosCorregidosRegresionTests.cs`
-  * `/docs/defectos.md`
-* **Qué se debe implementar:**
-  1. Documentar en `/docs/defectos.md` cada defecto encontrado durante las pruebas iniciales del equipo (con ID, pasos para reproducir, resultado esperado vs obtenido, severidad, captura de evidencia del fallo, causa raíz y commit de corrección).
-  2. Crear en `/tests/SistemaInventarios.Tests/Regresion/` una prueba automatizada específica por cada defecto corregido y re-ejecutar toda la suite (`dotnet test`) para demostrar el **CP-14**.
+Toda la documentación técnica, arquitectónica y de gestión de calidad se encuentra versionada y organizada en el directorio [`docs/`](docs/):
 
-#### 🎫 TICKET-15: Documentación Técnica, ADRs y Matriz de Trazabilidad
-* **Nivel:** 🟢 Básico / 🟡 Intermedio *(Pueden dividirlo entre ambos)*
-* **Requisito / CP:** RNF-06 (Trazabilidad), Sección 7.1, 7.2 y 9.
-* **Dónde:**
-  * `/docs/requisitos.md`
-  * `/docs/casos-de-prueba.md`
-  * `/docs/adr/ADR-001-arquitectura-y-costeo.md`
-  * `/README.md`
-* **Qué se debe implementar:**
-  1. En `requisitos.md`: listado de RF, RNF, Reglas de Negocio y especificación formal de la política de redondeo bancario.
-  2. En `casos-de-prueba.md`:
-     * Justificación de al menos **2 técnicas de diseño de pruebas** (ej. *Partición de Equivalencia* + *Análisis de Valores Límite* aplicados a cantidades/costos, y *Tablas de Decisión* o *Pruebas basadas en escenarios* aplicadas al motor de costeo).
-     * Matriz de trazabilidad (`RF-01..05` y `RNF-01..06` <-> `CP-01..14`).
-     * Ficha detallada de los 14 casos de prueba mínimos.
-  3. En `README.md`: instrucciones exactas para levantar el contenedor de SQL Server, ejecutar las migraciones/scripts, correr la aplicación (`dotnet run`) y lanzar las pruebas con reporte de cobertura (`dotnet test --collect:"XPlat Code Coverage"`).
+| Documento | Enlace | Descripción y Propósito |
+|---|:---:|---|
+| **Workflow Operativo** | [Ver documento](docs/00-workflow-operativo.md) | Flujo paso a paso para tomar tickets, ciclo TDD Red-Green, recolección de evidencias y PRs. |
+| **Plan de Pruebas y Cronograma** | [Ver documento](docs/01-plan-de-pruebas.md) | Niveles de prueba, ambientes, etiquetado xUnit, roles de equipo (Dev A / Dev B) y cronograma de 7 días. |
+| **Requisitos y Decisiones** | [Ver documento](docs/02-requisitos-y-decisiones.md) | Fuente de verdad: RF-01 a RF-05, RNF-01 a RNF-06, RB-01 a RB-11, política de redondeo bancario y bitácora D-01 a D-08. |
+| **Diseño de Casos de Prueba** | [Ver documento](docs/03-diseno-casos-de-prueba.md) | Técnicas de diseño (particiones, valores límite, tablas de decisión), oráculos manuales (E-01 a E-03) y fichas CP-01 a CP-19. |
+| **Matriz de Trazabilidad** | [Ver documento](docs/04-matriz-trazabilidad.md) | Matriz que mapea cada Requisito y Regla de Negocio con su respectivo Caso de Prueba y método xUnit. |
+| **Registro de Defectos** | [Ver documento](docs/05-registro-defectos.md) | Ciclo de vida de defectos encontrados, análisis de causa raíz, severidad y pruebas de regresión asociadas. |
+| **Informe de Ejecución** | [Ver documento](docs/06-informe-ejecucion.md) | Resumen del estado de ejecución de los ciclos de pruebas y evidencias generadas. |
+| **Estimación de Esfuerzo** | [Ver documento](docs/07-estimacion-esfuerzo.md) | Modelo formal de estimación: Story Points (Fibonacci) para el sprint y Function Points (IFPUG) para métricas de calidad. |
+| **Backlog de Tickets** | [Ver documento](docs/backlog.md) | Backlog oficial y detallado con los 47 tickets (SI-001 a SI-047), Definition of Ready, Definition of Done y ruta crítica. |
 
-#### 🎫 TICKET-16: Generación de Evidencias, Informe PDF y Empaquetado ZIP
-* **Nivel:** 🟢 Básico / 🟡 Intermedio
-* **Requisito / CP:** Sección 8 (Entregables 1, 2 y 3), Sección 8.1.
-* **Dónde:**
-  * `/evidencias/`
-  * Informe PDF final y archivo `.zip`
-* **Qué se debe implementar:**
-  1. Ejecutar el sistema y tomar capturas reales explicadas de los casos de prueba (tanto en la interfaz web como consultas a las tablas en SQL Server y consola de ejecución de `xUnit`).
-  2. Compilar el Informe en PDF con los 11 puntos de la sección 8.1.
-  3. Empaquetar el `.zip` verificando que no existan rutas absolutas (`C:\Users\...` o `/Users/...`) y que funcione en limpio.
+---
+
+## 🔄 Flujo de Trabajo y Contribución
+
+El equipo opera bajo la metodología **Test-Driven Development (TDD)** con revisión cruzada de código obligatoria:
+
+```
+1. Tomar ticket (docs/backlog.md) 
+2. Crear rama: feat/SI-XXX-descripcion
+3. Escribir prueba xUnit (RED)  commit: test(SI-XXX): red - <descripción>
+4. Implementar código (GREEN)   commit: feat(SI-XXX): green - <descripción>
+5. Refactorizar con suite verde 
+6. Recopilar evidencia en evidencias/CP-XX/
+7. Pull Request hacia dev         
+8. Revisión y aprobación por el compañero
+```
+
+### Convención de Commits Semánticos
+* `feat(SI-XXX): <descripción>` — Nueva funcionalidad implementada.
+* `test(SI-XXX): <descripción>` — Adición o modificación de pruebas.
+* `fix(DEF-XXX): <descripción>` — Corrección de defecto registrado en `docs/05-registro-defectos.md`.
+* `docs: <descripción>` — Actualización de documentación.
+
+---
+
+## 📄 Licencia
+
+Este proyecto se distribuye bajo la licencia **MIT**. Consulta el archivo [`LICENSE`](LICENSE) para más detalles.
