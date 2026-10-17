@@ -79,17 +79,17 @@ Cuando el dígito descartado es **exactamente 5** (sin dígitos distintos de cer
 5. **PEPS:** el costo de una salida es la suma de `Importe(unidadesTomadas × costoCapa)` de cada capa consumida, de la más antigua a la más reciente (orden `Fecha ASC, Id ASC`).
 6. **Ajuste por residuo (D-03):** cuando una salida deja la existencia en 0, su costo total = **saldo de valor restante**, de modo que existencia 0 ⇒ valor 0.00. Aplica a ambos métodos.
 
-> ⚠️ **Nota para oráculos:** la función `REDONDEAR()`/`ROUND()` de Excel es *half-up*, **no** bancaria. En valores con 5 exacto en la posición de corte, el resultado esperado debe calcularse a mano aplicando la tabla 5.1.
-
 ## 6. Bitácora de decisiones
 
-| ID | Decisión | Estado | Fecha |
-|---|---|---|---|
-| D-01 | Cantidades **decimales** `decimal(18,4)`; cantidades y costos unitarios con más de 4 decimales se **rechazan** (evita que la BD altere silenciosamente el dato capturado) | ⏳ Supuesto por defecto — confirmar | 2026-10-16 |
-| D-02 | Redondeo **bancario** (`ToEven`) | ✅ Aprobada por el equipo | 2026-10-16 |
-| D-03 | Ajuste por residuo cuando existencia llega a 0 | ⏳ Supuesto por defecto — confirmar | 2026-10-16 |
-| D-04 | Rechazar fechas anteriores al último movimiento del producto | ⏳ Supuesto por defecto — confirmar | 2026-10-16 |
-| D-05 | Rechazar movimientos sobre productos inactivos | ✅ Aprobada por el equipo | 2026-10-16 |
-| D-06 | BD de pruebas dedicada `SistemaInventarioDb_Tests` en SQL Server real | ✅ Aprobada por el equipo | 2026-10-16 |
-| D-07 | Flujo **TDD Red → Green** por caso de prueba | ✅ Aprobada por el equipo | 2026-10-16 |
-| D-08 | 2 integrantes · 1 semana (entrega vie 23-oct-2026) | ✅ Aprobada (fecha a confirmar) | 2026-10-16 |
+| ID   | Decisión                                                                                                                                                                       | Estado                 | Fecha |
+|------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------|---|
+| D-01 | Cantidades **decimales** `decimal(18,4)`; cantidades y costos unitarios con más de 4 decimales se **rechazan** (evita que la BD altere silenciosamente el dato capturado)      | Aprobada por el equipo | 2026-10-16 |
+| D-02 | Redondeo **bancario** (`ToEven`)                                                                                                                                               | Aprobada por el equipo | 2026-10-16 |
+| D-03 | Ajuste por residuo cuando existencia llega a 0                                                                                                                                 | Aprobada por el equipo | 2026-10-16 |
+| D-04 | Rechazar fechas anteriores al último movimiento del producto                                                                                                                   | FALTA CONFIRMACIÓN     | 2026-10-16 |
+| D-05 | Rechazar movimientos sobre productos inactivos                                                                                                                                 | FALTA CONFIRMACIÓN     | 2026-10-16 |
+| D-06 | BD de pruebas dedicada `SistemaInventarioDb_Tests` en SQL Server real                                                                                                          | Aprobada por el equipo | 2026-10-16 |
+| D-07 | Flujo **TDD Red → Green** por caso de prueba                                                                                                                                   | Aprobada por el equipo | 2026-10-16 |
+| D-08 | 2 integrantes · 1 semana (entrega 24-oct-2026)                                                                                                                                 | Aprobada por el equipo | 2026-10-16 |
+| D-09 | El método PEPS asigna a las salidas el costo de las unidades que ingresaron primero.                                                                                           | Aprobado por el equipo | 2026-10-16 |
+| D-10 | Cada nueva entrada actualizará el costo promedio con base en el valor y la cantidad del inventario disponible antes de la compra y los correspondientes a la nueva entrada. <br/>`Costo promedio = (Valor anterior + Valor de entrada) / (Cantidad anterior + Cantidad de entrada)`   | Aprobado por el equipo | 2026-10-16 |

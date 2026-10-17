@@ -70,15 +70,15 @@ dotnet test --logger "trx;LogFileName=ciclo1.trx" --results-directory evidencias
 
 ## 8. Cronograma (sáb 17 → vie 23 de octubre de 2026)
 
-| Día | Dev A — Núcleo | Dev B — Producto y QA | Hito |
-|---|---|---|---|
+| Día | [Reydescel Herrera](https://github.com/Riguidix) — Núcleo                                                                                | [Gustavo Lucio](https://github.com/Galucio-97) — Producto y QA                                                                                   | Hito |
+|---|------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---|
 | **D1 · Sáb 17** | Corregir DEF-001 (H-02), H-01, H-05; referencia `SI.Tests → SI.Web` (H-03); entidades `Movimiento`, `CapaPeps`; migración (TICKET-01/02) | Revisar oráculos E-01/02/03 a mano; TDD de `PoliticaRedondeo` y `ValidadorMovimiento` (TICKET-05/10 · CP-05, CP-06) | **G0** cerrado |
-| **D2 · Dom 18** | TDD `CalculadoraPeps` (TICKET-07 · CP-08, CP-15) | TDD `CalculadoraPromedioPonderado` (TICKET-06 · CP-09, CP-17) | Motor de costeo en verde |
-| **D3 · Lun 19** | BD de pruebas + TDD `InventarioService` entradas/salidas con transacción (TICKET-08 · CP-03, CP-04, CP-07, CP-13) | TDD `ProductoService` (TICKET-03 · CP-01, CP-02, CP-11, CP-18) | Servicios en verde |
-| **D4 · Mar 20** | Consulta de inventario por método (CP-10) · persistencia (CP-12) · invariante (CP-19) · límite (CP-16) | UI de productos (TICKET-04) · UI de entradas y salidas (TICKET-09) | — |
-| **D5 · Mié 21** | Pruebas funcionales vía servicios (TICKET-13) · apoyo a UI de consulta | UI de consulta/Kardex · **inicio Ciclo 1**: ejecución manual con capturas | 🔒 **Feature freeze 18:00** |
-| **D6 · Jue 22** | Corrección de defectos + prueba de regresión por defecto | Cierre Ciclo 1 · registro de defectos · **Ciclo 2 (regresión, CP-14)** | **G2** |
-| **D7 · Vie 23** | Alinear README con estructura real (H-04) · instrucciones de ejecución · ZIP · prueba en clon limpio | Informe PDF (resultados reales, evidencias, trazabilidad) | 📦 **Entrega** |
+| **D2 · Dom 18** | TDD `CalculadoraPeps` (TICKET-07 · CP-08, CP-15)                                                                                         | TDD `CalculadoraPromedioPonderado` (TICKET-06 · CP-09, CP-17)                                                       | Motor de costeo en verde |
+| **D3 · Lun 19** | BD de pruebas + TDD `InventarioService` entradas/salidas con transacción (TICKET-08 · CP-03, CP-04, CP-07, CP-13)                        | TDD `ProductoService` (TICKET-03 · CP-01, CP-02, CP-11, CP-18)                                                      | Servicios en verde |
+| **D4 · Mar 20** | Consulta de inventario por método (CP-10) · persistencia (CP-12) · invariante (CP-19) · límite (CP-16)                                   | UI de productos (TICKET-04) · UI de entradas y salidas (TICKET-09)                                                  | — |
+| **D5 · Mié 21** | Pruebas funcionales vía servicios (TICKET-13) · apoyo a UI de consulta                                                                   | UI de consulta/Kardex · **inicio Ciclo 1**: ejecución manual con capturas                                           | 🔒 **Feature freeze 18:00** |
+| **D6 · Jue 22** | Corrección de defectos + prueba de regresión por defecto                                                                                 | Cierre Ciclo 1 · registro de defectos · **Ciclo 2 (regresión, CP-14)**                                              | **G2** |
+| **D7 · Vie 23** | Alinear README con estructura real (H-04) · instrucciones de ejecución · ZIP · prueba en clon limpio                                     | Informe PDF (resultados reales, evidencias, trazabilidad)                                                           | 📦 **Entrega** |
 
 ### Plan de recorte (si el D4 cierra con retraso)
 
