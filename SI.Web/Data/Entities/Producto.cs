@@ -9,7 +9,7 @@ public class Producto
     public required string UnidadMedida { get; set; }
     public bool Activo { get; set; } = true;
 
-    public int ExistenciaActual { get; set; }
+    public decimal ExistenciaActual { get; set; }
     public decimal CostoPromedioActual { get; set; }
     public decimal ValorInventarioPeps { get; set; }
     public decimal ValorInventarioPromedio { get; set; }
