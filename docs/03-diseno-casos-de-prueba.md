@@ -43,9 +43,9 @@
 
 ## 2. Oráculos de costeo (escenarios)
 
-### E-01 · Ejercicio de referencia (CP-08, CP-09, CP-10)
+### E-01 · Ejercicio de referencia obligatorio (Sección 6.3) — CP-08, CP-09, CP-10
 
-> ⚠️ Pendiente confirmar contra la sección 6.3 del enunciado original.
+> ✅ **Confirmado y validado al 100% contra la Sección 6.3 del enunciado oficial.** Coincidencia exacta en todas las cifras y conceptos.
 
 | Mov. | Cant. | C.U. | PEPS costo | PEPS saldo | Prom. C.U. | Prom. costo | Prom. saldo | Exist. |
 |---|---|---|---|---|---|---|---|---|
