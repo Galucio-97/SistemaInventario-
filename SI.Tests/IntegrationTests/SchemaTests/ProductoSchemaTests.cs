@@ -1,10 +1,9 @@
-using Microsoft.EntityFrameworkCore;
-using SI.Web.Data;
+using SI.Tests.Fixtures;
 using SI.Web.Data.Entities;
 
 namespace SI.Tests.IntegrationTests.SchemaTests;
 
-public class ProductoSchemaTests
+public class ProductoSchemaTests(TestDbContextFixture fixture) : IClassFixture<TestDbContextFixture>
 {
     [Fact]
     [Trait("RF", "RF-01")]
@@ -12,11 +11,7 @@ public class ProductoSchemaTests
     public void Producto_Schema_DebeExistirEnContexto()
     {
         // Arrange
-        var options = new DbContextOptionsBuilder<InventarioDbContext>()
-            .UseSqlServer()
-            .Options;
-        
-        var context = new InventarioDbContext(options);
+        var context = fixture.Context;
         
         // Act
         var entidad = context.Model.FindEntityType(typeof(Producto));
