@@ -75,54 +75,54 @@ flowchart LR
 
 ## 3. Tablero resumen
 
-| ID | Título | Release | Resp. | Día | Est. | Prior. | Estado |
-|---|---|---|---|---|---|---|---|
-| SI-001 | Cerrar decisiones pendientes y confirmar el ejercicio de referencia | v0.0.1 | Ambos | D1 | 1 | Must | Por hacer |
-| SI-002 | Higiene del repositorio | v0.0.1 | A | D1 | 0.5 | Must | Por hacer |
-| SI-003 | Contenedor de SQL Server con imagen soportada | v0.0.1 | A | D1 | 1 | Must | Por hacer |
-| SI-004 | Proyecto de pruebas conectado y organizado por nivel | v0.0.1 | A | D1 | 0.5 | Must | Por hacer |
-| SI-005 | Convenciones de trabajo y plantilla de PR | v0.0.1 | B | D1 | 0.5 | Should | Por hacer |
-| SI-006 | Corregir precisión del modelo de producto (DEF-001) | v0.1.0 | A | D1 | 1 | Must | Por hacer |
-| SI-007 | Modelo de datos de movimientos | v0.1.0 | A | D1 | 1.5 | Must | Por hacer |
-| SI-008 | Modelo de datos de capas PEPS | v0.1.0 | A | D1 | 1 | Must | Por hacer |
-| SI-009 | Creación reproducible de la base de datos | v0.1.0 | A | D1 | 0.5 | Must | Por hacer |
-| SI-010 | Base de datos de pruebas aislada | v0.1.0 | A | D1 | 2 | Must | Por hacer |
-| SI-011 | Política de redondeo bancario | v0.2.0 | B | D1 | 1 | Must | Por hacer |
-| SI-012 | Validación de cantidades | v0.2.0 | B | D1 | 1 | Must | Por hacer |
-| SI-013 | Validación de costo unitario | v0.2.0 | B | D1 | 0.5 | Must | Por hacer |
-| SI-014 | Validación de existencia suficiente | v0.2.0 | B | D1 | 0.5 | Must | Por hacer |
-| SI-015 | Promedio ponderado: entradas | v0.2.0 | B | D2 | 1 | Must | Por hacer |
-| SI-016 | Promedio ponderado: salidas y ajuste por residuo | v0.2.0 | B | D2 | 1.5 | Must | Por hacer |
-| SI-017 | PEPS: creación de capas y salida de una capa | v0.2.0 | A | D2 | 1.5 | Must | Por hacer |
-| SI-018 | PEPS: salida multicapa y agotamiento | v0.2.0 | A | D2 | 2 | Must | Por hacer |
-| SI-020 | Registrar producto | v0.3.0 | B | D3 | 2 | Must | Por hacer |
-| SI-021 | Consultar y listar productos | v0.3.0 | B | D3 | 1 | Must | Por hacer |
-| SI-022 | Modificar producto y cambiar su estado | v0.3.0 | B | D3 | 1.5 | Must | Por hacer |
-| SI-023 | Interfaz de administración de productos | v0.3.0 | B | D4 | 3 | Must | Por hacer |
-| SI-024 | Registrar entrada con transacción | v0.4.0 | A | D3 | 3 | Must | Por hacer |
-| SI-025 | Registrar salida con transacción | v0.4.0 | A | D3 | 3 | Must | Por hacer |
-| SI-026 | Atomicidad ante fallos | v0.4.0 | A | D3 | 2 | Must | Por hacer |
-| SI-027 | Persistencia tras reinicio | v0.4.0 | A | D4 | 1 | Must | Por hacer |
-| SI-028 | Invariante de valores almacenados | v0.4.0 | A | D4 | 1.5 | Must | Por hacer |
-| SI-029 | Rechazo de fechas retroactivas | v0.4.0 | A | D4 | 1 | Should | Por hacer |
-| SI-030 | Interfaz de registro de entradas y salidas | v0.4.0 | B | D4 | 3 | Must | Por hacer |
-| SI-031 | Consulta de existencias por método de costeo | v0.5.0 | A | D4 | 2 | Must | Por hacer |
-| SI-032 | Historial de movimientos por método | v0.5.0 | A | D4 | 1.5 | Must | Por hacer |
-| SI-033 | Interfaz de consulta de inventario e historial | v0.5.0 | B | D5 | 3 | Must | Por hacer |
-| SI-034 | Carga del ejercicio de referencia desde la interfaz | v0.5.0 | B | D5 | 1 | Could | Por hacer |
-| SI-035 | Vista comparativa PEPS vs Promedio | v0.5.0 | B | D5 | 1.5 | Could | Por hacer |
-| SI-036 | Pruebas funcionales de flujo completo | v0.9.0-rc | A | D5 | 3 | Must | Por hacer |
-| SI-037 | Feature freeze y release candidate | v0.9.0-rc | Ambos | D5 | 0.5 | Must | Por hacer |
-| SI-038 | Ciclo 1: ejecución manual de CP-01 a CP-10 | v0.9.0-rc | B | D5–D6 | 3 | Must | Por hacer |
-| SI-039 | Ciclo 1: ejecución manual de CP-11 a CP-19 | v0.9.0-rc | A | D6 | 3 | Must | Por hacer |
-| SI-040 | Revisión de mantenibilidad (RNF-05) | v0.9.0-rc | B | D6 | 1 | Must | Por hacer |
-| SI-041 | Triage de defectos del Ciclo 1 | v0.9.x | Ambos | D6 | 1 | Must | Por hacer |
-| SI-042 | Corrección de defectos (reserva) | v0.9.x | Ambos | D6 | 4 | Must | Por hacer |
-| SI-043 | Ciclo 2: regresión completa (CP-14) | v0.9.x | B | D6 | 2 | Must | Por hacer |
-| SI-044 | README de instalación y ejecución | v1.0.0 | A | D7 | 1.5 | Must | Por hacer |
-| SI-045 | Informe de ejecución con resultados reales | v1.0.0 | B | D7 | 2 | Must | Por hacer |
-| SI-046 | Informe PDF final | v1.0.0 | B | D7 | 4 | Must | Por hacer |
-| SI-047 | Verificación en clon limpio, ZIP y tag v1.0.0 | v1.0.0 | A | D7 | 1.5 | Must | Por hacer |
+| ID | Título | Release | Resp. | Día | Est. | Prior. | Estado      |
+|---|---|---|---|---|---|---|-------------|
+| SI-001 | Cerrar decisiones pendientes y confirmar el ejercicio de referencia | v0.0.1 | Ambos | D1 | 1 | Must | TERMINADO   |
+| SI-002 | Higiene del repositorio | v0.0.1 | A | D1 | 0.5 | Must | TERMINADO   |
+| SI-003 | Contenedor de SQL Server con imagen soportada | v0.0.1 | A | D1 | 1 | Must | TERMINADO   |
+| SI-004 | Proyecto de pruebas conectado y organizado por nivel | v0.0.1 | A | D1 | 0.5 | Must | TERMINADO   |
+| SI-005 | Convenciones de trabajo y plantilla de PR | v0.0.1 | B | D1 | 0.5 | Should | EN REVISION |
+| SI-006 | Corregir precisión del modelo de producto (DEF-001) | v0.1.0 | A | D1 | 1 | Must | Por hacer   |
+| SI-007 | Modelo de datos de movimientos | v0.1.0 | A | D1 | 1.5 | Must | Por hacer   |
+| SI-008 | Modelo de datos de capas PEPS | v0.1.0 | A | D1 | 1 | Must | Por hacer   |
+| SI-009 | Creación reproducible de la base de datos | v0.1.0 | A | D1 | 0.5 | Must | Por hacer   |
+| SI-010 | Base de datos de pruebas aislada | v0.1.0 | A | D1 | 2 | Must | Por hacer   |
+| SI-011 | Política de redondeo bancario | v0.2.0 | B | D1 | 1 | Must | Por hacer   |
+| SI-012 | Validación de cantidades | v0.2.0 | B | D1 | 1 | Must | Por hacer   |
+| SI-013 | Validación de costo unitario | v0.2.0 | B | D1 | 0.5 | Must | Por hacer   |
+| SI-014 | Validación de existencia suficiente | v0.2.0 | B | D1 | 0.5 | Must | Por hacer   |
+| SI-015 | Promedio ponderado: entradas | v0.2.0 | B | D2 | 1 | Must | Por hacer   |
+| SI-016 | Promedio ponderado: salidas y ajuste por residuo | v0.2.0 | B | D2 | 1.5 | Must | Por hacer   |
+| SI-017 | PEPS: creación de capas y salida de una capa | v0.2.0 | A | D2 | 1.5 | Must | Por hacer   |
+| SI-018 | PEPS: salida multicapa y agotamiento | v0.2.0 | A | D2 | 2 | Must | Por hacer   |
+| SI-020 | Registrar producto | v0.3.0 | B | D3 | 2 | Must | Por hacer   |
+| SI-021 | Consultar y listar productos | v0.3.0 | B | D3 | 1 | Must | Por hacer   |
+| SI-022 | Modificar producto y cambiar su estado | v0.3.0 | B | D3 | 1.5 | Must | Por hacer   |
+| SI-023 | Interfaz de administración de productos | v0.3.0 | B | D4 | 3 | Must | Por hacer   |
+| SI-024 | Registrar entrada con transacción | v0.4.0 | A | D3 | 3 | Must | Por hacer   |
+| SI-025 | Registrar salida con transacción | v0.4.0 | A | D3 | 3 | Must | Por hacer   |
+| SI-026 | Atomicidad ante fallos | v0.4.0 | A | D3 | 2 | Must | Por hacer   |
+| SI-027 | Persistencia tras reinicio | v0.4.0 | A | D4 | 1 | Must | Por hacer   |
+| SI-028 | Invariante de valores almacenados | v0.4.0 | A | D4 | 1.5 | Must | Por hacer   |
+| SI-029 | Rechazo de fechas retroactivas | v0.4.0 | A | D4 | 1 | Should | Por hacer   |
+| SI-030 | Interfaz de registro de entradas y salidas | v0.4.0 | B | D4 | 3 | Must | Por hacer   |
+| SI-031 | Consulta de existencias por método de costeo | v0.5.0 | A | D4 | 2 | Must | Por hacer   |
+| SI-032 | Historial de movimientos por método | v0.5.0 | A | D4 | 1.5 | Must | Por hacer   |
+| SI-033 | Interfaz de consulta de inventario e historial | v0.5.0 | B | D5 | 3 | Must | Por hacer   |
+| SI-034 | Carga del ejercicio de referencia desde la interfaz | v0.5.0 | B | D5 | 1 | Could | Por hacer   |
+| SI-035 | Vista comparativa PEPS vs Promedio | v0.5.0 | B | D5 | 1.5 | Could | Por hacer   |
+| SI-036 | Pruebas funcionales de flujo completo | v0.9.0-rc | A | D5 | 3 | Must | Por hacer   |
+| SI-037 | Feature freeze y release candidate | v0.9.0-rc | Ambos | D5 | 0.5 | Must | Por hacer   |
+| SI-038 | Ciclo 1: ejecución manual de CP-01 a CP-10 | v0.9.0-rc | B | D5–D6 | 3 | Must | Por hacer   |
+| SI-039 | Ciclo 1: ejecución manual de CP-11 a CP-19 | v0.9.0-rc | A | D6 | 3 | Must | Por hacer   |
+| SI-040 | Revisión de mantenibilidad (RNF-05) | v0.9.0-rc | B | D6 | 1 | Must | Por hacer   |
+| SI-041 | Triage de defectos del Ciclo 1 | v0.9.x | Ambos | D6 | 1 | Must | Por hacer   |
+| SI-042 | Corrección de defectos (reserva) | v0.9.x | Ambos | D6 | 4 | Must | Por hacer   |
+| SI-043 | Ciclo 2: regresión completa (CP-14) | v0.9.x | B | D6 | 2 | Must | Por hacer   |
+| SI-044 | README de instalación y ejecución | v1.0.0 | A | D7 | 1.5 | Must | Por hacer   |
+| SI-045 | Informe de ejecución con resultados reales | v1.0.0 | B | D7 | 2 | Must | Por hacer   |
+| SI-046 | Informe PDF final | v1.0.0 | B | D7 | 4 | Must | Por hacer   |
+| SI-047 | Verificación en clon limpio, ZIP y tag v1.0.0 | v1.0.0 | A | D7 | 1.5 | Must | Por hacer   |
 
 > El ID SI-019 queda reservado (la valoración por método se cubre en SI-028 y SI-031).
 
@@ -150,11 +150,11 @@ flowchart LR
 **Objetivo:** que ningún ticket arranque con supuestos abiertos que cambien sus resultados esperados.
 
 **Criterios de aceptación:**
-- [ ] D-01 (cantidades decimales y máximo 4 decimales), D-03 (ajuste por residuo) y D-04 (fechas retroactivas) quedan en estado ✅ o ❌ en `02-requisitos-y-decisiones.md`
-- [ ] D-09 (costo unitario PEPS a mostrar) y D-10 (código de producto inmutable) quedan decididos
-- [ ] El ejercicio de referencia E-01 se compara con la sección 6.3 del enunciado; si difiere, se corrigen E-01 y las fichas CP-08, CP-09 y CP-10
-- [ ] Roles Dev A y Dev B asignados con nombre en `01-plan-de-pruebas.md`
-- [ ] Fecha y hora exacta de entrega confirmadas
+- [X] D-01 (cantidades decimales y máximo 4 decimales), D-03 (ajuste por residuo) y D-04 (fechas retroactivas) quedan en estado ✅ o ❌ en `02-requisitos-y-decisiones.md`
+- [X] D-09 (costo unitario PEPS a mostrar) y D-10 (código de producto inmutable) quedan decididos
+- [X] El ejercicio de referencia E-01 se compara con la sección 6.3 del enunciado; si difiere, se corrigen E-01 y las fichas CP-08, CP-09 y CP-10
+- [X] Roles Dev A y Dev B asignados con nombre en `01-plan-de-pruebas.md`
+- [X] Fecha y hora exacta de entrega confirmadas
 
 **Trazabilidad:** todas las RB · CP-08, CP-09, CP-10
 **Depende de:** —
@@ -168,10 +168,10 @@ flowchart LR
 **Objetivo:** que el repositorio solo contenga lo necesario para construir y probar el sistema, sin archivos personales ni rutas de una máquina concreta.
 
 **Criterios de aceptación:**
-- [ ] `.gitignore` excluye archivos personales del IDE (`*.DotSettings.user`, `.idea` de usuario), `Library/`, `.local/`, `bin/`, `obj/` y resultados de pruebas
-- [ ] El trabajo pendiente de `feat/database` queda commiteado o descartado de forma explícita
-- [ ] La carpeta `docs/` queda versionada
-- [ ] Un `git clone` nuevo seguido de `git status` sale limpio
+- [X] `.gitignore` excluye archivos personales del IDE (`*.DotSettings.user`, `.idea` de usuario), `Library/`, `.local/`, `bin/`, `obj/` y resultados de pruebas
+- [X] El trabajo pendiente de `feat/database` queda commiteado o descartado de forma explícita
+- [X] La carpeta `docs/` queda versionada
+- [X] Un `git clone` nuevo seguido de `git status` sale limpio
 
 **Trazabilidad:** Entregable ZIP / repositorio coherente
 **Depende de:** —
@@ -185,10 +185,10 @@ flowchart LR
 **Objetivo:** eliminar el riesgo de la imagen `azure-sql-edge` retirada (H-05) y garantizar que el evaluador pueda levantar la base de datos.
 
 **Criterios de aceptación:**
-- [ ] `docker compose up -d` levanta SQL Server con una imagen oficial soportada
-- [ ] La aplicación se conecta con la cadena configurada
-- [ ] Ambos integrantes lo verificaron en sus equipos
-- [ ] Los datos persisten al reiniciar el contenedor (volumen)
+- [X] `docker compose up -d` levanta SQL Server con una imagen oficial soportada
+- [X] La aplicación se conecta con la cadena configurada
+- [X] Ambos integrantes lo verificaron en sus equipos
+- [X] Los datos persisten al reiniciar el contenedor (volumen)
 
 **Trazabilidad:** RNF-02 · H-05
 **Depende de:** —
@@ -202,11 +202,11 @@ flowchart LR
 **Objetivo:** que las pruebas puedan usar el código de la aplicación y queden separadas por nivel (H-03).
 
 **Criterios de aceptación:**
-- [ ] El proyecto de pruebas referencia al proyecto web
-- [ ] Existen las agrupaciones Unitarias, Integración, Funcionales y Regresión
-- [ ] Se elimina la prueba vacía de plantilla
-- [ ] `dotnet test` ejecuta al menos una prueba real que usa código de la aplicación
-- [ ] `dotnet test --filter "Nivel=Unitaria"` filtra correctamente
+- [X] El proyecto de pruebas referencia al proyecto web
+- [X] Existen las agrupaciones Unitarias, Integración, Funcionales y Regresión
+- [X] Se elimina la prueba vacía de plantilla
+- [X] `dotnet test` ejecuta al menos una prueba real que usa código de la aplicación
+- [X] `dotnet test --filter "Nivel=Unitaria"` filtra correctamente
 
 **Trazabilidad:** RNF-06
 **Depende de:** —
@@ -220,9 +220,9 @@ flowchart LR
 **Objetivo:** que ambos trabajen igual y que el historial de git sirva como evidencia del proceso.
 
 **Criterios de aceptación:**
-- [ ] Hay una plantilla de PR con el checklist de la Definition of Done
-- [ ] La convención de ramas (`feat/SI-XXX-…`, `fix/DEF-XXX-…`) y de commits (`test(SI-XXX): red …`, `feat(SI-XXX): …`, `fix(DEF-XXX): …`) está documentada en `01-plan-de-pruebas.md`
-- [ ] Se acuerda que `dev` solo recibe PRs con la suite en verde
+- [X] Hay una plantilla de PR con el checklist de la Definition of Done
+- [X] La convención de ramas (`feat/SI-XXX-…`, `fix/DEF-XXX-…`) y de commits (`test(SI-XXX): red …`, `feat(SI-XXX): …`, `fix(DEF-XXX): …`) está documentada en `01-plan-de-pruebas.md`
+- [X] Se acuerda que `dev` solo recibe PRs con la suite en verde
 
 **Trazabilidad:** CP-14 (evidencia del proceso)
 **Depende de:** —
