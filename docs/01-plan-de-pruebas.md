@@ -13,16 +13,18 @@ Se prueban RF-01 a RF-05, RNF-01 a RNF-06 y RB-01 a RB-11 (ver `02-requisitos-y-
 | Funcionales | Flujos completos vía servicios + ejecución manual en la UI con capturas | BD de pruebas / app local | `Funcionales/` |
 | Regresión | Suite completa + 1 prueba por defecto corregido | Igual que arriba | `Regresion/` |
 
-## 3. Flujo de trabajo TDD (D-07)
+## 3. Flujo de trabajo TDD (D-07) y Convenciones (SI-005)
 
 ```
-1. Elegir CP → 2. Leer oráculo (03-diseno) → 3. Escribir prueba
-4. Ejecutar: debe FALLAR (RED)  → commit  "test(CP-XX): red - <descripción>"
-5. Implementar lo mínimo        → ejecutar: PASA (GREEN) → commit "feat(...): CP-XX green"
-6. Refactor con suite en verde  → PR a dev
+1. Elegir ticket/CP → 2. Crear rama feat/SI-XXX-... o fix/DEF-XXX-... → 3. Leer oráculo (03-diseno)
+4. Escribir prueba y ejecutar: debe FALLAR (RED)  → commit "test(SI-XXX): red - <descripción>"
+5. Implementar lo mínimo y ejecutar: PASA (GREEN) → commit "feat(SI-XXX): green - <descripción>" o "fix(DEF-XXX): <descripción>"
+6. Refactor con suite en verde                    → PR a dev (validado por GitHub Actions CI)
 ```
 
-- Los commits RED viven **solo en la rama `feat/*`**. A `dev` solo se integra con la suite en verde.
+- **Convención de ramas:** `feat/SI-XXX-descripcion` para historias/tareas del backlog y `fix/DEF-XXX-descripcion` para corrección de defectos.
+- **Convención de commits:** `test(SI-XXX): red - …`, `feat(SI-XXX): green - …`, `fix(DEF-XXX): …`.
+- **Protección de ramas (`dev`, `beta`, `main`):** Los commits RED viven **solo durante el desarrollo en la rama `feat/*` o `fix/*`**. Al abrir PR hacia `dev`, `beta` o `main`, la rama ya debe incluir el commit GREEN y pasar al 100% el pipeline de CI.
 - El historial de commits RED → GREEN es **evidencia del proceso TDD** para el informe.
 
 ### ¿Cuándo un RED es un defecto?

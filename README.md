@@ -1,4 +1,4 @@
-# 📦 Sistema de Inventarios (SI)
+# 📦 Sistema de Inventarios (SI) [![Version]()]
 
 > **Sistema integral de administración y valoración de inventarios con valuación dual (PEPS y Costo Promedio Ponderado Móvil), transacciones ACID y suite exhaustiva de pruebas de software.**
 
@@ -167,7 +167,7 @@ Antes de comenzar, asegúrate de tener instalados los siguientes componentes:
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/tu-usuario/SistemaInventario.git
+git clone https://github.com/Riguidix/SistemaInventario.git
 cd SistemaInventario
 ```
 
