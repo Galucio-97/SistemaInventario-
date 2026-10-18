@@ -50,10 +50,10 @@ flowchart TD
 | **SI-004** | Proyecto de pruebas conectado por nivel | v0.0.1 | Dev A | 0.5 h | **1 SP** | ✅ **Completado (main)**: `SI.Tests` conectado y organizado con xUnit. |
 | **SI-005** | Convenciones de trabajo y plantilla PR | v0.0.1 | Dev B | 0.5 h | **1 SP** | ✅ **Completado (main)**: PR template + CI GitHub Actions integrado. |
 | **SI-006** | Corrección precisión modelo producto (DEF-001) | v0.1.0 | Dev A | 1.0 h | **2 SP** | ✅ **Completado (branch)**: `HasPrecision(18,4)` / `(18,2)` + test de regresión. |
-| **SI-007** | Modelo de datos de movimientos | v0.1.0 | Dev A | 1.5 h | **3 SP** | Entidad relacional con 13 columnas, índices y claves foráneas. |
-| **SI-008** | Modelo de datos de capas PEPS | v0.1.0 | Dev A | 1.0 h | **2 SP** | Entidad de soporte FIFO con relación a producto y movimiento. |
-| **SI-009** | Creación reproducible de la base de datos | v0.1.0 | Dev A | 0.5 h | **1 SP** | Script SQL idempotente y verificación de regeneración limpia. |
-| **SI-010** | Base de datos de pruebas aislada | v0.1.0 | Dev A | 2.0 h | **3 SP** | Fixture xUnit con recreación/limpieza contra SQL Server real. |
+| **SI-007** | Modelo de datos de movimientos | v0.1.0 | Dev A | 1.5 h | **3 SP** | ✅ **Completado**: Entidad relacional con 13 columnas, índices y claves foráneas. |
+| **SI-008** | Modelo de datos de capas PEPS | v0.1.0 | Dev A | 1.0 h | **2 SP** | ✅ **Completado**: Entidad de soporte FIFO con relación a producto y movimiento. |
+| **SI-009** | Creación reproducible de la base de datos | v0.1.0 | Dev A | 0.5 h | **1 SP** | ✅ **Completado**: Script SQL `init.sql` idempotente verificado. |
+| **SI-010** | Base de datos de pruebas aislada | v0.1.0 | Dev A | 2.0 h | **3 SP** | ✅ **Completado**: Fixture xUnit con auto-migración/limpieza contra SQL Server real. |
 | **SI-011** | Política de redondeo bancario | v0.2.0 | Dev B | 1.0 h | **2 SP** | `MidpointRounding.ToEven` a 4 y 2 decimales con tests parametrizados. |
 | **SI-012** | Validación de cantidades | v0.2.0 | Dev B | 1.0 h | **2 SP** | Rechazo de ≤0 y verificación de límite de 4 decimales. |
 | **SI-013** | Validación de costo unitario | v0.2.0 | Dev B | 0.5 h | **1 SP** | Rechazo de costos negativos o cero en adquisiciones. |
@@ -119,28 +119,28 @@ Dev B (Validaciones, Promedio, UI Razor, Fichas QA, Informe):
 
 ---
 
-### 2.4 Seguimiento Real del Sprint: Velocidad Observada vs. Estimada (Corte Día 1)
+### 2.4 Seguimiento Real del Sprint: Velocidad Observada vs. Estimada (Corte Día 1 / Release v0.1.0)
 
-Al cierre de la Release de Fundación (`v0.0.1`) e inicio de la Fase 1 (`v0.1.0`), se registran las métricas reales del equipo:
+Al cierre de la Release de Datos y Ambiente de Pruebas (`v0.1.0`), se registran las métricas reales del equipo:
 
-| Métrica | Estimación Planificada (Día 1) | Real Ejecutado (Corte `main`) | Desviación / Estado |
+| Métrica | Estimación Planificada (Día 1) | Real Ejecutado (Corte `v0.1.0`) | Desviación / Estado |
 |:---|:---:|:---:|:---:|
-| **Release Base v0.0.1** | 7 SP (SI-001 a SI-005) | **7 SP entregados y testeados** | **0% desviación (En tiempo)** |
-| **Horas v0.0.1** | 3.5 horas | ~3.5 horas | Exactitud alta en estimación |
-| **Valor Adicional Incorporado** | No planificado | **Pipeline CI GitHub Actions** (`.github/workflows/ci.yml`) | Aporte positivo a RNF-05 y reproducibilidad |
-| **Tickets Release v0.1.0 Iniciados** | SI-006 a SI-010 | **SI-006 (2 SP) Completado** · SI-007 (3 SP) en curso | Adelanto de trabajo técnico |
-| **Story Points Acumulados Cerrados** | 7 SP | **9 SP** (7 SP de v0.0.1 + 2 SP de SI-006) | Ritmo de entrega saludable |
+| **Release Base v0.0.1** | 7 SP (SI-001 a SI-005) | **7 SP entregados y en main** | **0% desviación (En tiempo)** |
+| **Release Datos v0.1.0** | 11 SP (SI-006 a SI-010) | **11 SP entregados y verificados** | **0% desviación (En tiempo)** |
+| **Horas Totales Día 1** | ~9.5 horas planeadas | ~9.0 horas reales | Ejecución eficiente y dentro del rango |
+| **Valor Adicional Incorporado** | No planificado | **Pipeline CI GitHub Actions + Fixture real SQL Server** | Mayor robustez y confiabilidad en CI |
+| **Story Points Acumulados Cerrados** | 18 SP | **18 SP** (7 SP v0.0.1 + 11 SP v0.1.0) | **100% Día 1 Completado** |
 | **Tasa de Cierre de Defectos** | 0 defectos | **1 defecto corregido (`DEF-001`)** | Detección y solución temprana |
 
 ```mermaid
 xychart-beta
     title "Velocidad de Entrega Acumulada (Story Points)"
-    x-axis ["Plan v0.0.1", "Real v0.0.1", "Plan Día 1 Total", "Real Día 1 (Actual)"]
+    x-axis ["Plan v0.0.1", "Real v0.0.1", "Plan Día 1 (v0.1.0)", "Real Día 1 (Cierre v0.1.0)"]
     y-axis "Story Points (SP)" 0 --> 25
-    bar [7, 7, 16, 9]
+    bar [7, 7, 18, 18]
 ```
 
-*Conclusión del PM:* El equipo avanza a una velocidad real de **~9 SP en la primera jornada**, absorbiendo la configuración de CI automatizado y resolviendo el primer defecto de arquitectura (`DEF-001`) con su prueba de regresión antes de tocar lógica de movimientos.
+*Conclusión del PM:* El equipo cerró al 100% los compromisos del **Día 1 (18 SP)**, dejando la base de datos de producción y de pruebas (`SistemaInventarioDb_Tests`) operativas, reproducibles y aisladas, listas para iniciar la implementación de las reglas de costeo puras de la Release `v0.2.0`.
 
 ---
 
