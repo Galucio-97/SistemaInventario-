@@ -27,7 +27,6 @@
     <ItemGroup>
       <Folder Include="FunctionalTests\" />
       <Folder Include="IntegrationTests\" />
-      <Folder Include="RegressionTests\" />
     </ItemGroup>
 
 </Project>

@@ -82,7 +82,7 @@ flowchart LR
 | SI-003 | Contenedor de SQL Server con imagen soportada | v0.0.1 | A | D1 | 1 | Must | TERMINADO   |
 | SI-004 | Proyecto de pruebas conectado y organizado por nivel | v0.0.1 | A | D1 | 0.5 | Must | TERMINADO   |
 | SI-005 | Convenciones de trabajo y plantilla de PR | v0.0.1 | B | D1 | 0.5 | Should | EN REVISION |
-| SI-006 | Corregir precisión del modelo de producto (DEF-001) | v0.1.0 | A | D1 | 1 | Must | Por hacer   |
+| SI-006 | Corregir precisión del modelo de producto (DEF-001) | v0.1.0 | A | D1 | 1 | Must | TERMINADO   |
 | SI-007 | Modelo de datos de movimientos | v0.1.0 | A | D1 | 1.5 | Must | Por hacer   |
 | SI-008 | Modelo de datos de capas PEPS | v0.1.0 | A | D1 | 1 | Must | Por hacer   |
 | SI-009 | Creación reproducible de la base de datos | v0.1.0 | A | D1 | 0.5 | Must | Por hacer   |
@@ -238,11 +238,11 @@ flowchart LR
 **Objetivo:** que costos unitarios, cantidades e importes se almacenen con la precisión definida en la política (§5.2 de `02`).
 
 **Criterios de aceptación:**
-- [ ] **RED:** una prueba verifica la precisión de las columnas del producto y falla con el esquema actual
-- [ ] Las existencias se guardan con 4 decimales, el costo promedio con 4 y los valores de inventario con 2
-- [ ] Una nueva migración aplica el cambio sobre una BD existente sin errores
-- [ ] **GREEN:** la prueba de esquema pasa
-- [ ] DEF-001 en `05-registro-defectos.md` queda en estado *Corregido*, con commit y evidencia antes/después
+- [X] **RED:** una prueba verifica la precisión de las columnas del producto y falla con el esquema actual
+- [X] Las existencias se guardan con 4 decimales, el costo promedio con 4 y los valores de inventario con 2
+- [X] Una nueva migración aplica el cambio sobre una BD existente sin errores
+- [X] **GREEN:** la prueba de esquema pasa
+- [X] DEF-001 en `05-registro-defectos.md` queda en estado *Corregido*, con commit y evidencia antes/después
 
 **Trazabilidad:** RB-08, RB-09 · DEF-001 · CP-19
 **Depende de:** SI-001 (D-01), SI-004
