@@ -33,7 +33,7 @@
 
 | CP | Nivel | Técnica | Prueba automatizada | Evidencia |
 |---|---|---|---|---|
-| CP-01 | Integración | Partición | | `evidencias/CP-01/` |
+| CP-01 | Integración | Partición / Humo | `SmokeDatabaseTests.InsertarYLeerProducto_ConContextosNuevos_PersisteEnBaseDeDatosReal` | `evidencias/SI-010/BD_Pruebas_Aisladas.md` |
 | CP-02 | Integración | Partición | | `evidencias/CP-02/` |
 | CP-03 | Funcional | Escenario | | `evidencias/CP-03/` |
 | CP-04 | Funcional | Tabla de decisión | | `evidencias/CP-04/` |

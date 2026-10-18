@@ -83,10 +83,10 @@ flowchart LR
 | SI-004 | Proyecto de pruebas conectado y organizado por nivel | v0.0.1 | A | D1 | 0.5 | Must | TERMINADO   |
 | SI-005 | Convenciones de trabajo y plantilla de PR | v0.0.1 | B | D1 | 0.5 | Should | TERMINADO   |
 | SI-006 | Corregir precisión del modelo de producto (DEF-001) | v0.1.0 | A | D1 | 1 | Must | TERMINADO   |
-| SI-007 | Modelo de datos de movimientos | v0.1.0 | A | D1 | 1.5 | Must | EN CURSO    |
-| SI-008 | Modelo de datos de capas PEPS | v0.1.0 | A | D1 | 1 | Must | EN REVISION |
-| SI-009 | Creación reproducible de la base de datos | v0.1.0 | A | D1 | 0.5 | Must | Por hacer   |
-| SI-010 | Base de datos de pruebas aislada | v0.1.0 | A | D1 | 2 | Must | Por hacer   |
+| SI-007 | Modelo de datos de movimientos | v0.1.0 | A | D1 | 1.5 | Must | TERMINADO   |
+| SI-008 | Modelo de datos de capas PEPS | v0.1.0 | A | D1 | 1 | Must | TERMINADO   |
+| SI-009 | Creación reproducible de la base de datos | v0.1.0 | A | D1 | 0.5 | Must | TERMINADO   |
+| SI-010 | Base de datos de pruebas aislada | v0.1.0 | A | D1 | 2 | Must | EN REVISION |
 | SI-011 | Política de redondeo bancario | v0.2.0 | B | D1 | 1 | Must | Por hacer   |
 | SI-012 | Validación de cantidades | v0.2.0 | B | D1 | 1 | Must | Por hacer   |
 | SI-013 | Validación de costo unitario | v0.2.0 | B | D1 | 0.5 | Must | Por hacer   |
@@ -291,13 +291,13 @@ flowchart LR
 **Objetivo:** que cualquiera pueda crear la base de datos desde cero con instrucciones claras.
 
 **Criterios de aceptación:**
-- [ ] Con un solo comando documentado se crea la BD completa en una instancia vacía
-- [ ] El script SQL de referencia se regenera y coincide con las migraciones vigentes
-- [ ] Probado borrando la BD y recreándola
+- [X] Con un solo comando documentado se crea la BD completa en una instancia vacía
+- [X] El script SQL de referencia se regenera y coincide con las migraciones vigentes
+- [X] Probado borrando la BD y recreándola
 
 **Trazabilidad:** RNF-02 · Entregable "la aplicación puede ejecutarse siguiendo las instrucciones"
 **Depende de:** SI-008
-**Evidencia:** —
+**Evidencia:** `SI.Web/Data/Scripts/init.sql`
 
 ---
 
@@ -307,15 +307,15 @@ flowchart LR
 **Objetivo:** que las pruebas de integración corran contra SQL Server real (D-06) sin contaminar la BD de la aplicación ni depender del orden de ejecución.
 
 **Criterios de aceptación:**
-- [ ] Las pruebas de integración usan una BD dedicada (`SistemaInventarioDb_Tests`) que se crea y migra automáticamente
-- [ ] Cada prueba parte de un estado conocido (sin datos residuales de otras pruebas)
-- [ ] La cadena de conexión de pruebas es configurable y no está atada a una máquina
-- [ ] **No** se usa el proveedor InMemory en ninguna prueba de integración
-- [ ] Una prueba de humo inserta y lee un producto usando un contexto nuevo
+- [X] Las pruebas de integración usan una BD dedicada (`SistemaInventarioDb_Tests`) que se crea y migra automáticamente
+- [X] Cada prueba parte de un estado conocido (sin datos residuales de otras pruebas)
+- [X] La cadena de conexión de pruebas es configurable y no está atada a una máquina
+- [X] **No** se usa el proveedor InMemory en ninguna prueba de integración
+- [X] Una prueba de humo inserta y lee un producto usando un contexto nuevo
 
 **Trazabilidad:** D-06 · base de CP-01, 02, 12, 13, 19
 **Depende de:** SI-003, SI-008
-**Evidencia:** salida de `dotnet test --filter "Nivel=Integracion"`
+**Evidencia:** `docs/evidencias/SI-010/BD_Pruebas_Aisladas.md` y salida de `dotnet test --filter "Nivel=Integracion"`
 
 ---
 
