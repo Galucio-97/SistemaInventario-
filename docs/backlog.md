@@ -256,11 +256,11 @@ flowchart LR
 **Objetivo:** guardar cada entrada y salida con los datos que exige RB-04 y con los resultados de ambos métodos de costeo, para poder consultarlos y auditarlos.
 
 **Criterios de aceptación:**
-- [ ] Cada movimiento guarda producto, fecha, tipo (entrada o salida), cantidad y costo unitario de adquisición (solo entradas)
-- [ ] Cada movimiento guarda, **para cada método**, el costo unitario aplicado, el costo total y el saldo de valor resultante, además de la existencia resultante
-- [ ] La relación con el producto es obligatoria y no permite borrar un producto con movimientos
-- [ ] Las precisiones siguen la política (§5.2)
-- [ ] La migración se aplica sin errores
+- [X] Cada movimiento guarda producto, fecha, tipo (entrada o salida), cantidad y costo unitario de adquisición (solo entradas)
+- [X] Cada movimiento guarda, **para cada método**, el costo unitario aplicado, el costo total y el saldo de valor resultante, además de la existencia resultante
+- [X] La relación con el producto es obligatoria y no permite borrar un producto con movimientos
+- [X] Las precisiones siguen la política (§5.2)
+- [X] La migración se aplica sin errores
 
 **Trazabilidad:** RF-02, RF-03, RF-05 · RB-04, RB-05, RB-08
 **Depende de:** SI-006
