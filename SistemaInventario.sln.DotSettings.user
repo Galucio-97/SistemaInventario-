@@ -7,6 +7,8 @@
     &lt;TestId&gt;xUnit::5D306A7D-C228-412A-A618-1EEFADD66D3F::net8.0::SI.Tests.IntegrationTests.SchemaTests.CapasInventarioPepsSchemaTests.CapasInventarioPeps_Schema_DebeExistirEnContexto&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::5D306A7D-C228-412A-A618-1EEFADD66D3F::net8.0::SI.Tests.IntegrationTests.SchemaTests.CapasPepsSchemaTests.CapasInventarioPeps_Schema_DebeTenerPrecisionDecimalCorrecta&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::5D306A7D-C228-412A-A618-1EEFADD66D3F::net8.0::SI.Tests.IntegrationTests.SchemaTests.CapasPepsSchemaTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::5D306A7D-C228-412A-A618-1EEFADD66D3F::net8.0::SI.Tests.IntegrationTests.SchemaTests.ProductoSchemaTests.Producto_Schema_DebeExistirEnContexto&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::5D306A7D-C228-412A-A618-1EEFADD66D3F::net8.0::SI.Tests.IntegrationTests.SchemaTests.ProductoSchemaTests.LaSumaDeDosNumerosPositivos_EsPositivo&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	</wpf:ResourceDictionary>
