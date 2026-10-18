@@ -81,12 +81,12 @@ flowchart LR
 | SI-002 | Higiene del repositorio | v0.0.1 | A | D1 | 0.5 | Must | TERMINADO   |
 | SI-003 | Contenedor de SQL Server con imagen soportada | v0.0.1 | A | D1 | 1 | Must | TERMINADO   |
 | SI-004 | Proyecto de pruebas conectado y organizado por nivel | v0.0.1 | A | D1 | 0.5 | Must | TERMINADO   |
-| SI-005 | Convenciones de trabajo y plantilla de PR | v0.0.1 | B | D1 | 0.5 | Should | EN REVISION |
-| SI-006 | Corregir precisión del modelo de producto (DEF-001) | v0.1.0 | A | D1 | 1 | Must | Por hacer   |
-| SI-007 | Modelo de datos de movimientos | v0.1.0 | A | D1 | 1.5 | Must | Por hacer   |
-| SI-008 | Modelo de datos de capas PEPS | v0.1.0 | A | D1 | 1 | Must | Por hacer   |
-| SI-009 | Creación reproducible de la base de datos | v0.1.0 | A | D1 | 0.5 | Must | Por hacer   |
-| SI-010 | Base de datos de pruebas aislada | v0.1.0 | A | D1 | 2 | Must | Por hacer   |
+| SI-005 | Convenciones de trabajo y plantilla de PR | v0.0.1 | B | D1 | 0.5 | Should | TERMINADO   |
+| SI-006 | Corregir precisión del modelo de producto (DEF-001) | v0.1.0 | A | D1 | 1 | Must | TERMINADO   |
+| SI-007 | Modelo de datos de movimientos | v0.1.0 | A | D1 | 1.5 | Must | TERMINADO   |
+| SI-008 | Modelo de datos de capas PEPS | v0.1.0 | A | D1 | 1 | Must | TERMINADO   |
+| SI-009 | Creación reproducible de la base de datos | v0.1.0 | A | D1 | 0.5 | Must | TERMINADO   |
+| SI-010 | Base de datos de pruebas aislada | v0.1.0 | A | D1 | 2 | Must | EN REVISION |
 | SI-011 | Política de redondeo bancario | v0.2.0 | B | D1 | 1 | Must | Por hacer   |
 | SI-012 | Validación de cantidades | v0.2.0 | B | D1 | 1 | Must | Por hacer   |
 | SI-013 | Validación de costo unitario | v0.2.0 | B | D1 | 0.5 | Must | Por hacer   |
@@ -238,11 +238,11 @@ flowchart LR
 **Objetivo:** que costos unitarios, cantidades e importes se almacenen con la precisión definida en la política (§5.2 de `02`).
 
 **Criterios de aceptación:**
-- [ ] **RED:** una prueba verifica la precisión de las columnas del producto y falla con el esquema actual
-- [ ] Las existencias se guardan con 4 decimales, el costo promedio con 4 y los valores de inventario con 2
-- [ ] Una nueva migración aplica el cambio sobre una BD existente sin errores
-- [ ] **GREEN:** la prueba de esquema pasa
-- [ ] DEF-001 en `05-registro-defectos.md` queda en estado *Corregido*, con commit y evidencia antes/después
+- [X] **RED:** una prueba verifica la precisión de las columnas del producto y falla con el esquema actual
+- [X] Las existencias se guardan con 4 decimales, el costo promedio con 4 y los valores de inventario con 2
+- [X] Una nueva migración aplica el cambio sobre una BD existente sin errores
+- [X] **GREEN:** la prueba de esquema pasa
+- [X] DEF-001 en `05-registro-defectos.md` queda en estado *Corregido*, con commit y evidencia antes/después
 
 **Trazabilidad:** RB-08, RB-09 · DEF-001 · CP-19
 **Depende de:** SI-001 (D-01), SI-004
@@ -256,11 +256,11 @@ flowchart LR
 **Objetivo:** guardar cada entrada y salida con los datos que exige RB-04 y con los resultados de ambos métodos de costeo, para poder consultarlos y auditarlos.
 
 **Criterios de aceptación:**
-- [ ] Cada movimiento guarda producto, fecha, tipo (entrada o salida), cantidad y costo unitario de adquisición (solo entradas)
-- [ ] Cada movimiento guarda, **para cada método**, el costo unitario aplicado, el costo total y el saldo de valor resultante, además de la existencia resultante
-- [ ] La relación con el producto es obligatoria y no permite borrar un producto con movimientos
-- [ ] Las precisiones siguen la política (§5.2)
-- [ ] La migración se aplica sin errores
+- [X] Cada movimiento guarda producto, fecha, tipo (entrada o salida), cantidad y costo unitario de adquisición (solo entradas)
+- [X] Cada movimiento guarda, **para cada método**, el costo unitario aplicado, el costo total y el saldo de valor resultante, además de la existencia resultante
+- [X] La relación con el producto es obligatoria y no permite borrar un producto con movimientos
+- [X] Las precisiones siguen la política (§5.2)
+- [X] La migración se aplica sin errores
 
 **Trazabilidad:** RF-02, RF-03, RF-05 · RB-04, RB-05, RB-08
 **Depende de:** SI-006
@@ -274,10 +274,10 @@ flowchart LR
 **Objetivo:** mantener las capas de inventario con su cantidad disponible y su costo, como exige la definición de PEPS.
 
 **Criterios de aceptación:**
-- [ ] Cada capa guarda producto, movimiento de entrada que la originó, fecha, cantidad inicial, cantidad disponible y costo unitario
-- [ ] Las capas pueden recuperarse en orden de antigüedad (fecha y, a igualdad de fecha, orden de registro)
-- [ ] La cantidad disponible nunca puede quedar negativa (validación o restricción en la BD)
-- [ ] La migración se aplica sin errores
+- [X] Cada capa guarda producto, movimiento de entrada que la originó, fecha, cantidad inicial, cantidad disponible y costo unitario
+- [X] Las capas pueden recuperarse en orden de antigüedad (fecha y, a igualdad de fecha, orden de registro)
+- [X] La cantidad disponible nunca puede quedar negativa (validación o restricción en la BD)
+- [X] La migración se aplica sin errores
 
 **Trazabilidad:** RF-04 · RB-07
 **Depende de:** SI-007
@@ -291,13 +291,13 @@ flowchart LR
 **Objetivo:** que cualquiera pueda crear la base de datos desde cero con instrucciones claras.
 
 **Criterios de aceptación:**
-- [ ] Con un solo comando documentado se crea la BD completa en una instancia vacía
-- [ ] El script SQL de referencia se regenera y coincide con las migraciones vigentes
-- [ ] Probado borrando la BD y recreándola
+- [X] Con un solo comando documentado se crea la BD completa en una instancia vacía
+- [X] El script SQL de referencia se regenera y coincide con las migraciones vigentes
+- [X] Probado borrando la BD y recreándola
 
 **Trazabilidad:** RNF-02 · Entregable "la aplicación puede ejecutarse siguiendo las instrucciones"
 **Depende de:** SI-008
-**Evidencia:** —
+**Evidencia:** `SI.Web/Data/Scripts/init.sql`
 
 ---
 
@@ -307,15 +307,15 @@ flowchart LR
 **Objetivo:** que las pruebas de integración corran contra SQL Server real (D-06) sin contaminar la BD de la aplicación ni depender del orden de ejecución.
 
 **Criterios de aceptación:**
-- [ ] Las pruebas de integración usan una BD dedicada (`SistemaInventarioDb_Tests`) que se crea y migra automáticamente
-- [ ] Cada prueba parte de un estado conocido (sin datos residuales de otras pruebas)
-- [ ] La cadena de conexión de pruebas es configurable y no está atada a una máquina
-- [ ] **No** se usa el proveedor InMemory en ninguna prueba de integración
-- [ ] Una prueba de humo inserta y lee un producto usando un contexto nuevo
+- [X] Las pruebas de integración usan una BD dedicada (`SistemaInventarioDb_Tests`) que se crea y migra automáticamente
+- [X] Cada prueba parte de un estado conocido (sin datos residuales de otras pruebas)
+- [X] La cadena de conexión de pruebas es configurable y no está atada a una máquina
+- [X] **No** se usa el proveedor InMemory en ninguna prueba de integración
+- [X] Una prueba de humo inserta y lee un producto usando un contexto nuevo
 
 **Trazabilidad:** D-06 · base de CP-01, 02, 12, 13, 19
 **Depende de:** SI-003, SI-008
-**Evidencia:** salida de `dotnet test --filter "Nivel=Integracion"`
+**Evidencia:** `docs/evidencias/SI-010/BD_Pruebas_Aisladas.md` y salida de `dotnet test --filter "Nivel=Integracion"`
 
 ---
 

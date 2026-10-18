@@ -1,4 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using SI.Web.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
+    ?? throw new InvalidOperationException("La cadena de conexión 'DefaultConnection' no fue encontrada.");
+
+builder.Services.AddDbContext<InventarioDbContext>(options =>
+    options.UseSqlServer(connectionString));
 
 // Add services to the container.
 builder.Services.AddRazorPages();
