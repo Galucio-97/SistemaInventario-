@@ -84,7 +84,7 @@ flowchart LR
 | SI-005 | Convenciones de trabajo y plantilla de PR | v0.0.1 | B | D1 | 0.5 | Should | TERMINADO   |
 | SI-006 | Corregir precisión del modelo de producto (DEF-001) | v0.1.0 | A | D1 | 1 | Must | TERMINADO   |
 | SI-007 | Modelo de datos de movimientos | v0.1.0 | A | D1 | 1.5 | Must | EN CURSO    |
-| SI-008 | Modelo de datos de capas PEPS | v0.1.0 | A | D1 | 1 | Must | Por hacer   |
+| SI-008 | Modelo de datos de capas PEPS | v0.1.0 | A | D1 | 1 | Must | EN REVISION |
 | SI-009 | Creación reproducible de la base de datos | v0.1.0 | A | D1 | 0.5 | Must | Por hacer   |
 | SI-010 | Base de datos de pruebas aislada | v0.1.0 | A | D1 | 2 | Must | Por hacer   |
 | SI-011 | Política de redondeo bancario | v0.2.0 | B | D1 | 1 | Must | Por hacer   |
@@ -274,10 +274,10 @@ flowchart LR
 **Objetivo:** mantener las capas de inventario con su cantidad disponible y su costo, como exige la definición de PEPS.
 
 **Criterios de aceptación:**
-- [ ] Cada capa guarda producto, movimiento de entrada que la originó, fecha, cantidad inicial, cantidad disponible y costo unitario
-- [ ] Las capas pueden recuperarse en orden de antigüedad (fecha y, a igualdad de fecha, orden de registro)
-- [ ] La cantidad disponible nunca puede quedar negativa (validación o restricción en la BD)
-- [ ] La migración se aplica sin errores
+- [X] Cada capa guarda producto, movimiento de entrada que la originó, fecha, cantidad inicial, cantidad disponible y costo unitario
+- [X] Las capas pueden recuperarse en orden de antigüedad (fecha y, a igualdad de fecha, orden de registro)
+- [X] La cantidad disponible nunca puede quedar negativa (validación o restricción en la BD)
+- [X] La migración se aplica sin errores
 
 **Trazabilidad:** RF-04 · RB-07
 **Depende de:** SI-007

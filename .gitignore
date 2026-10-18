@@ -65,3 +65,8 @@ nunit-*.xml
 # IDE and OS folders
 Library/
 .local/
+*.DotSettings.user
+
+# Local Docker overrides (Mac Apple Silicon, custom local ports, etc.)
+docker-compose.override.yml
+docker-compose.override.*.yml
