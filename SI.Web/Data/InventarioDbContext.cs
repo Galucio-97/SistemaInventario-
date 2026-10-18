@@ -7,6 +7,7 @@ public class InventarioDbContext(DbContextOptions<InventarioDbContext> options) 
 {
     public DbSet<Producto> Productos => Set<Producto>();
     public DbSet<Movimiento> Movimientos => Set<Movimiento>();
+    public DbSet<CapasPeps> CapasInventarioPeps => Set<CapasPeps>();
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

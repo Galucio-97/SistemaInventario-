@@ -22,6 +22,48 @@ namespace SI.Web.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("SI.Web.Data.Entities.CapasPeps", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("CantidadDisponible")
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<decimal>("CantidadInicial")
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<decimal>("CostoUnitario")
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<DateTime>("FechaEntrada")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("MovimientoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MovimientoId");
+
+                    b.HasIndex("ProductoId", "FechaEntrada", "Id")
+                        .HasDatabaseName("IX_CapasPeps_Producto_FechaEntrada_Id");
+
+                    b.ToTable("CapasPeps", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_CapasPeps_CantidadDisponible", "[CantidadDisponible] >= 0");
+                        });
+                });
+
             modelBuilder.Entity("SI.Web.Data.Entities.Movimiento", b =>
                 {
                     b.Property<int>("Id")
@@ -148,6 +190,25 @@ namespace SI.Web.Data.Migrations
                         .HasDatabaseName("IX_Productos_Codigo");
 
                     b.ToTable("Productos", (string)null);
+                });
+
+            modelBuilder.Entity("SI.Web.Data.Entities.CapasPeps", b =>
+                {
+                    b.HasOne("SI.Web.Data.Entities.Movimiento", "Movimiento")
+                        .WithMany()
+                        .HasForeignKey("MovimientoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SI.Web.Data.Entities.Producto", "Producto")
+                        .WithMany()
+                        .HasForeignKey("ProductoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Movimiento");
+
+                    b.Navigation("Producto");
                 });
 
             modelBuilder.Entity("SI.Web.Data.Entities.Movimiento", b =>
