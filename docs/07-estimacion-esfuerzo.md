@@ -44,12 +44,12 @@ flowchart TD
 
 | ID | Título del Ticket | Release | Resp. | Horas | Story Points (SP) | Justificación de Complejidad & Incertidumbre |
 |:---|:---|:---:|:---:|:---:|:---:|:---|
-| **SI-001** | Cerrar decisiones pendientes y ejercicio referencia | v0.0.1 | Ambos | 1.0 h | **2 SP** | Alineación de stakeholders, validación matemática de oráculos. |
-| **SI-002** | Higiene del repositorio | v0.0.1 | Dev A | 0.5 h | **1 SP** | Trivial: limpieza de `.gitignore`, descarte de archivos de usuario. |
-| **SI-003** | Contenedor SQL Server soportado | v0.0.1 | Dev A | 1.0 h | **2 SP** | Configuración de compose, verificación de healthcheck y persistencia. |
-| **SI-004** | Proyecto de pruebas conectado por nivel | v0.0.1 | Dev A | 0.5 h | **1 SP** | Referencias de proyecto .NET y carpetas xUnit base. |
-| **SI-005** | Convenciones de trabajo y plantilla PR | v0.0.1 | Dev B | 0.5 h | **1 SP** | Redacción de plantilla y convención git conventional commits. |
-| **SI-006** | Corrección precisión modelo producto (DEF-001) | v0.1.0 | Dev A | 1.0 h | **2 SP** | `HasPrecision(18,4)` / `(18,2)`, prueba de esquema y migración EF. |
+| **SI-001** | Cerrar decisiones pendientes y ejercicio referencia | v0.0.1 | Ambos | 1.0 h | **2 SP** | ✅ **Completado (main)**: Decisiones D-01..D-10 y oráculo E-01 confirmados. |
+| **SI-002** | Higiene del repositorio | v0.0.1 | Dev A | 0.5 h | **1 SP** | ✅ **Completado (main)**: `.gitignore`, ramas base y limpieza. |
+| **SI-003** | Contenedor SQL Server soportado | v0.0.1 | Dev A | 1.0 h | **2 SP** | ✅ **Completado (main)**: `compose.yaml` y ConnectionString configurados. |
+| **SI-004** | Proyecto de pruebas conectado por nivel | v0.0.1 | Dev A | 0.5 h | **1 SP** | ✅ **Completado (main)**: `SI.Tests` conectado y organizado con xUnit. |
+| **SI-005** | Convenciones de trabajo y plantilla PR | v0.0.1 | Dev B | 0.5 h | **1 SP** | ✅ **Completado (main)**: PR template + CI GitHub Actions integrado. |
+| **SI-006** | Corrección precisión modelo producto (DEF-001) | v0.1.0 | Dev A | 1.0 h | **2 SP** | ✅ **Completado (branch)**: `HasPrecision(18,4)` / `(18,2)` + test de regresión. |
 | **SI-007** | Modelo de datos de movimientos | v0.1.0 | Dev A | 1.5 h | **3 SP** | Entidad relacional con 13 columnas, índices y claves foráneas. |
 | **SI-008** | Modelo de datos de capas PEPS | v0.1.0 | Dev A | 1.0 h | **2 SP** | Entidad de soporte FIFO con relación a producto y movimiento. |
 | **SI-009** | Creación reproducible de la base de datos | v0.1.0 | Dev A | 0.5 h | **1 SP** | Script SQL idempotente y verificación de regeneración limpia. |
@@ -116,6 +116,31 @@ Dev B (Validaciones, Promedio, UI Razor, Fichas QA, Informe):
   Horas Estimadas: 37.5 h  |  Story Points: 58 SP (49.2%)
 ```
 *El balance de carga es óptimo (50.8% vs 49.2%), evitando cuellos de botella en cualquiera de los dos roles.*
+
+---
+
+### 2.4 Seguimiento Real del Sprint: Velocidad Observada vs. Estimada (Corte Día 1)
+
+Al cierre de la Release de Fundación (`v0.0.1`) e inicio de la Fase 1 (`v0.1.0`), se registran las métricas reales del equipo:
+
+| Métrica | Estimación Planificada (Día 1) | Real Ejecutado (Corte `main`) | Desviación / Estado |
+|:---|:---:|:---:|:---:|
+| **Release Base v0.0.1** | 7 SP (SI-001 a SI-005) | **7 SP entregados y testeados** | **0% desviación (En tiempo)** |
+| **Horas v0.0.1** | 3.5 horas | ~3.5 horas | Exactitud alta en estimación |
+| **Valor Adicional Incorporado** | No planificado | **Pipeline CI GitHub Actions** (`.github/workflows/ci.yml`) | Aporte positivo a RNF-05 y reproducibilidad |
+| **Tickets Release v0.1.0 Iniciados** | SI-006 a SI-010 | **SI-006 (2 SP) Completado** · SI-007 (3 SP) en curso | Adelanto de trabajo técnico |
+| **Story Points Acumulados Cerrados** | 7 SP | **9 SP** (7 SP de v0.0.1 + 2 SP de SI-006) | Ritmo de entrega saludable |
+| **Tasa de Cierre de Defectos** | 0 defectos | **1 defecto corregido (`DEF-001`)** | Detección y solución temprana |
+
+```mermaid
+xychart-beta
+    title "Velocidad de Entrega Acumulada (Story Points)"
+    x-axis ["Plan v0.0.1", "Real v0.0.1", "Plan Día 1 Total", "Real Día 1 (Actual)"]
+    y-axis "Story Points (SP)" 0 --> 25
+    bar [7, 7, 16, 9]
+```
+
+*Conclusión del PM:* El equipo avanza a una velocidad real de **~9 SP en la primera jornada**, absorbiendo la configuración de CI automatizado y resolviendo el primer defecto de arquitectura (`DEF-001`) con su prueba de regresión antes de tocar lógica de movimientos.
 
 ---
 

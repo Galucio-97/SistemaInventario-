@@ -81,9 +81,9 @@ flowchart LR
 | SI-002 | Higiene del repositorio | v0.0.1 | A | D1 | 0.5 | Must | TERMINADO   |
 | SI-003 | Contenedor de SQL Server con imagen soportada | v0.0.1 | A | D1 | 1 | Must | TERMINADO   |
 | SI-004 | Proyecto de pruebas conectado y organizado por nivel | v0.0.1 | A | D1 | 0.5 | Must | TERMINADO   |
-| SI-005 | Convenciones de trabajo y plantilla de PR | v0.0.1 | B | D1 | 0.5 | Should | EN REVISION |
+| SI-005 | Convenciones de trabajo y plantilla de PR | v0.0.1 | B | D1 | 0.5 | Should | TERMINADO   |
 | SI-006 | Corregir precisión del modelo de producto (DEF-001) | v0.1.0 | A | D1 | 1 | Must | TERMINADO   |
-| SI-007 | Modelo de datos de movimientos | v0.1.0 | A | D1 | 1.5 | Must | Por hacer   |
+| SI-007 | Modelo de datos de movimientos | v0.1.0 | A | D1 | 1.5 | Must | EN CURSO    |
 | SI-008 | Modelo de datos de capas PEPS | v0.1.0 | A | D1 | 1 | Must | Por hacer   |
 | SI-009 | Creación reproducible de la base de datos | v0.1.0 | A | D1 | 0.5 | Must | Por hacer   |
 | SI-010 | Base de datos de pruebas aislada | v0.1.0 | A | D1 | 2 | Must | Por hacer   |
@@ -256,11 +256,11 @@ flowchart LR
 **Objetivo:** guardar cada entrada y salida con los datos que exige RB-04 y con los resultados de ambos métodos de costeo, para poder consultarlos y auditarlos.
 
 **Criterios de aceptación:**
-- [ ] Cada movimiento guarda producto, fecha, tipo (entrada o salida), cantidad y costo unitario de adquisición (solo entradas)
-- [ ] Cada movimiento guarda, **para cada método**, el costo unitario aplicado, el costo total y el saldo de valor resultante, además de la existencia resultante
-- [ ] La relación con el producto es obligatoria y no permite borrar un producto con movimientos
-- [ ] Las precisiones siguen la política (§5.2)
-- [ ] La migración se aplica sin errores
+- [X] Cada movimiento guarda producto, fecha, tipo (entrada o salida), cantidad y costo unitario de adquisición (solo entradas)
+- [X] Cada movimiento guarda, **para cada método**, el costo unitario aplicado, el costo total y el saldo de valor resultante, además de la existencia resultante
+- [X] La relación con el producto es obligatoria y no permite borrar un producto con movimientos
+- [X] Las precisiones siguen la política (§5.2)
+- [X] La migración se aplica sin errores
 
 **Trazabilidad:** RF-02, RF-03, RF-05 · RB-04, RB-05, RB-08
 **Depende de:** SI-006

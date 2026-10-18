@@ -1,6 +1,6 @@
 namespace SI.Web.Data.Entities;
 
-public class Producto
+public sealed class Producto
 {
     public int Id { get; set; }
     public required string Codigo { get; set; }
@@ -13,4 +13,6 @@ public class Producto
     public decimal CostoPromedioActual { get; set; }
     public decimal ValorInventarioPeps { get; set; }
     public decimal ValorInventarioPromedio { get; set; }
+    
+    public ICollection<Movimiento> Movimientos { get; set; } = new List<Movimiento>();
 }

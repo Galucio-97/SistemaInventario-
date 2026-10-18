@@ -1,10 +1,9 @@
-using Microsoft.EntityFrameworkCore;
-using SI.Web.Data;
+using SI.Tests.Fixtures;
 using SI.Web.Data.Entities;
 
 namespace SI.Tests.RegressionTests;
 
-public class Def001PrecisionProductoTests
+public class Def001PrecisionProductoTests(TestDbContextFixture fixture) : IClassFixture<TestDbContextFixture>
 {
     [Fact]
     [Trait("CP", "CP-19")]
@@ -14,11 +13,7 @@ public class Def001PrecisionProductoTests
     public void Producto_Schema_DebeTenerPrecisionDecimalCorrecta()
     {
         // Arrange
-        var options = new DbContextOptionsBuilder<InventarioDbContext>()
-            .UseSqlServer()
-            .Options;
-        
-        var context = new InventarioDbContext(options);
+        var context = fixture.Context;
         
         // Act
         var entidad = context.Model.FindEntityType(typeof(Producto));
