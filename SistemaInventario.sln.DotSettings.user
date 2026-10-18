@@ -4,6 +4,9 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=3e61c579_002Dafaa_002D467f_002Daec0_002D9d5628a5e4d4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="MovimientoSchemaTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::5D306A7D-C228-412A-A618-1EEFADD66D3F::net8.0::SI.Tests.IntegrationTests.SchemaTests.MovimientoSchemaTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::5D306A7D-C228-412A-A618-1EEFADD66D3F::net8.0::SI.Tests.IntegrationTests.SchemaTests.CapasInventarioPepsSchemaTests.CapasInventarioPeps_Schema_DebeExistirEnContexto&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::5D306A7D-C228-412A-A618-1EEFADD66D3F::net8.0::SI.Tests.IntegrationTests.SchemaTests.CapasPepsSchemaTests.CapasInventarioPeps_Schema_DebeTenerPrecisionDecimalCorrecta&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::5D306A7D-C228-412A-A618-1EEFADD66D3F::net8.0::SI.Tests.IntegrationTests.SchemaTests.CapasPepsSchemaTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	</wpf:ResourceDictionary>

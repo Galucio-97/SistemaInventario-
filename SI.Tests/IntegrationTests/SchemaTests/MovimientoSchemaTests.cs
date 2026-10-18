@@ -30,11 +30,7 @@ public class MovimientoSchemaTests(TestDbContextFixture fixture) : IClassFixture
     public void Movimiento_Schema_DebeTenerPrecisionDecimalCorrecta()
     {
         // Arrange
-        var options = new DbContextOptionsBuilder<InventarioDbContext>()
-            .UseSqlServer()
-            .Options;
-        
-        var context = new InventarioDbContext(options);
+        var context = fixture.Context;
         
         // Act
         var entidad = context.Model.FindEntityType(typeof(Movimiento));
