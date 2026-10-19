@@ -8,6 +8,14 @@ public static class ValidadorExistencia
 {
     public static ResultadoValidacion Validar(decimal cantidadSalida, decimal existenciaDisponible)
     {
+        if (cantidadSalida > existenciaDisponible)
+        {
+            return new ResultadoValidacion(
+                false,
+                $"Existencia insuficiente: disponible {existenciaDisponible}."
+            );
+        }
+
         return new ResultadoValidacion(true);
     }
 }
