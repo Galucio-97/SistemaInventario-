@@ -41,7 +41,7 @@
 | CP-06 | Unitaria | Valores límite | `ValidadorCostoUnitarioTests` | `evidencias/SI-013/Validacion_Costo_Unitario.md` |
 | CP-07 | Unitaria + Funcional | Valores límite + Tabla | `ValidadorExistenciaTests` | `evidencias/SI-014/Green_Test.md` |
 | CP-08 | Unitaria + Funcional | Escenario E-01 | | `evidencias/CP-08/` |
-| CP-09 | Unitaria + Funcional | Escenario E-01 | | `evidencias/CP-09/` |
+| CP-09 | Unitaria + Funcional | Escenario E-01 | `CalculadoraPromedioPonderadoTests` | `evidencias/SI-015/Promedio_Ponderado_Entradas.md` |
 | CP-10 | Funcional | Escenario E-01 | | `evidencias/CP-10/` |
 | CP-11 | Funcional | Tabla de decisión | | `evidencias/CP-11/` |
 | CP-12 | Integración + manual | Escenario | | `evidencias/CP-12/` |
