@@ -149,7 +149,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Técnica / Nivel | Valores límite / Unitaria |
 | Datos | Costos `-0.01`, `0`; controles válidos `0.0001`, `0.01` |
 | Esperado | Rechazo con mensaje "El costo unitario debe ser mayor que cero"; sin cambios en BD |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | Rechazo correcto con mensajes en español esperados para valores <= 0 y > 4 decimales; aceptación para valores válidos (0.0001, 0.01, 20.00, 100.1234) · **Aprobado (Unitaria)** · 18-oct-2026 · Dev B · `evidencias/SI-013/Validacion_Costo_Unitario.md` |
 
 ### CP-07 — Rechazar salida mayor a la existencia
 | Campo | Valor |

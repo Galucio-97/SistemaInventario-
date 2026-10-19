@@ -17,4 +17,14 @@
     &lt;TestId&gt;xUnit::5D306A7D-C228-412A-A618-1EEFADD66D3F::net8.0::SI.Tests.IntegrationTests.SchemaTests.ProductoSchemaTests.LaSumaDeDosNumerosPositivos_EsPositivo&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=dab0d5cd_002D7fcf_002D45f5_002D9b1f_002Dea0cb2405cca/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ValidarCostoUnitario_CuandoEsMenorOIgualACero_DebeRechazarConMensaje #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::5D306A7D-C228-412A-A618-1EEFADD66D3F::net8.0::SI.Tests.UnitTests.Validadores.ValidadorCostoUnitarioTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f2b2375e_002D0043_002D40ab_002D80fd_002D607aa1d93b4c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ValidarCostoUnitario_CuandoEsMenorOIgualACero_DebeRechazarConMensaje" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::5D306A7D-C228-412A-A618-1EEFADD66D3F::net8.0::SI.Tests.UnitTests.Validadores.ValidadorCostoUnitarioTests.ValidarCostoUnitario_CuandoEsMenorOIgualACero_DebeRechazarConMensaje&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
 	</wpf:ResourceDictionary>
