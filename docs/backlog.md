@@ -87,7 +87,7 @@ flowchart LR
 | SI-008 | Modelo de datos de capas PEPS | v0.1.0 | A | D1 | 1 | Must | TERMINADO   |
 | SI-009 | Creación reproducible de la base de datos | v0.1.0 | A | D1 | 0.5 | Must | TERMINADO   |
 | SI-010 | Base de datos de pruebas aislada | v0.1.0 | A | D1 | 2 | Must | EN REVISION |
-| SI-011 | Política de redondeo bancario | v0.2.0 | B | D1 | 1 | Must | Por hacer   |
+| SI-011 | Política de redondeo bancario | v0.2.0 | B | D1 | 1 | Must | TERMINADO   |
 | SI-012 | Validación de cantidades | v0.2.0 | B | D1 | 1 | Must | Por hacer   |
 | SI-013 | Validación de costo unitario | v0.2.0 | B | D1 | 0.5 | Must | Por hacer   |
 | SI-014 | Validación de existencia suficiente | v0.2.0 | B | D1 | 0.5 | Must | Por hacer   |
@@ -329,10 +329,10 @@ flowchart LR
 **Objetivo:** un único punto que aplique la política de redondeo (§5 de `02`) para que sea uniforme en todo el sistema (RB-09).
 
 **Criterios de aceptación:**
-- [ ] Hay redondeo de costo unitario a 4 decimales y de importe a 2, ambos bancarios (`ToEven` explícito)
-- [ ] Pruebas parametrizadas con la tabla 5.1: `10.005 → 10.00`, `10.015 → 10.02`, `10.0051 → 10.01`, `50.025 → 50.02`
-- [ ] Pruebas a 4 decimales: `10.00005 → 10.0000`, `10.00015 → 10.0002`
-- [ ] Ningún otro componente redondea por su cuenta (se revisa en el PR)
+- [X] Hay redondeo de costo unitario a 4 decimales y de importe a 2, ambos bancarios (`ToEven` explícito)
+- [X] Pruebas parametrizadas con la tabla 5.1: `10.005 → 10.00`, `10.015 → 10.02`, `10.0051 → 10.01`, `50.025 → 50.02`
+- [X] Pruebas a 4 decimales: `10.00005 → 10.0000`, `10.00015 → 10.0002`
+- [X] Ningún otro componente redondea por su cuenta (se revisa en el PR)
 
 **Trazabilidad:** RB-08, RB-09 · CP-17
 **Depende de:** SI-004
