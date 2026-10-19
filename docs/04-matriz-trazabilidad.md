@@ -49,7 +49,7 @@
 | CP-14 | Regresión | — | Suite completa | `evidencias/ciclos/` |
 | CP-15 | Unitaria | Escenario E-02 | | `evidencias/CP-15/` |
 | CP-16 | Funcional | Valores límite | | `evidencias/CP-16/` |
-| CP-17 | Unitaria | Escenario E-03 | | `evidencias/CP-17/` |
+| CP-17 | Unitaria | Escenario E-03 | PoliticaRedondeoTest | `evidencias/CP-17/` |
 | CP-18 | Funcional | Tabla de decisión | | `evidencias/CP-18/` |
 | CP-19 | Integración / Regresión | Escenario / Auditoría | `Producto_Schema_DebeTenerPrecisionDecimalCorrecta` | `evidencias/DEF-001/` |
 
