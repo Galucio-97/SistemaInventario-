@@ -92,7 +92,7 @@ flowchart LR
 | SI-013 | Validación de costo unitario | v0.2.0 | B | D1 | 0.5 | Must | TERMINADO   |
 | SI-014 | Validación de existencia suficiente | v0.2.0 | B | D1 | 0.5 | Must | EN REVISION |
 | SI-015 | Promedio ponderado: entradas | v0.2.0 | B | D2 | 1 | Must | TERMINADO   |
-| SI-016 | Promedio ponderado: salidas y ajuste por residuo | v0.2.0 | B | D2 | 1.5 | Must | Por hacer   |
+| SI-016 | Promedio ponderado: salidas y ajuste por residuo | v0.2.0 | B | D2 | 1.5 | Must | TERMINADO   |
 | SI-017 | PEPS: creación de capas y salida de una capa | v0.2.0 | A | D2 | 1.5 | Must | Por hacer   |
 | SI-018 | PEPS: salida multicapa y agotamiento | v0.2.0 | A | D2 | 2 | Must | Por hacer   |
 | SI-020 | Registrar producto | v0.3.0 | B | D3 | 2 | Must | Por hacer   |
@@ -412,12 +412,12 @@ flowchart LR
 **Objetivo:** costear salidas con el promedio vigente sin alterarlo, y garantizar que existencia 0 implique valor 0.
 
 **Criterios de aceptación:**
-- [ ] El costo de salida es `cantidad × promedio vigente`, redondeado como importe
-- [ ] La salida **no** modifica el promedio de las unidades restantes
-- [ ] E-01: S1 → costo `125.00`, saldo `375.00`, promedio sigue en `25.0000`
-- [ ] E-02: S1 → `52.86` / `21.14`; S2 → `21.14` / `0.00`
-- [ ] E-03: S1 → `10.00` (bancario); S2 → `50.03` por ajuste D-03; saldo final `0.00`
-- [ ] Con existencia 0 el valor es siempre `0.00`
+- [X] El costo de salida es `cantidad × promedio vigente`, redondeado como importe
+- [X] La salida **no** modifica el promedio de las unidades restantes
+- [X] E-01: S1 → costo `125.00`, saldo `375.00`, promedio sigue en `25.0000`
+- [X] E-02: S1 → `52.86` / `21.14`; S2 → `21.14` / `0.00`
+- [X] E-03: S1 → `10.00` (bancario); S2 → `50.03` por ajuste D-03; saldo final `0.00`
+- [X] Con existencia 0 el valor es siempre `0.00`
 
 **Trazabilidad:** RF-04 · RB-07, RB-09 · RNF-01 · CP-09, CP-17
 **Depende de:** SI-015, SI-001 (D-03)
