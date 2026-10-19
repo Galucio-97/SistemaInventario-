@@ -8,9 +8,9 @@
 
 * **Estado General:** Fase 0 (Foundation / `v0.0.1`) completada y en `main`. Fase 1 (Datos y Esquema / `v0.1.0`) completada al 100% (tickets SI-006 a SI-010).
 * **Tag de Línea Base (`main`):** `v0.0.1` (Commit `1ae5a48706c177c2d0169d7ed3da1c030f436a48`).
-* **Rama de Trabajo Actual:** `feat/SI-012-validacion-cantidades` (Reglas de negocio y validaciones de entrada).
+* **Rama de Trabajo Actual:** `feat/SI-013-ValidaciónDeCostoUnitario` (Validación de costo unitario RB-02).
 * **Defectos Críticos/Altos Detectados y Gestionados:** 1 defecto real (`DEF-001`, severidad Alta, corregido y verificado con prueba de regresión).
-* **Infraestructura de Pruebas:** Automatización xUnit con 18 pruebas en verde (7 integración, 1 regresión, 10 unitarias/teorías) ejecutando en local y CI.
+* **Infraestructura de Pruebas:** Automatización xUnit con 32 pruebas en verde (7 integración, 1 regresión, 24 unitarias/teorías) ejecutando en local y CI.
 
 ---
 
@@ -18,12 +18,12 @@
 
 | Parámetro | Valor Verificado en Entorno Local | Valor en Entorno de Integración Continua (CI) |
 |---|---|---|
-| **Sistema Operativo** | macOS 26.5 (Darwin 24.3.0 ARM64 / Apple Silicon) | Ubuntu Latest (Linux x86_64) |
-| **.NET SDK** | `8.0.426` (C# 12 / .NET 8 LTS) | `8.0.x` (instalado vía `actions/setup-dotnet@v4`) |
+| **Sistema Operativo** | macOS 26.5 (Darwin 24.3.0 ARM64 / Apple Silicon) / Windows 11 x64 | Ubuntu Latest (Linux x86_64) |
+| **.NET SDK** | `8.0.426` / `8.0.x` (C# 12 / .NET 8 LTS) | `8.0.x` (instalado vía `actions/setup-dotnet@v4`) |
 | **Motor de Base de Datos** | SQL Server 2022 en Docker (`mcr.microsoft.com/mssql/server:2022-latest`) | Contenedor SQL Server / Service Container en GitHub Runner |
 | **Herramienta de Pruebas** | xUnit 2.5.3 + VSTest 17.11.1 | `dotnet test --no-build --verbosity normal` |
 | **Medición de Cobertura** | Coverlet Collector 6.0.0 | Habilitado para reporte de métricas |
-| **Commit Evaluado** | `feat/SI-010-DB_pruebas_aisladas` | Pipeline CI en pull requests hacia `dev`, `beta` y `main` |
+| **Commit Evaluado** | `feat/SI-013-ValidaciónDeCostoUnitario` | Pipeline CI en pull requests hacia `dev`, `beta` y `main` |
 
 ---
 
@@ -33,13 +33,13 @@
 |---|:---:|:---:|:---:|
 | **Fecha de Corte** | 17-oct-2026 | 18-oct-2026 | *Programado (Día 6)* |
 | **Casos Diseñados Totales** | 19 casos | 19 casos | 19 casos |
-| **Casos Ejecutados** | 2 casos preliminares (`CP-19` y base) | 4 casos ejecutados (`CP-19`, `CP-01` humo, `CP-05` validación cantidad y base) | — |
-| **Casos Aprobados (Pass)** | 2 | 4 | — |
+| **Casos Ejecutados** | 2 casos preliminares (`CP-19` y base) | 5 casos ejecutados (`CP-19`, `CP-01` humo, `CP-05`, `CP-06`, `CP-17` unitario) | — |
+| **Casos Aprobados (Pass)** | 2 | 5 | — |
 | **Casos Fallidos (Fail)** | 0 (post-fix DEF-001) | 0 | — |
-| **Casos Bloqueados / Pendientes** | 17 pendientes de implementación | 15 pendientes de servicios/UI | — |
+| **Casos Bloqueados / Pendientes** | 17 pendientes de implementación | 14 pendientes de servicios/UI | — |
 | **Defectos Detectados Totales** | 1 (`DEF-001`) | 1 (`DEF-001`) | — |
 | **Defectos Corregidos y Verificados** | 1 (`DEF-001`) | 1 (`DEF-001`) | — |
-| **Pruebas Automatizadas en Verde** | 100% de las suites activas | 18 pruebas en verde (100% de la suite) | — |
+| **Pruebas Automatizadas en Verde** | 100% de las suites activas | 32 pruebas en verde (100% de la suite) | — |
 
 ---
 
@@ -63,7 +63,7 @@
 | **CP-14** | Todos | Regresión | Suite Completa | *Pendiente (v0.9.x)* | Re-ejecución total automatizada tras fixes | `evidencias/ciclos/` |
 | **CP-15** | RF-04 | Unitaria | Escenario E-02 | *Pendiente (v0.2.0)* | `CalculadoraPepsTests.Salida_Multicapa_ConsumeEnOrdenFIFO` | `evidencias/CP-15/` |
 | **CP-16** | RB-03 | Funcional | Valores Límite | *Pendiente (v0.4.0)* | `InventarioServiceTests.Salida_ExactaExistencia_DejaSaldoCero` | `evidencias/CP-16/` |
-| **CP-17** | RB-08, RB-09 | Unitaria | Escenario E-03 | *Pendiente (v0.2.0)* | `PoliticaRedondeoTests.RedondeoBancario_ResiduoAjustado` | `evidencias/CP-17/` |
+| **CP-17** | RB-08, RB-09 | Unitaria | Escenario E-03 | **✅ APROBADO (Unitaria)** | `PoliticaRedondeoTests` | `evidencias/SI-011/Green_Test.md` |
 | **CP-18** | RF-01, RB-10 | Funcional | Tabla de Decisión (R2) | *Pendiente (v0.3.0)* | `InventarioServiceTests.Movimiento_ProductoInactivo_Rechaza` | `evidencias/CP-18/` |
 | **CP-19** | RNF-01, RB-08 | Regresión / Int. | Auditoría de Esquema | **✅ APROBADO (C1)** | `Def001PrecisionProductoTests.Producto_Schema_DebeTenerPrecisionDecimalCorrecta` | `evidencias/DEF-001/` |
 

@@ -95,7 +95,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Pasos | 1. Registrar el producto. 2. Consultar la tabla `Productos` con un `DbContext` nuevo |
 | Esperado | 1 fila con los datos exactos, `Activo = 1`, existencia `0`, valores `0.00` |
 | Verificación BD | `SELECT * FROM Productos WHERE Codigo = 'P-001'` |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | Persistencia y lectura íntegra en SQL Server real verificada mediante prueba de humo con contextos desacoplados · **Aprobado (Humo)** · 18-oct-2026 · Dev A · `evidencias/SI-010/BD_Pruebas_Aisladas.md` |
 
 ### CP-02 — Rechazar producto con clave duplicada
 | Campo | Valor |
@@ -247,7 +247,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Requisito | RB-08, RB-09, RNF-01 |
 | Técnica / Nivel | Escenario E-03 / Unitaria |
 | Esperado | Prom S1 = **10.00** (no 10.01) · Prom S2 = **50.03** (ajuste D-03) · saldo final **0.00** con existencia 0 |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | Redondeo bancario (ToEven) a 2 y 4 decimales validado al 100% en función pura · **Aprobado (Unitaria - Redondeo)** · 18-oct-2026 · Dev B · `evidencias/SI-011/Green_Test.md` (ajuste por residuo D-03 pendiente en SI-016) |
 
 ### CP-18 — Movimiento sobre producto inactivo
 | Campo | Valor |

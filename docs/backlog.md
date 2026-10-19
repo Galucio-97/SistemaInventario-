@@ -369,7 +369,7 @@ flowchart LR
 
 **Trazabilidad:** RB-02 · RNF-03 · CP-06
 **Depende de:** SI-001 (D-01)
-**Evidencia:** salida de las pruebas
+**Evidencia:** `docs/evidencias/SI-013/Validacion_Costo_Unitario.md` (Green_Test.md y Red_Test.md)
 
 ---
 

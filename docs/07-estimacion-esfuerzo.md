@@ -54,9 +54,9 @@ flowchart TD
 | **SI-008** | Modelo de datos de capas PEPS | v0.1.0 | Dev A | 1.0 h | **2 SP** | ✅ **Completado**: Entidad de soporte FIFO con relación a producto y movimiento. |
 | **SI-009** | Creación reproducible de la base de datos | v0.1.0 | Dev A | 0.5 h | **1 SP** | ✅ **Completado**: Script SQL `init.sql` idempotente verificado. |
 | **SI-010** | Base de datos de pruebas aislada | v0.1.0 | Dev A | 2.0 h | **3 SP** | ✅ **Completado**: Fixture xUnit con auto-migración/limpieza contra SQL Server real. |
-| **SI-011** | Política de redondeo bancario | v0.2.0 | Dev B | 1.0 h | **2 SP** | `MidpointRounding.ToEven` a 4 y 2 decimales con tests parametrizados. |
+| **SI-011** | Política de redondeo bancario | v0.2.0 | Dev B | 1.0 h | **2 SP** | ✅ **Completado**: `MidpointRounding.ToEven` a 4 y 2 decimales con tests parametrizados (`PoliticaRedondeo`). |
 | **SI-012** | Validación de cantidades | v0.2.0 | Dev B | 1.0 h | **2 SP** | ✅ **Completado**: Rechazo de ≤0 y verificación de límite de 4 decimales (`ValidadorCantidad`). |
-| **SI-013** | Validación de costo unitario | v0.2.0 | Dev B | 0.5 h | **1 SP** | Rechazo de costos negativos o cero en adquisiciones. |
+| **SI-013** | Validación de costo unitario | v0.2.0 | Dev B | 0.5 h | **1 SP** | ✅ **Completado**: Rechazo de costos negativos, cero o > 4 decimales (`ValidadorCostoUnitario`). |
 | **SI-014** | Validación de existencia suficiente | v0.2.0 | Dev B | 0.5 h | **1 SP** | Comparación estricta cantidad salida vs existencia física. |
 | **SI-015** | Promedio ponderado: entradas | v0.2.0 | Dev B | 1.0 h | **2 SP** | Fórmula del costo promedio móvil, prevención de división por cero. |
 | **SI-016** | Promedio ponderado: salidas y residuo | v0.2.0 | Dev B | 1.5 h | **3 SP** | Salida a costo vigente y ajuste de residuo bancario en existencia 0. |

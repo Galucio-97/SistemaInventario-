@@ -49,7 +49,7 @@
 | CP-14 | Regresión | — | Suite completa | `evidencias/ciclos/` |
 | CP-15 | Unitaria | Escenario E-02 | | `evidencias/CP-15/` |
 | CP-16 | Funcional | Valores límite | | `evidencias/CP-16/` |
-| CP-17 | Unitaria | Escenario E-03 | PoliticaRedondeoTest | `evidencias/CP-17/` |
+| CP-17 | Unitaria | Escenario E-03 | `PoliticaRedondeoTests` | `evidencias/SI-011/Green_Test.md` |
 | CP-18 | Funcional | Tabla de decisión | | `evidencias/CP-18/` |
 | CP-19 | Integración / Regresión | Escenario / Auditoría | `Producto_Schema_DebeTenerPrecisionDecimalCorrecta` | `evidencias/DEF-001/` |
 
@@ -58,7 +58,7 @@
 | Componente | Responsabilidad | Probado por |
 |---|---|---|
 | `PoliticaRedondeo` | Redondeo bancario de costos unitarios e importes | CP-17 |
-| `ValidadorMovimiento` | RB-01, RB-02, RB-03 | CP-05, CP-06, CP-07 |
+| `ValidadorCantidad`, `ValidadorCostoUnitario` | RB-01, RB-02, RB-03 | CP-05, CP-06, CP-07 |
 | `CalculadoraPeps` | Creación y consumo de capas | CP-08, CP-15 |
 | `CalculadoraPromedioPonderado` | Promedio móvil y costo de salida | CP-09, CP-17 |
 | `ProductoService` | RF-01 | CP-01, CP-02, CP-11 |
