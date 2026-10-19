@@ -175,7 +175,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Requisito | RF-04, RB-07 |
 | Técnica / Nivel | Escenario E-01 / Unitaria + Funcional |
 | Esperado | Promedio vigente **25.0000** · costo salida **125.00** · valor restante **375.00** · promedio tras salida 25.0000 |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | Entradas E1 (promedio 20.0000, saldo 200.00) y E2 (promedio 25.0000, saldo 500.00) calculadas correctamente con redondeo bancario; validado con E-02 (10.5714), E-03 (10.0050) y caso borde cero · **Aprobado parcial (Unitaria - Entradas SI-015)** · 18-oct-2026 · Dev B · `evidencias/SI-015/Promedio_Ponderado_Entradas.md` |
 
 ### CP-10 — Cambiar de método de costeo
 | Campo | Valor |

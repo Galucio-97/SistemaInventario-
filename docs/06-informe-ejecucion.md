@@ -55,7 +55,7 @@
 | **CP-06** | RB-02, RNF-03 | Unitaria | Valores Límite | **✅ APROBADO (Unitaria)** | `ValidadorCostoUnitarioTests` | `evidencias/SI-013/Validacion_Costo_Unitario.md` |
 | **CP-07** | RB-03, RNF-04 | Unitaria + Func. | Límite / Tabla (R4) | **✅ APROBADO (Unitaria)** | `ValidadorExistenciaTests` | `evidencias/SI-014/Green_Test.md` |
 | **CP-08** | RF-04, RB-07 | Unitaria + Func. | Escenario Obligatorio 6.3 | *Pendiente (v0.2.0)* | `CalculadoraPepsTests.Salida_EjercicioReferencia_Costo100` | `evidencias/CP-08/` |
-| **CP-09** | RF-04, RB-07 | Unitaria + Func. | Escenario Obligatorio 6.3 | *Pendiente (v0.2.0)* | `CalculadoraPromedioTests.Salida_EjercicioReferencia_Costo125` | `evidencias/CP-09/` |
+| **CP-09** | RF-04, RB-07 | Unitaria + Func. | Escenario Obligatorio 6.3 | **✅ APROBADO (Unitaria - Entradas)** | `CalculadoraPromedioPonderadoTests` | `evidencias/SI-015/Promedio_Ponderado_Entradas.md` |
 | **CP-10** | RF-04, RF-05 | Funcional | Escenario Obligatorio 6.3 | *Pendiente (v0.5.0)* | `ConsultaInventarioTests.CambioMetodo_RecalculaSinAlterarHistorial` | `evidencias/CP-10/` |
 | **CP-11** | RF-01, RF-05 | Funcional | Tabla de Decisión (R1) | *Pendiente (v0.3.0)* | `ProductoServiceTests.Consultar_Inexistente_InformaNoExiste` | `evidencias/CP-11/` |
 | **CP-12** | RNF-02, RB-05 | Integración | Basada en Escenarios | *Pendiente (v0.4.0)* | `PersistenciaTests.ReinicioAplicacion_ConservaDatos` | `evidencias/CP-12/` |

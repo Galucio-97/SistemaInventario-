@@ -91,7 +91,7 @@ flowchart LR
 | SI-012 | Validación de cantidades | v0.2.0 | B | D1 | 1 | Must | TERMINADO  |
 | SI-013 | Validación de costo unitario | v0.2.0 | B | D1 | 0.5 | Must | TERMINADO   |
 | SI-014 | Validación de existencia suficiente | v0.2.0 | B | D1 | 0.5 | Must | EN REVISION |
-| SI-015 | Promedio ponderado: entradas | v0.2.0 | B | D2 | 1 | Must | Por hacer   |
+| SI-015 | Promedio ponderado: entradas | v0.2.0 | B | D2 | 1 | Must | TERMINADO   |
 | SI-016 | Promedio ponderado: salidas y ajuste por residuo | v0.2.0 | B | D2 | 1.5 | Must | Por hacer   |
 | SI-017 | PEPS: creación de capas y salida de una capa | v0.2.0 | A | D2 | 1.5 | Must | Por hacer   |
 | SI-018 | PEPS: salida multicapa y agotamiento | v0.2.0 | A | D2 | 2 | Must | Por hacer   |
@@ -394,11 +394,11 @@ flowchart LR
 **Objetivo:** recalcular el costo promedio móvil en cada entrada con la fórmula del enunciado.
 
 **Criterios de aceptación:**
-- [ ] El promedio es `(valor anterior + valor de entrada) / (cantidad anterior + cantidad de entrada)`, redondeado según la política
-- [ ] E-01: tras E1 → `20.0000` y saldo `200.00`; tras E2 → `25.0000` y saldo `500.00`
-- [ ] E-02: tras E2 → `10.5714` y saldo `74.00`
-- [ ] E-03: tras E2 → `10.0050` y saldo `60.03`
-- [ ] La primera entrada sobre existencia 0 no divide entre cero
+- [X] El promedio es `(valor anterior + valor de entrada) / (cantidad anterior + cantidad de entrada)`, redondeado según la política
+- [X] E-01: tras E1 → `20.0000` y saldo `200.00`; tras E2 → `25.0000` y saldo `500.00`
+- [X] E-02: tras E2 → `10.5714` y saldo `74.00`
+- [X] E-03: tras E2 → `10.0050` y saldo `60.03`
+- [X] La primera entrada sobre existencia 0 no divide entre cero
 
 **Trazabilidad:** RF-04 · CP-09
 **Depende de:** SI-011
