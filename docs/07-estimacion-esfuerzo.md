@@ -55,7 +55,7 @@ flowchart TD
 | **SI-009** | Creación reproducible de la base de datos | v0.1.0 | Dev A | 0.5 h | **1 SP** | ✅ **Completado**: Script SQL `init.sql` idempotente verificado. |
 | **SI-010** | Base de datos de pruebas aislada | v0.1.0 | Dev A | 2.0 h | **3 SP** | ✅ **Completado**: Fixture xUnit con auto-migración/limpieza contra SQL Server real. |
 | **SI-011** | Política de redondeo bancario | v0.2.0 | Dev B | 1.0 h | **2 SP** | `MidpointRounding.ToEven` a 4 y 2 decimales con tests parametrizados. |
-| **SI-012** | Validación de cantidades | v0.2.0 | Dev B | 1.0 h | **2 SP** | Rechazo de ≤0 y verificación de límite de 4 decimales. |
+| **SI-012** | Validación de cantidades | v0.2.0 | Dev B | 1.0 h | **2 SP** | ✅ **Completado**: Rechazo de ≤0 y verificación de límite de 4 decimales (`ValidadorCantidad`). |
 | **SI-013** | Validación de costo unitario | v0.2.0 | Dev B | 0.5 h | **1 SP** | Rechazo de costos negativos o cero en adquisiciones. |
 | **SI-014** | Validación de existencia suficiente | v0.2.0 | Dev B | 0.5 h | **1 SP** | Comparación estricta cantidad salida vs existencia física. |
 | **SI-015** | Promedio ponderado: entradas | v0.2.0 | Dev B | 1.0 h | **2 SP** | Fórmula del costo promedio móvil, prevención de división por cero. |
