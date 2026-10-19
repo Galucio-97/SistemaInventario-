@@ -8,9 +8,9 @@
 
 * **Estado General:** Fase 0 (Foundation / `v0.0.1`) completada y en `main`. Fase 1 (Datos y Esquema / `v0.1.0`) completada al 100% (tickets SI-006 a SI-010).
 * **Tag de Línea Base (`main`):** `v0.0.1` (Commit `1ae5a48706c177c2d0169d7ed3da1c030f436a48`).
-* **Rama de Trabajo Actual:** `feat/SI-014-validacion-existencia-suficiente` (Validación de existencia suficiente RB-03).
+* **Rama de Trabajo Actual:** `feat/SI-016-promedio-salidas-residuo` (Promedio ponderado: salidas y ajuste por residuo D-03).
 * **Defectos Críticos/Altos Detectados y Gestionados:** 1 defecto real (`DEF-001`, severidad Alta, corregido y verificado con prueba de regresión).
-* **Infraestructura de Pruebas:** Automatización xUnit con 30 pruebas en verde (7 integración, 1 regresión, 22 unitarias/teorías) ejecutando en local y CI.
+* **Infraestructura de Pruebas:** Automatización xUnit con 49 pruebas en verde (7 integración, 1 regresión, 41 unitarias/teorías) ejecutando en local y CI.
 
 ---
 
@@ -23,7 +23,7 @@
 | **Motor de Base de Datos** | SQL Server 2022 en Docker (`mcr.microsoft.com/mssql/server:2022-latest`) | Contenedor SQL Server / Service Container en GitHub Runner |
 | **Herramienta de Pruebas** | xUnit 2.5.3 + VSTest 17.11.1 | `dotnet test --no-build --verbosity normal` |
 | **Medición de Cobertura** | Coverlet Collector 6.0.0 | Habilitado para reporte de métricas |
-| **Commit Evaluado** | `feat/SI-013-ValidaciónDeCostoUnitario` | Pipeline CI en pull requests hacia `dev`, `beta` y `main` |
+| **Commit Evaluado** | `feat/SI-016-promedio-salidas-residuo` (`d99f3a1`) | Pipeline CI en pull requests hacia `dev`, `beta` y `main` |
 
 ---
 
@@ -33,13 +33,13 @@
 |---|:---:|:---:|:---:|
 | **Fecha de Corte** | 17-oct-2026 | 18-oct-2026 | *Programado (Día 6)* |
 | **Casos Diseñados Totales** | 19 casos | 19 casos | 19 casos |
-| **Casos Ejecutados** | 2 casos preliminares (`CP-19` y base) | 5 casos ejecutados (`CP-19`, `CP-01` humo, `CP-05`, `CP-06`, `CP-17` unitario) | — |
-| **Casos Aprobados (Pass)** | 2 | 5 | — |
+| **Casos Ejecutados** | 2 casos preliminares (`CP-19` y base) | 8 casos ejecutados (`CP-01` humo, `CP-05`, `CP-06`, `CP-07`, `CP-09`, `CP-16`, `CP-17`, `CP-19`) | — |
+| **Casos Aprobados (Pass)** | 2 | 8 | — |
 | **Casos Fallidos (Fail)** | 0 (post-fix DEF-001) | 0 | — |
-| **Casos Bloqueados / Pendientes** | 17 pendientes de implementación | 14 pendientes de servicios/UI | — |
+| **Casos Bloqueados / Pendientes** | 17 pendientes de implementación | 11 pendientes de servicios/UI | — |
 | **Defectos Detectados Totales** | 1 (`DEF-001`) | 1 (`DEF-001`) | — |
 | **Defectos Corregidos y Verificados** | 1 (`DEF-001`) | 1 (`DEF-001`) | — |
-| **Pruebas Automatizadas en Verde** | 100% de las suites activas | 32 pruebas en verde (100% de la suite) | — |
+| **Pruebas Automatizadas en Verde** | 100% de las suites activas | 49 pruebas en verde (100% de la suite) | — |
 
 ---
 

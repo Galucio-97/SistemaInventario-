@@ -90,7 +90,7 @@ flowchart LR
 | SI-011 | Política de redondeo bancario | v0.2.0 | B | D1 | 1 | Must | TERMINADO   |
 | SI-012 | Validación de cantidades | v0.2.0 | B | D1 | 1 | Must | TERMINADO  |
 | SI-013 | Validación de costo unitario | v0.2.0 | B | D1 | 0.5 | Must | TERMINADO   |
-| SI-014 | Validación de existencia suficiente | v0.2.0 | B | D1 | 0.5 | Must | EN REVISION |
+| SI-014 | Validación de existencia suficiente | v0.2.0 | B | D1 | 0.5 | Must | TERMINADO   |
 | SI-015 | Promedio ponderado: entradas | v0.2.0 | B | D2 | 1 | Must | TERMINADO   |
 | SI-016 | Promedio ponderado: salidas y ajuste por residuo | v0.2.0 | B | D2 | 1.5 | Must | TERMINADO   |
 | SI-017 | PEPS: creación de capas y salida de una capa | v0.2.0 | A | D2 | 1.5 | Must | Por hacer   |
@@ -402,7 +402,7 @@ flowchart LR
 
 **Trazabilidad:** RF-04 · CP-09
 **Depende de:** SI-011
-**Evidencia:** salida de las pruebas
+**Evidencia:** `docs/evidencias/SI-015/Promedio_Ponderado_Entradas.md` (Green_Test.md y Red_Test.md)
 
 ---
 
@@ -421,7 +421,7 @@ flowchart LR
 
 **Trazabilidad:** RF-04 · RB-07, RB-09 · RNF-01 · CP-09, CP-17
 **Depende de:** SI-015, SI-001 (D-03)
-**Evidencia:** salida de las pruebas
+**Evidencia:** `docs/evidencias/SI-016/Promedio_Ponderado_Salidas.md` (Green_Test.md y Red_Test.md)
 
 ---
 
