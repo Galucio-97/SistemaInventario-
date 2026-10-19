@@ -89,7 +89,7 @@ flowchart LR
 | SI-010 | Base de datos de pruebas aislada | v0.1.0 | A | D1 | 2 | Must | EN REVISION |
 | SI-011 | Política de redondeo bancario | v0.2.0 | B | D1 | 1 | Must | TERMINADO   |
 | SI-012 | Validación de cantidades | v0.2.0 | B | D1 | 1 | Must | TERMINADO  |
-| SI-013 | Validación de costo unitario | v0.2.0 | B | D1 | 0.5 | Must | Por hacer   |
+| SI-013 | Validación de costo unitario | v0.2.0 | B | D1 | 0.5 | Must | TERMINADO   |
 | SI-014 | Validación de existencia suficiente | v0.2.0 | B | D1 | 0.5 | Must | EN REVISION |
 | SI-015 | Promedio ponderado: entradas | v0.2.0 | B | D2 | 1 | Must | Por hacer   |
 | SI-016 | Promedio ponderado: salidas y ajuste por residuo | v0.2.0 | B | D2 | 1.5 | Must | Por hacer   |
@@ -363,13 +363,13 @@ flowchart LR
 **Objetivo:** impedir entradas con costo negativo, cero o con precisión no soportada.
 
 **Criterios de aceptación:**
-- [ ] Se rechazan `-0.01`, `0` y valores con más de 4 decimales
-- [ ] Se aceptan `0.0001` y `0.01`
-- [ ] Mensaje comprensible ("El costo unitario debe ser mayor que cero")
+- [X] Se rechazan `-0.01`, `0` y valores con más de 4 decimales
+- [X] Se aceptan `0.0001` y `0.01`
+- [X] Mensaje comprensible ("El costo unitario debe ser mayor que cero")
 
 **Trazabilidad:** RB-02 · RNF-03 · CP-06
 **Depende de:** SI-001 (D-01)
-**Evidencia:** salida de las pruebas
+**Evidencia:** `docs/evidencias/SI-013/Validacion_Costo_Unitario.md` (Green_Test.md y Red_Test.md)
 
 ---
 

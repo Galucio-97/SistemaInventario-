@@ -38,7 +38,7 @@
 | CP-03 | Funcional | Escenario | | `evidencias/CP-03/` |
 | CP-04 | Funcional | Tabla de decisión | | `evidencias/CP-04/` |
 | CP-05 | Unitaria + Integración | Valores límite | `ValidadorCantidadTests` | `evidencias/SI-012/Validacion_Cantidades.md` |
-| CP-06 | Unitaria | Valores límite | | `evidencias/CP-06/` |
+| CP-06 | Unitaria | Valores límite | `ValidadorCostoUnitarioTests` | `evidencias/SI-013/Validacion_Costo_Unitario.md` |
 | CP-07 | Unitaria + Funcional | Valores límite + Tabla | `ValidadorExistenciaTests` | `evidencias/SI-014/Green_Test.md` |
 | CP-08 | Unitaria + Funcional | Escenario E-01 | | `evidencias/CP-08/` |
 | CP-09 | Unitaria + Funcional | Escenario E-01 | | `evidencias/CP-09/` |
@@ -49,7 +49,7 @@
 | CP-14 | Regresión | — | Suite completa | `evidencias/ciclos/` |
 | CP-15 | Unitaria | Escenario E-02 | | `evidencias/CP-15/` |
 | CP-16 | Unitaria + Funcional | Valores límite | `ValidadorExistenciaTests` | `evidencias/SI-014/Green_Test.md` |
-| CP-17 | Unitaria | Escenario E-03 | PoliticaRedondeoTest | `evidencias/CP-17/` |
+| CP-17 | Unitaria | Escenario E-03 | `PoliticaRedondeoTests` | `evidencias/SI-011/Green_Test.md` |
 | CP-18 | Funcional | Tabla de decisión | | `evidencias/CP-18/` |
 | CP-19 | Integración / Regresión | Escenario / Auditoría | `Producto_Schema_DebeTenerPrecisionDecimalCorrecta` | `evidencias/DEF-001/` |
 
@@ -58,7 +58,7 @@
 | Componente | Responsabilidad | Probado por |
 |---|---|---|
 | `PoliticaRedondeo` | Redondeo bancario de costos unitarios e importes | CP-17 |
-| `ValidadorCantidad` | RB-01 (cantidades positivas y hasta 4 decimales) | CP-05 |
+| `ValidadorCantidad`, `ValidadorCostoUnitario` | RB-01, RB-02, RB-03 | CP-05, CP-06, CP-07 |
 | `ValidadorExistencia` | RB-03 (salida <= existencia disponible) | CP-07, CP-16 |
 | `ValidadorMovimiento` | RB-01, RB-02, RB-03 | CP-05, CP-06, CP-07 |
 | `CalculadoraPeps` | Creación y consumo de capas | CP-08, CP-15 |

@@ -18,12 +18,12 @@
 
 | Parámetro | Valor Verificado en Entorno Local | Valor en Entorno de Integración Continua (CI) |
 |---|---|---|
-| **Sistema Operativo** | macOS 26.5 (Darwin 24.3.0 ARM64 / Apple Silicon) | Ubuntu Latest (Linux x86_64) |
-| **.NET SDK** | `8.0.426` (C# 12 / .NET 8 LTS) | `8.0.x` (instalado vía `actions/setup-dotnet@v4`) |
+| **Sistema Operativo** | macOS 26.5 (Darwin 24.3.0 ARM64 / Apple Silicon) / Windows 11 x64 | Ubuntu Latest (Linux x86_64) |
+| **.NET SDK** | `8.0.426` / `8.0.x` (C# 12 / .NET 8 LTS) | `8.0.x` (instalado vía `actions/setup-dotnet@v4`) |
 | **Motor de Base de Datos** | SQL Server 2022 en Docker (`mcr.microsoft.com/mssql/server:2022-latest`) | Contenedor SQL Server / Service Container en GitHub Runner |
 | **Herramienta de Pruebas** | xUnit 2.5.3 + VSTest 17.11.1 | `dotnet test --no-build --verbosity normal` |
 | **Medición de Cobertura** | Coverlet Collector 6.0.0 | Habilitado para reporte de métricas |
-| **Commit Evaluado** | `feat/SI-010-DB_pruebas_aisladas` | Pipeline CI en pull requests hacia `dev`, `beta` y `main` |
+| **Commit Evaluado** | `feat/SI-013-ValidaciónDeCostoUnitario` | Pipeline CI en pull requests hacia `dev`, `beta` y `main` |
 
 ---
 
@@ -33,13 +33,13 @@
 |---|:---:|:---:|:---:|
 | **Fecha de Corte** | 17-oct-2026 | 18-oct-2026 | *Programado (Día 6)* |
 | **Casos Diseñados Totales** | 19 casos | 19 casos | 19 casos |
-| **Casos Ejecutados** | 2 casos preliminares (`CP-19` y base) | 6 casos ejecutados (`CP-19`, `CP-01`, `CP-05`, `CP-07`, `CP-16` y base) | — |
-| **Casos Aprobados (Pass)** | 2 | 6 | — |
+| **Casos Ejecutados** | 2 casos preliminares (`CP-19` y base) | 5 casos ejecutados (`CP-19`, `CP-01` humo, `CP-05`, `CP-06`, `CP-17` unitario) | — |
+| **Casos Aprobados (Pass)** | 2 | 5 | — |
 | **Casos Fallidos (Fail)** | 0 (post-fix DEF-001) | 0 | — |
-| **Casos Bloqueados / Pendientes** | 17 pendientes de implementación | 13 pendientes de servicios/UI | — |
+| **Casos Bloqueados / Pendientes** | 17 pendientes de implementación | 14 pendientes de servicios/UI | — |
 | **Defectos Detectados Totales** | 1 (`DEF-001`) | 1 (`DEF-001`) | — |
 | **Defectos Corregidos y Verificados** | 1 (`DEF-001`) | 1 (`DEF-001`) | — |
-| **Pruebas Automatizadas en Verde** | 100% de las suites activas | 30 pruebas en verde (100% de la suite) | — |
+| **Pruebas Automatizadas en Verde** | 100% de las suites activas | 32 pruebas en verde (100% de la suite) | — |
 
 ---
 
@@ -52,7 +52,7 @@
 | **CP-03** | RF-02, RB-04 | Funcional | Basada en Escenarios | *Pendiente (v0.4.0)* | `InventarioServiceTests.Entrada_Valida_ActualizaStockYValor` | `evidencias/CP-03/` |
 | **CP-04** | RF-03, RB-07 | Funcional | Tabla de Decisión (R5) | *Pendiente (v0.4.0)* | `InventarioServiceTests.Salida_Valida_CalculaCostoYDescuenta` | `evidencias/CP-04/` |
 | **CP-05** | RB-01, RNF-03 | Unitaria + Int. | Valores Límite | **✅ APROBADO (Unitaria)** | `ValidadorCantidadTests` | `evidencias/SI-012/Validacion_Cantidades.md` |
-| **CP-06** | RB-02, RNF-03 | Unitaria | Valores Límite | *Pendiente (v0.2.0)* | `ValidadorMovimientoTests.CostoEntrada_MenorOIgualACero_Rechaza` | `evidencias/CP-06/` |
+| **CP-06** | RB-02, RNF-03 | Unitaria | Valores Límite | **✅ APROBADO (Unitaria)** | `ValidadorCostoUnitarioTests` | `evidencias/SI-013/Validacion_Costo_Unitario.md` |
 | **CP-07** | RB-03, RNF-04 | Unitaria + Func. | Límite / Tabla (R4) | **✅ APROBADO (Unitaria)** | `ValidadorExistenciaTests` | `evidencias/SI-014/Green_Test.md` |
 | **CP-08** | RF-04, RB-07 | Unitaria + Func. | Escenario Obligatorio 6.3 | *Pendiente (v0.2.0)* | `CalculadoraPepsTests.Salida_EjercicioReferencia_Costo100` | `evidencias/CP-08/` |
 | **CP-09** | RF-04, RB-07 | Unitaria + Func. | Escenario Obligatorio 6.3 | *Pendiente (v0.2.0)* | `CalculadoraPromedioTests.Salida_EjercicioReferencia_Costo125` | `evidencias/CP-09/` |
@@ -63,7 +63,7 @@
 | **CP-14** | Todos | Regresión | Suite Completa | *Pendiente (v0.9.x)* | Re-ejecución total automatizada tras fixes | `evidencias/ciclos/` |
 | **CP-15** | RF-04 | Unitaria | Escenario E-02 | *Pendiente (v0.2.0)* | `CalculadoraPepsTests.Salida_Multicapa_ConsumeEnOrdenFIFO` | `evidencias/CP-15/` |
 | **CP-16** | RB-03 | Unitaria + Func. | Valores Límite | **✅ APROBADO (Unitaria)** | `ValidadorExistenciaTests` | `evidencias/SI-014/Green_Test.md` |
-| **CP-17** | RB-08, RB-09 | Unitaria | Escenario E-03 | *Pendiente (v0.2.0)* | `PoliticaRedondeoTests.RedondeoBancario_ResiduoAjustado` | `evidencias/CP-17/` |
+| **CP-17** | RB-08, RB-09 | Unitaria | Escenario E-03 | **✅ APROBADO (Unitaria)** | `PoliticaRedondeoTests` | `evidencias/SI-011/Green_Test.md` |
 | **CP-18** | RF-01, RB-10 | Funcional | Tabla de Decisión (R2) | *Pendiente (v0.3.0)* | `InventarioServiceTests.Movimiento_ProductoInactivo_Rechaza` | `evidencias/CP-18/` |
 | **CP-19** | RNF-01, RB-08 | Regresión / Int. | Auditoría de Esquema | **✅ APROBADO (C1)** | `Def001PrecisionProductoTests.Producto_Schema_DebeTenerPrecisionDecimalCorrecta` | `evidencias/DEF-001/` |
 
