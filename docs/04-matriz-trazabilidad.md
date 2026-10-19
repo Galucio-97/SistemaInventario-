@@ -37,7 +37,7 @@
 | CP-02 | Integración | Partición | | `evidencias/CP-02/` |
 | CP-03 | Funcional | Escenario | | `evidencias/CP-03/` |
 | CP-04 | Funcional | Tabla de decisión | | `evidencias/CP-04/` |
-| CP-05 | Unitaria + Integración | Valores límite | | `evidencias/CP-05/` |
+| CP-05 | Unitaria + Integración | Valores límite | `ValidadorCantidadTests` | `evidencias/SI-012/Validacion_Cantidades.md` |
 | CP-06 | Unitaria | Valores límite | | `evidencias/CP-06/` |
 | CP-07 | Funcional | Valores límite + Tabla | | `evidencias/CP-07/` |
 | CP-08 | Unitaria + Funcional | Escenario E-01 | | `evidencias/CP-08/` |

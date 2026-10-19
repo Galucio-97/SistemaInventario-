@@ -88,7 +88,7 @@ flowchart LR
 | SI-009 | Creación reproducible de la base de datos | v0.1.0 | A | D1 | 0.5 | Must | TERMINADO   |
 | SI-010 | Base de datos de pruebas aislada | v0.1.0 | A | D1 | 2 | Must | EN REVISION |
 | SI-011 | Política de redondeo bancario | v0.2.0 | B | D1 | 1 | Must | TERMINADO   |
-| SI-012 | Validación de cantidades | v0.2.0 | B | D1 | 1 | Must | Por hacer   |
+| SI-012 | Validación de cantidades | v0.2.0 | B | D1 | 1 | Must | TERMINADO  |
 | SI-013 | Validación de costo unitario | v0.2.0 | B | D1 | 0.5 | Must | Por hacer   |
 | SI-014 | Validación de existencia suficiente | v0.2.0 | B | D1 | 0.5 | Must | Por hacer   |
 | SI-015 | Promedio ponderado: entradas | v0.2.0 | B | D2 | 1 | Must | Por hacer   |
@@ -346,10 +346,10 @@ flowchart LR
 **Objetivo:** rechazar cantidades inválidas con mensajes comprensibles antes de tocar datos.
 
 **Criterios de aceptación:**
-- [ ] Se rechazan `-1`, `0` y `0.00001` (más de 4 decimales)
-- [ ] Se aceptan `0.0001` y `1`
-- [ ] Mensajes en español y comprensibles (ej. "La cantidad debe ser mayor que cero", "La cantidad admite máximo 4 decimales")
-- [ ] Aplica igual a entradas y salidas
+- [X] Se rechazan `-1`, `0` y `0.00001` (más de 4 decimales)
+- [X] Se aceptan `0.0001` y `1`
+- [X] Mensajes en español y comprensibles (ej. "La cantidad debe ser mayor que cero", "La cantidad no puede tener más de 4 decimales")
+- [X] Aplica igual a entradas y salidas
 
 **Trazabilidad:** RB-01 · RNF-03 · CP-05
 **Depende de:** SI-001 (D-01)

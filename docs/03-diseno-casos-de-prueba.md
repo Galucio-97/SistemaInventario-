@@ -140,7 +140,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Datos | Cantidades `-1`, `0`, `0.00001` en entrada y salida; control válido `0.0001` |
 | Pasos | 1. Intentar cada operación. 2. Comparar estado de BD antes/después |
 | Esperado | Rechazo con mensaje "La cantidad debe ser mayor que cero" (o "máximo 4 decimales"); conteo de movimientos, existencia y valores **idénticos** al estado previo. `0.0001` se acepta en la prueba unitaria del validador |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | Rechazo correcto con mensajes en español esperados para valores <= 0 y > 4 decimales; aceptación para valores válidos (0.0001, 1, 10.5, 100.1234) · **Aprobado (Unitaria)** · 18-oct-2026 · Dev B · `evidencias/SI-012/Validacion_Cantidades.md` |
 
 ### CP-06 — Rechazar costo de entrada negativo o cero
 | Campo | Valor |
