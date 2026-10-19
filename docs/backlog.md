@@ -90,7 +90,7 @@ flowchart LR
 | SI-011 | Política de redondeo bancario | v0.2.0 | B | D1 | 1 | Must | TERMINADO   |
 | SI-012 | Validación de cantidades | v0.2.0 | B | D1 | 1 | Must | TERMINADO  |
 | SI-013 | Validación de costo unitario | v0.2.0 | B | D1 | 0.5 | Must | TERMINADO   |
-| SI-014 | Validación de existencia suficiente | v0.2.0 | B | D1 | 0.5 | Must | Por hacer   |
+| SI-014 | Validación de existencia suficiente | v0.2.0 | B | D1 | 0.5 | Must | EN REVISION |
 | SI-015 | Promedio ponderado: entradas | v0.2.0 | B | D2 | 1 | Must | Por hacer   |
 | SI-016 | Promedio ponderado: salidas y ajuste por residuo | v0.2.0 | B | D2 | 1.5 | Must | Por hacer   |
 | SI-017 | PEPS: creación de capas y salida de una capa | v0.2.0 | A | D2 | 1.5 | Must | Por hacer   |
@@ -379,12 +379,12 @@ flowchart LR
 **Objetivo:** impedir salidas mayores a lo disponible.
 
 **Criterios de aceptación:**
-- [ ] Con existencia 15: se aceptan `14.9999` y `15`; se rechaza `15.0001`
-- [ ] El mensaje indica la existencia disponible ("Existencia insuficiente: disponible 15")
+- [X] Con existencia 15: se aceptan `14.9999` y `15`; se rechaza `15.0001`
+- [X] El mensaje indica la existencia disponible ("Existencia insuficiente: disponible 15")
 
 **Trazabilidad:** RB-03 · RNF-03 · CP-07, CP-16
 **Depende de:** SI-012
-**Evidencia:** salida de las pruebas
+**Evidencia:** `docs/evidencias/SI-014/` (Red_Test.md y Green_Test.md)
 
 ---
 

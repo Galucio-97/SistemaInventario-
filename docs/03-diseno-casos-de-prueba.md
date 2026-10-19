@@ -159,7 +159,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Precondiciones | Estado final de E-01 (existencia 15) |
 | Datos | Cantidad `15.0001` y `16` |
 | Esperado | Rechazo "Existencia insuficiente: disponible 15"; existencia 15, valores 400.00 / 375.00, capas y número de movimientos sin cambios |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | Rechazo validado con mensaje "Existencia insuficiente: disponible 15." ante 15.0001 y 20; aceptación en 14.9999 y 15.0000 · **Aprobado (Unitaria)** · 18-oct-2026 · Dev B · `evidencias/SI-014/Green_Test.md` |
 
 ### CP-08 — Costeo de salida por PEPS (ejercicio de referencia)
 | Campo | Valor |
@@ -239,7 +239,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Precondiciones | Estado final de E-01 (existencia 15) |
 | Datos | Cantidad 15 |
 | Esperado | Aceptada; existencia 0; valor 0.00 en ambos métodos; costo PEPS 400.00; costo Prom 375.00 |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | Aceptación validada para salida exacta de 15 con existencia 15 en ValidadorExistencia · **Aprobado (Unitaria)** · 18-oct-2026 · Dev B · `evidencias/SI-014/Green_Test.md` |
 
 ### CP-17 — Redondeo bancario y ajuste por residuo
 | Campo | Valor |
