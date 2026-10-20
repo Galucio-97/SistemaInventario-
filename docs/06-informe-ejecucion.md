@@ -57,7 +57,7 @@
 | **CP-08** | RF-04, RB-07 | Unitaria + Func. | Escenario Obligatorio 6.3 | *Pendiente (v0.2.0)* | `CalculadoraPepsTests.Salida_EjercicioReferencia_Costo100` | `evidencias/CP-08/` |
 | **CP-09** | RF-04, RB-07 | Unitaria + Func. | Escenario Obligatorio 6.3 | **✅ APROBADO (Unitaria - Entradas)** | `CalculadoraPromedioPonderadoTests` | `evidencias/SI-015/Promedio_Ponderado_Entradas.md` |
 | **CP-10** | RF-04, RF-05 | Funcional | Escenario Obligatorio 6.3 | *Pendiente (v0.5.0)* | `ConsultaInventarioTests.CambioMetodo_RecalculaSinAlterarHistorial` | `evidencias/CP-10/` |
-| **CP-11** | RF-01, RF-05 | Funcional | Tabla de Decisión (R1) | *Pendiente (v0.3.0)* | `ProductoServiceTests.Consultar_Inexistente_InformaNoExiste` | `evidencias/CP-11/` |
+| **CP-11** | RF-01, RF-05, RB-04 | Funcional / Integración | Tabla de Decisión (R1) | **✅ APROBADO** | `ProductoServiceIntegrationTests` | `evidencias/SI-021/Consulta_Listado_Productos.md` |
 | **CP-12** | RNF-02, RB-05 | Integración | Basada en Escenarios | *Pendiente (v0.4.0)* | `PersistenciaTests.ReinicioAplicacion_ConservaDatos` | `evidencias/CP-12/` |
 | **CP-13** | RNF-04, RB-06 | Integración | Inyección de Fallos | *Pendiente (v0.4.0)* | `TransaccionRollbackTests.FalloOperacion_HaceRollbackCompleto` | `evidencias/CP-13/` |
 | **CP-14** | Todos | Regresión | Suite Completa | *Pendiente (v0.9.x)* | Re-ejecución total automatizada tras fixes | `evidencias/ciclos/` |

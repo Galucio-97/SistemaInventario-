@@ -43,7 +43,7 @@
 | CP-08 | Unitaria + Funcional | Escenario E-01 | | `evidencias/CP-08/` |
 | CP-09 | Unitaria + Funcional | Escenario E-01 | `CalculadoraPromedioPonderadoTests` | `evidencias/SI-015/Promedio_Ponderado_Entradas.md` |
 | CP-10 | Funcional | Escenario E-01 | | `evidencias/CP-10/` |
-| CP-11 | Funcional | Tabla de decisión | | `evidencias/CP-11/` |
+| CP-11 | Funcional / Integración | Tabla de decisión | `ProductoServiceIntegrationTests` | `evidencias/SI-021/Consulta_Listado_Productos.md` |
 | CP-12 | Integración + manual | Escenario | | `evidencias/CP-12/` |
 | CP-13 | Integración | Escenario | | `evidencias/CP-13/` |
 | CP-14 | Regresión | — | Suite completa | `evidencias/ciclos/` |

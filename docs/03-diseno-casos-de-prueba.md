@@ -193,7 +193,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Técnica / Nivel | Tabla R1 / Funcional |
 | Datos | Id `99999` / código `NO-EXISTE`; además intentar entrada sobre él |
 | Esperado | Mensaje "El producto no existe"; `COUNT(*)` de movimientos sin cambios |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | Mensaje "El producto no existe" por Id y Código; conteos inalterados / **PASÓ** / `docs/evidencias/SI-021/Consulta_Listado_Productos.md` |
 
 ### CP-12 — Persistencia tras reinicio
 | Campo | Valor |
