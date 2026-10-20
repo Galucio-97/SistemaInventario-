@@ -8,9 +8,9 @@
 
 * **Estado General:** Fase 0 (Foundation / `v0.0.1`) completada y en `main`. Fase 1 (Datos y Esquema / `v0.1.0`) completada al 100% (tickets SI-006 a SI-010).
 * **Tag de Línea Base (`main`):** `v0.0.1` (Commit `1ae5a48706c177c2d0169d7ed3da1c030f436a48`).
-* **Rama de Trabajo Actual:** `feat/SI-014-validacion-existencia-suficiente` (Validación de existencia suficiente RB-03).
+* **Rama de Trabajo Actual:** `feat/SI-021-Consultar-Listar-Productos` (RF-01 Registro de productos y unicidad).
 * **Defectos Críticos/Altos Detectados y Gestionados:** 1 defecto real (`DEF-001`, severidad Alta, corregido y verificado con prueba de regresión).
-* **Infraestructura de Pruebas:** Automatización xUnit con 30 pruebas en verde (7 integración, 1 regresión, 22 unitarias/teorías) ejecutando en local y CI.
+* **Infraestructura de Pruebas:** Automatización xUnit con 67 pruebas en verde (17 integración, 1 regresión, 49 unitarias/teorías) ejecutando en local y CI.
 
 ---
 
@@ -33,13 +33,13 @@
 |---|:---:|:---:|:---:|
 | **Fecha de Corte** | 17-oct-2026 | 18-oct-2026 | *Programado (Día 6)* |
 | **Casos Diseñados Totales** | 19 casos | 19 casos | 19 casos |
-| **Casos Ejecutados** | 2 casos preliminares (`CP-19` y base) | 9 casos ejecutados (`CP-01`, `CP-02`, `CP-05`, `CP-06`, `CP-07`, `CP-09`, `CP-16`, `CP-17`, `CP-19`) | — |
-| **Casos Aprobados (Pass)** | 2 | 9 | — |
+| **Casos Ejecutados** | 2 casos preliminares (`CP-19` y base) | 10 casos ejecutados (`CP-01`, `CP-02`, `CP-05`, `CP-06`, `CP-07`, `CP-09`, `CP-11`, `CP-16`, `CP-17`, `CP-19`) | — |
+| **Casos Aprobados (Pass)** | 2 | 10 | — |
 | **Casos Fallidos (Fail)** | 0 (post-fix DEF-001) | 0 | — |
-| **Casos Bloqueados / Pendientes** | 17 pendientes de implementación | 10 pendientes de servicios/UI | — |
+| **Casos Bloqueados / Pendientes** | 17 pendientes de implementación | 9 pendientes de servicios/UI | — |
 | **Defectos Detectados Totales** | 1 (`DEF-001`) | 1 (`DEF-001`) | — |
 | **Defectos Corregidos y Verificados** | 1 (`DEF-001`) | 1 (`DEF-001`) | — |
-| **Pruebas Automatizadas en Verde** | 100% de las suites activas | 60 pruebas en verde (100% de la suite) | — |
+| **Pruebas Automatizadas en Verde** | 100% de las suites activas | 67 pruebas en verde (100% de la suite) | — |
 
 ---
 
@@ -57,7 +57,7 @@
 | **CP-08** | RF-04, RB-07 | Unitaria + Func. | Escenario Obligatorio 6.3 | *Pendiente (v0.2.0)* | `CalculadoraPepsTests.Salida_EjercicioReferencia_Costo100` | `evidencias/CP-08/` |
 | **CP-09** | RF-04, RB-07 | Unitaria + Func. | Escenario Obligatorio 6.3 | **✅ APROBADO (Unitaria - Entradas)** | `CalculadoraPromedioPonderadoTests` | `evidencias/SI-015/Promedio_Ponderado_Entradas.md` |
 | **CP-10** | RF-04, RF-05 | Funcional | Escenario Obligatorio 6.3 | *Pendiente (v0.5.0)* | `ConsultaInventarioTests.CambioMetodo_RecalculaSinAlterarHistorial` | `evidencias/CP-10/` |
-| **CP-11** | RF-01, RF-05 | Funcional | Tabla de Decisión (R1) | *Pendiente (v0.3.0)* | `ProductoServiceTests.Consultar_Inexistente_InformaNoExiste` | `evidencias/CP-11/` |
+| **CP-11** | RF-01, RF-05, RB-04 | Funcional / Integración | Tabla de Decisión (R1) | **✅ APROBADO (Integración)** | `ProductoServiceIntegrationTests` | `evidencias/SI-021/Consulta_Listado_Productos.md` |
 | **CP-12** | RNF-02, RB-05 | Integración | Basada en Escenarios | *Pendiente (v0.4.0)* | `PersistenciaTests.ReinicioAplicacion_ConservaDatos` | `evidencias/CP-12/` |
 | **CP-13** | RNF-04, RB-06 | Integración | Inyección de Fallos | *Pendiente (v0.4.0)* | `TransaccionRollbackTests.FalloOperacion_HaceRollbackCompleto` | `evidencias/CP-13/` |
 | **CP-14** | Todos | Regresión | Suite Completa | *Pendiente (v0.9.x)* | Re-ejecución total automatizada tras fixes | `evidencias/ciclos/` |
