@@ -58,11 +58,11 @@ flowchart TD
 | **SI-012** | Validación de cantidades | v0.2.0 | Dev B | 1.0 h | **2 SP** | ✅ **Completado**: Rechazo de ≤0 y verificación de límite de 4 decimales (`ValidadorCantidad`). |
 | **SI-013** | Validación de costo unitario | v0.2.0 | Dev B | 0.5 h | **1 SP** | ✅ **Completado**: Rechazo de costos negativos, cero o > 4 decimales (`ValidadorCostoUnitario`). |
 | **SI-014** | Validación de existencia suficiente | v0.2.0 | Dev B | 0.5 h | **1 SP** | ✅ **Completado**: Comparación estricta cantidad salida vs existencia física (`ValidadorExistencia`). |
-| **SI-015** | Promedio ponderado: entradas | v0.2.0 | Dev B | 1.0 h | **2 SP** | Fórmula del costo promedio móvil, prevención de división por cero. |
-| **SI-016** | Promedio ponderado: salidas y residuo | v0.2.0 | Dev B | 1.5 h | **3 SP** | Salida a costo vigente y ajuste de residuo bancario en existencia 0. |
+| **SI-015** | Promedio ponderado: entradas | v0.2.0 | Dev B | 1.0 h | **2 SP** | ✅ **Completado**: Fórmula de promedio ponderado para entradas con redondeo bancario (`CalculadoraPromedioPonderado.CalcularEntrada`). |
+| **SI-016** | Promedio ponderado: salidas y residuo | v0.2.0 | Dev B | 1.5 h | **3 SP** | ✅ **Completado**: Salidas a costo vigente, agotamiento de stock y ajuste por residuo D-03 (`CalculadoraPromedioPonderado.CalcularSalida`). |
 | **SI-017** | PEPS: creación y consumo simple | v0.2.0 | Dev A | 1.5 h | **3 SP** | Lógica FIFO para lote único y cálculo de saldo remanente. |
 | **SI-018** | PEPS: salida multicapa y agotamiento | v0.2.0 | Dev A | 2.0 h | **5 SP** | Algoritmo de consumo iterativo sobre múltiples capas y orden FIFO. |
-| **SI-020** | Registrar producto | v0.3.0 | Dev B | 2.0 h | **3 SP** | Servicio de negocio + validación duplicados + prueba de persistencia. |
+| **SI-020** | Registrar producto | v0.3.0 | Dev B | 2.0 h | **3 SP** | ✅ **Completado**: Servicio de negocio, validaciones de dominio y persistencia real con índice único (`ProductoService`, `ValidadorProducto`). |
 | **SI-021** | Consultar y listar productos | v0.3.0 | Dev B | 1.0 h | **2 SP** | Manejo de producto inexistente, filtros de estado. |
 | **SI-022** | Modificar producto y cambiar estado | v0.3.0 | Dev B | 1.5 h | **2 SP** | Modificación de metadatos, preservación de clave e historial. |
 | **SI-023** | UI administración de productos | v0.3.0 | Dev B | 3.0 h | **5 SP** | Formularios Razor, validaciones cliente/servidor, alertas visuales. |

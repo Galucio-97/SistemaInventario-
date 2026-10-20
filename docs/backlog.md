@@ -86,16 +86,16 @@ flowchart LR
 | SI-007 | Modelo de datos de movimientos | v0.1.0 | A | D1 | 1.5 | Must | TERMINADO   |
 | SI-008 | Modelo de datos de capas PEPS | v0.1.0 | A | D1 | 1 | Must | TERMINADO   |
 | SI-009 | Creación reproducible de la base de datos | v0.1.0 | A | D1 | 0.5 | Must | TERMINADO   |
-| SI-010 | Base de datos de pruebas aislada | v0.1.0 | A | D1 | 2 | Must | EN REVISION |
+| SI-010 | Base de datos de pruebas aislada | v0.1.0 | A | D1 | 2 | Must | TERMINADO   |
 | SI-011 | Política de redondeo bancario | v0.2.0 | B | D1 | 1 | Must | TERMINADO   |
 | SI-012 | Validación de cantidades | v0.2.0 | B | D1 | 1 | Must | TERMINADO  |
 | SI-013 | Validación de costo unitario | v0.2.0 | B | D1 | 0.5 | Must | TERMINADO   |
-| SI-014 | Validación de existencia suficiente | v0.2.0 | B | D1 | 0.5 | Must | EN REVISION |
+| SI-014 | Validación de existencia suficiente | v0.2.0 | B | D1 | 0.5 | Must | TERMINADO   |
 | SI-015 | Promedio ponderado: entradas | v0.2.0 | B | D2 | 1 | Must | TERMINADO   |
-| SI-016 | Promedio ponderado: salidas y ajuste por residuo | v0.2.0 | B | D2 | 1.5 | Must | Por hacer   |
+| SI-016 | Promedio ponderado: salidas y ajuste por residuo | v0.2.0 | B | D2 | 1.5 | Must | TERMINADO   |
 | SI-017 | PEPS: creación de capas y salida de una capa | v0.2.0 | A | D2 | 1.5 | Must | Por hacer   |
 | SI-018 | PEPS: salida multicapa y agotamiento | v0.2.0 | A | D2 | 2 | Must | Por hacer   |
-| SI-020 | Registrar producto | v0.3.0 | B | D3 | 2 | Must | Por hacer   |
+| SI-020 | Registrar producto | v0.3.0 | B | D3 | 2 | Must | TERMINADO   |
 | SI-021 | Consultar y listar productos | v0.3.0 | B | D3 | 1 | Must | Por hacer   |
 | SI-022 | Modificar producto y cambiar su estado | v0.3.0 | B | D3 | 1.5 | Must | Por hacer   |
 | SI-023 | Interfaz de administración de productos | v0.3.0 | B | D4 | 3 | Must | Por hacer   |
@@ -412,16 +412,16 @@ flowchart LR
 **Objetivo:** costear salidas con el promedio vigente sin alterarlo, y garantizar que existencia 0 implique valor 0.
 
 **Criterios de aceptación:**
-- [ ] El costo de salida es `cantidad × promedio vigente`, redondeado como importe
-- [ ] La salida **no** modifica el promedio de las unidades restantes
-- [ ] E-01: S1 → costo `125.00`, saldo `375.00`, promedio sigue en `25.0000`
-- [ ] E-02: S1 → `52.86` / `21.14`; S2 → `21.14` / `0.00`
-- [ ] E-03: S1 → `10.00` (bancario); S2 → `50.03` por ajuste D-03; saldo final `0.00`
-- [ ] Con existencia 0 el valor es siempre `0.00`
+- [X] El costo de salida es `cantidad × promedio vigente`, redondeado como importe
+- [X] La salida **no** modifica el promedio de las unidades restantes
+- [X] E-01: S1 → costo `125.00`, saldo `375.00`, promedio sigue en `25.0000`
+- [X] E-02: S1 → `52.86` / `21.14`; S2 → `21.14` / `0.00`
+- [X] E-03: S1 → `10.00` (bancario); S2 → `50.03` por ajuste D-03; saldo final `0.00`
+- [X] Con existencia 0 el valor es siempre `0.00`
 
 **Trazabilidad:** RF-04 · RB-07, RB-09 · RNF-01 · CP-09, CP-17
 **Depende de:** SI-015, SI-001 (D-03)
-**Evidencia:** salida de las pruebas
+**Evidencia:** `docs/evidencias/SI-016/Promedio_Ponderado_Salidas.md` (Green_Test.md y Red_Test.md)
 
 ---
 
@@ -469,16 +469,16 @@ flowchart LR
 **Objetivo:** dar de alta productos válidos y rechazar los inválidos o duplicados.
 
 **Criterios de aceptación:**
-- [ ] Se exigen código, nombre y unidad de medida, sin vacíos ni espacios en blanco; la descripción es opcional
-- [ ] Se respetan las longitudes máximas con mensaje claro si se exceden
-- [ ] El producto nuevo queda activo, con existencia 0 y valores en 0.00
-- [ ] Un código duplicado se rechaza con "Ya existe un producto con el código X" (la validación vive en la aplicación **y** en la BD)
-- [ ] **Integración:** tras registrar, un contexto nuevo lee el producto con los datos exactos (CP-01)
-- [ ] **Integración:** el intento duplicado deja exactamente 1 fila con ese código (CP-02)
+- [X] Se exigen código, nombre y unidad de medida, sin vacíos ni espacios en blanco; la descripción es opcional
+- [X] Se respetan las longitudes máximas con mensaje claro si se exceden
+- [X] El producto nuevo queda activo, con existencia 0 y valores en 0.00
+- [X] Un código duplicado se rechaza con "Ya existe un producto con el código X" (la validación vive en la aplicación **y** en la BD)
+- [X] **Integración:** tras registrar, un contexto nuevo lee el producto con los datos exactos (CP-01)
+- [X] **Integración:** el intento duplicado deja exactamente 1 fila con ese código (CP-02)
 
 **Trazabilidad:** RF-01 · RNF-02, RNF-03 · CP-01, CP-02
 **Depende de:** SI-010
-**Evidencia:** consulta SQL de la tabla de productos tras cada prueba
+**Evidencia:** `docs/evidencias/SI-020/Registro_Productos.md` (Green_Test.md y Red_Test.md)
 
 ---
 

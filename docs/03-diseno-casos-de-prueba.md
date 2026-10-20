@@ -95,7 +95,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Pasos | 1. Registrar el producto. 2. Consultar la tabla `Productos` con un `DbContext` nuevo |
 | Esperado | 1 fila con los datos exactos, `Activo = 1`, existencia `0`, valores `0.00` |
 | Verificación BD | `SELECT * FROM Productos WHERE Codigo = 'P-001'` |
-| Obtenido / Estado / Evidencia | Persistencia y lectura íntegra en SQL Server real verificada mediante prueba de humo con contextos desacoplados · **Aprobado (Humo)** · 18-oct-2026 · Dev A · `evidencias/SI-010/BD_Pruebas_Aisladas.md` |
+| Obtenido / Estado / Evidencia | Persistencia y lectura íntegra en SQL Server real verificada mediante servicio y prueba de humo con contextos desacoplados; valores por defecto correctos (Activo=true, existencia=0, saldos=0.00) · **Aprobado (Integración)** · 20-oct-2026 · Dev B · `evidencias/SI-020/Registro_Productos.md` |
 
 ### CP-02 — Rechazar producto con clave duplicada
 | Campo | Valor |
@@ -107,7 +107,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Pasos | 1. Intentar registrar vía servicio. 2. Intentar insertar directo vía `DbContext` (valida índice único) 3. Contar filas |
 | Esperado | Mensaje "Ya existe un producto con el código P-001"; el índice único lanza excepción; sigue habiendo **1** fila con ese código |
 | Verificación BD | `SELECT COUNT(*) FROM Productos WHERE Codigo = 'P-001'` → 1 |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | Rechazo en aplicación con mensaje "Ya existe un producto con el código P-001" conservando 1 sola fila en BD; inserción directa rechazada por índice único relacional (DbUpdateException); validación de obligatoriedad y longitudes máximas validada al 100% · **Aprobado (Integración)** · 20-oct-2026 · Dev B · `evidencias/SI-020/Registro_Productos.md` |
 
 ### CP-03 — Registrar una entrada válida
 | Campo | Valor |
@@ -247,7 +247,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Requisito | RB-08, RB-09, RNF-01 |
 | Técnica / Nivel | Escenario E-03 / Unitaria |
 | Esperado | Prom S1 = **10.00** (no 10.01) · Prom S2 = **50.03** (ajuste D-03) · saldo final **0.00** con existencia 0 |
-| Obtenido / Estado / Evidencia | Redondeo bancario (ToEven) a 2 y 4 decimales validado al 100% en función pura · **Aprobado (Unitaria - Redondeo)** · 18-oct-2026 · Dev B · `evidencias/SI-011/Green_Test.md` (ajuste por residuo D-03 pendiente en SI-016) |
+| Obtenido / Estado / Evidencia | Redondeo bancario (ToEven) a 2 y 4 decimales validado; ajuste por residuo D-03 verificado al 100% en salida S2 (costo 50.03 y saldo 0.00 con existencia 0) · **Aprobado (Unitaria)** · 18-oct-2026 · Dev B · `evidencias/SI-016/Promedio_Ponderado_Salidas.md` |
 
 ### CP-18 — Movimiento sobre producto inactivo
 | Campo | Valor |

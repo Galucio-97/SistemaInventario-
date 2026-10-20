@@ -33,8 +33,8 @@
 
 | CP | Nivel | Técnica | Prueba automatizada | Evidencia |
 |---|---|---|---|---|
-| CP-01 | Integración | Partición / Humo | `SmokeDatabaseTests.InsertarYLeerProducto_ConContextosNuevos_PersisteEnBaseDeDatosReal` | `evidencias/SI-010/BD_Pruebas_Aisladas.md` |
-| CP-02 | Integración | Partición | | `evidencias/CP-02/` |
+| CP-01 | Integración | Partición / Humo | `SmokeDatabaseTests`, `ProductoServiceIntegrationTests` | `evidencias/SI-020/Registro_Productos.md` |
+| CP-02 | Integración | Partición | `ProductoServiceIntegrationTests`, `ValidadorProductoTests` | `evidencias/SI-020/Registro_Productos.md` |
 | CP-03 | Funcional | Escenario | | `evidencias/CP-03/` |
 | CP-04 | Funcional | Tabla de decisión | | `evidencias/CP-04/` |
 | CP-05 | Unitaria + Integración | Valores límite | `ValidadorCantidadTests` | `evidencias/SI-012/Validacion_Cantidades.md` |
@@ -49,7 +49,7 @@
 | CP-14 | Regresión | — | Suite completa | `evidencias/ciclos/` |
 | CP-15 | Unitaria | Escenario E-02 | | `evidencias/CP-15/` |
 | CP-16 | Unitaria + Funcional | Valores límite | `ValidadorExistenciaTests` | `evidencias/SI-014/Green_Test.md` |
-| CP-17 | Unitaria | Escenario E-03 | `PoliticaRedondeoTests` | `evidencias/SI-011/Green_Test.md` |
+| CP-17 | Unitaria | Escenario E-03 | `PoliticaRedondeoTests`, `CalculadoraPromedioPonderadoTests` | `evidencias/SI-016/Promedio_Ponderado_Salidas.md` |
 | CP-18 | Funcional | Tabla de decisión | | `evidencias/CP-18/` |
 | CP-19 | Integración / Regresión | Escenario / Auditoría | `Producto_Schema_DebeTenerPrecisionDecimalCorrecta` | `evidencias/DEF-001/` |
 
@@ -59,6 +59,8 @@
 |---|---|---|
 | `PoliticaRedondeo` | Redondeo bancario de costos unitarios e importes | CP-17 |
 | `ValidadorCantidad`, `ValidadorCostoUnitario` | RB-01, RB-02, RB-03 | CP-05, CP-06, CP-07 |
+| `ValidadorExistencia` | RB-03 (salida <= existencia disponible) | CP-07, CP-16 |
+| `ValidadorProducto` | RF-01, RNF-03 (código, nombre, unidad obligatorios y límites de longitud) | CP-02 |
 | `ValidadorExistencia` | RB-03 (salida <= existencia disponible) | CP-07, CP-16 |
 | `ValidadorMovimiento` | RB-01, RB-02, RB-03 | CP-05, CP-06, CP-07 |
 | `CalculadoraPeps` | Creación y consumo de capas | CP-08, CP-15 |
