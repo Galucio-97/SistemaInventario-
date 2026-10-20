@@ -1,4 +1,4 @@
-# 03 · Diseño de Casos de Prueba
+﻿# 03 · Diseño de Casos de Prueba
 
 > Los **resultados esperados** de este documento se calcularon **a mano, antes de programar**, aplicando la política de `02-requisitos-y-decisiones.md §5` (redondeo bancario). El campo *Resultado obtenido* se llena **solo al ejecutar**.
 

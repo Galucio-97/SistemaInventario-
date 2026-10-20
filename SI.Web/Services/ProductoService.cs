@@ -17,7 +17,36 @@ public class ProductoService(InventarioDbContext context)
         string? descripcion = null,
         CancellationToken cancellationToken = default)
     {
-        // Stub inicial para fase RED
-        return await Task.FromResult(new ResultadoOperacion(false, "No implementado"));
+        var validacion = ValidadorProducto.Validar(codigo, nombre, unidadMedida, descripcion);
+        if (!validacion.EsValido)
+        {
+            return new ResultadoOperacion(false, validacion.MensajeError);
+        }
+
+        var existe = await context.Productos
+            .AnyAsync(p => p.Codigo == codigo, cancellationToken);
+
+        if (existe)
+        {
+            return new ResultadoOperacion(false, $"Ya existe un producto con el código {codigo}");
+        }
+
+        var producto = new Producto
+        {
+            Codigo = codigo.Trim(),
+            Nombre = nombre.Trim(),
+            UnidadMedida = unidadMedida.Trim(),
+            Descripcion = string.IsNullOrWhiteSpace(descripcion) ? null : descripcion.Trim(),
+            Activo = true,
+            ExistenciaActual = 0m,
+            CostoPromedioActual = 0m,
+            ValorInventarioPeps = 0m,
+            ValorInventarioPromedio = 0m
+        };
+
+        context.Productos.Add(producto);
+        await context.SaveChangesAsync(cancellationToken);
+
+        return new ResultadoOperacion(true, EntidadId: producto.Id);
     }
 }

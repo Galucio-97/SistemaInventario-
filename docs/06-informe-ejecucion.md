@@ -48,7 +48,7 @@
 | ID | Requisito | Nivel | Técnica de Diseño | Estado Actual | Prueba Automatizada Asociada | Evidencia Documentada |
 |:---|:---|:---:|:---:|:---:|:---|:---|
 | **CP-01** | RF-01, RNF-02 | Integración | Partición / Humo | **✅ APROBADO (Humo)** | `SmokeDatabaseTests.InsertarYLeerProducto_ConContextosNuevos_PersisteEnBaseDeDatosReal` | `evidencias/SI-010/BD_Pruebas_Aisladas.md` |
-| **CP-02** | RF-01, RNF-03 | Integración | Partición (Inválida) | *Pendiente (v0.3.0)* | `ProductoServiceTests.Registrar_ClaveDuplicada_Rechaza` | `evidencias/CP-02/` |
+| **CP-02** | RF-01, RNF-03 | Integración | Partición (Inválida) | **✅ APROBADO (Integración)** | `ProductoServiceIntegrationTests`, `ValidadorProductoTests` | `evidencias/SI-020/Registro_Productos.md` |
 | **CP-03** | RF-02, RB-04 | Funcional | Basada en Escenarios | *Pendiente (v0.4.0)* | `InventarioServiceTests.Entrada_Valida_ActualizaStockYValor` | `evidencias/CP-03/` |
 | **CP-04** | RF-03, RB-07 | Funcional | Tabla de Decisión (R5) | *Pendiente (v0.4.0)* | `InventarioServiceTests.Salida_Valida_CalculaCostoYDescuenta` | `evidencias/CP-04/` |
 | **CP-05** | RB-01, RNF-03 | Unitaria + Int. | Valores Límite | **✅ APROBADO (Unitaria)** | `ValidadorCantidadTests` | `evidencias/SI-012/Validacion_Cantidades.md` |
