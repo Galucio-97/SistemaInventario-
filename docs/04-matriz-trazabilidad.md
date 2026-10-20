@@ -33,7 +33,7 @@
 
 | CP | Nivel | Técnica | Prueba automatizada | Evidencia |
 |---|---|---|---|---|
-| CP-01 | Integración | Partición / Humo | `SmokeDatabaseTests.InsertarYLeerProducto_ConContextosNuevos_PersisteEnBaseDeDatosReal` | `evidencias/SI-010/BD_Pruebas_Aisladas.md` |
+| CP-01 | Integración | Partición / Humo | `SmokeDatabaseTests`, `ProductoServiceIntegrationTests` | `evidencias/SI-020/Registro_Productos.md` |
 | CP-02 | Integración | Partición | `ProductoServiceIntegrationTests`, `ValidadorProductoTests` | `evidencias/SI-020/Registro_Productos.md` |
 | CP-03 | Funcional | Escenario | | `evidencias/CP-03/` |
 | CP-04 | Funcional | Tabla de decisión | | `evidencias/CP-04/` |
@@ -63,5 +63,6 @@
 | `ValidadorMovimiento` | RB-01, RB-02, RB-03 | CP-05, CP-06, CP-07 |
 | `CalculadoraPeps` | Creación y consumo de capas | CP-08, CP-15 |
 | `CalculadoraPromedioPonderado` | Promedio móvil y costo de salida | CP-09, CP-17 |
-| `ProductoService` | RF-01 | CP-01, CP-02, CP-11 |
+| `ValidadorProducto` | RF-01, RNF-03 (código, nombre, unidad obligatorios y límites de longitud) | CP-02 |
+| `ProductoService` | RF-01 (registro, unicidad, persistencia) | CP-01, CP-02, CP-11 |
 | `InventarioService` | RF-02, RF-03, RF-05 con transacción | CP-03, CP-04, CP-13 |

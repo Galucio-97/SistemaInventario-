@@ -1,4 +1,4 @@
-﻿# 🗂️ Backlog del Proyecto — v0.0.1 → v1.0.0
+# 🗂️ Backlog del Proyecto — v0.0.1 → v1.0.0
 
 **Proyecto:** Sistema de Inventarios con PEPS y Costo Promedio Ponderado móvil
 **Equipo:** Dev A (Núcleo) · Dev B (Producto y QA) · **Ventana:** sáb 17 → vie 23 de octubre de 2026
@@ -478,7 +478,7 @@ flowchart LR
 
 **Trazabilidad:** RF-01 · RNF-02, RNF-03 · CP-01, CP-02
 **Depende de:** SI-010
-**Evidencia:** consulta SQL de la tabla de productos tras cada prueba
+**Evidencia:** `docs/evidencias/SI-020/Registro_Productos.md` (Green_Test.md y Red_Test.md)
 
 ---
 
