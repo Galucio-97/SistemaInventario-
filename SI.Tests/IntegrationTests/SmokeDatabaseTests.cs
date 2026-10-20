@@ -3,7 +3,8 @@ using SI.Web.Data.Entities;
 
 namespace SI.Tests.IntegrationTests;
 
-public class  SmokeDatabaseTests(TestDbContextFixture fixture) : IClassFixture<TestDbContextFixture>
+[Collection("Database")]
+public class SmokeDatabaseTests(TestDbContextFixture fixture)
 {
     [Fact]
     [Trait("Nivel", "Integracion")]
