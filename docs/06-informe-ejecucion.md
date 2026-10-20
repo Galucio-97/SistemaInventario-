@@ -8,9 +8,9 @@
 
 * **Estado General:** Fase 0 (Foundation / `v0.0.1`) completada y en `main`. Fase 1 (Datos y Esquema / `v0.1.0`) completada al 100% (tickets SI-006 a SI-010).
 * **Tag de Línea Base (`main`):** `v0.0.1` (Commit `1ae5a48706c177c2d0169d7ed3da1c030f436a48`).
-* **Rama de Trabajo Actual:** `feat/SI-014-validacion-existencia-suficiente` (Validación de existencia suficiente RB-03).
+* **Rama de Trabajo Actual:** `feat/SI-020-Registrar-Producto` (RF-01 Registro de productos y unicidad).
 * **Defectos Críticos/Altos Detectados y Gestionados:** 1 defecto real (`DEF-001`, severidad Alta, corregido y verificado con prueba de regresión).
-* **Infraestructura de Pruebas:** Automatización xUnit con 30 pruebas en verde (7 integración, 1 regresión, 22 unitarias/teorías) ejecutando en local y CI.
+* **Infraestructura de Pruebas:** Automatización xUnit con 60 pruebas en verde (10 integración, 1 regresión, 49 unitarias/teorías) ejecutando en local y CI.
 
 ---
 
