@@ -9,11 +9,13 @@ namespace SI.Web.Services;
 /// <param name="SaldoValorRestante">Saldo patrimonial restante del inventario tras la salida.</param>
 /// <param name="ExistenciaRestante">Existencia física total disponible restante.</param>
 /// <param name="CapasResultantes">Lista de capas con sus cantidades disponibles actualizadas.</param>
+/// <param name="CostoUnitarioEquivalente">Costo unitario equivalente ponderado de la salida (CostoTotal / Cantidad) a 4 decimales.</param>
 public record ResultadoSalidaPeps(
     decimal CostoTotalSalida,
     decimal SaldoValorRestante,
     decimal ExistenciaRestante,
-    IReadOnlyList<CapasPeps> CapasResultantes
+    IReadOnlyList<CapasPeps> CapasResultantes,
+    decimal CostoUnitarioEquivalente = 0m
 );
 
 /// <summary>
