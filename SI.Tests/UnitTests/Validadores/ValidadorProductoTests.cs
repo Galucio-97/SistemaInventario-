@@ -123,6 +123,8 @@ public class ValidadorProductoTests
     [Fact]
     [Trait("RF", "RF-01")]
     [Trait("Nivel", "Unitaria")]
+    
+    
     public void ValidarModificacion_CuandoDatosSonValidos_DebeAceptar()
     {
         var resultado = ValidadorProducto.ValidarModificacion("Tornillo 1/2", "caja", "Nueva descripcion");

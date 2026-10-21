@@ -116,8 +116,32 @@ public class ProductoService(InventarioDbContext context)
         bool? activo = null,
         CancellationToken cancellationToken = default)
     {
-        // Stub inicial para fase RED
-        return await Task.FromResult(new ResultadoOperacion(false, "No implementado"));
+        var validacion = ValidadorProducto.ValidarModificacion(nombre, unidadMedida, descripcion);
+        if (!validacion.EsValido)
+        {
+            return new ResultadoOperacion(false, validacion.MensajeError);
+        }
+
+        var producto = await context.Productos
+            .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
+
+        if (producto is null)
+        {
+            return new ResultadoOperacion(false, MensajeProductoNoExiste);
+        }
+
+        producto.Nombre = nombre.Trim();
+        producto.UnidadMedida = unidadMedida.Trim();
+        producto.Descripcion = string.IsNullOrWhiteSpace(descripcion) ? null : descripcion.Trim();
+
+        if (activo.HasValue)
+        {
+            producto.Activo = activo.Value;
+        }
+
+        await context.SaveChangesAsync(cancellationToken);
+
+        return new ResultadoOperacion(true, EntidadId: producto.Id);
     }
 
     /// <summary>
@@ -128,7 +152,17 @@ public class ProductoService(InventarioDbContext context)
         bool activo,
         CancellationToken cancellationToken = default)
     {
-        // Stub inicial para fase RED
-        return await Task.FromResult(new ResultadoOperacion(false, "No implementado"));
+        var producto = await context.Productos
+            .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
+
+        if (producto is null)
+        {
+            return new ResultadoOperacion(false, MensajeProductoNoExiste);
+        }
+
+        producto.Activo = activo;
+        await context.SaveChangesAsync(cancellationToken);
+
+        return new ResultadoOperacion(true, EntidadId: producto.Id);
     }
 }

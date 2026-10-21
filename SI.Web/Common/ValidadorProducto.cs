@@ -62,7 +62,31 @@ public static class ValidadorProducto
 
     public static ResultadoValidacion ValidarModificacion(string? nombre, string? unidadMedida, string? descripcion = null)
     {
-        // Stub inicial para fase RED
-        return new ResultadoValidacion(false, "No implementado");
+        if (string.IsNullOrWhiteSpace(nombre))
+        {
+            return new ResultadoValidacion(false, MensajeNombreObligatorio);
+        }
+
+        if (nombre.Length > MaxLongitudNombre)
+        {
+            return new ResultadoValidacion(false, MensajeNombreLargo);
+        }
+
+        if (string.IsNullOrWhiteSpace(unidadMedida))
+        {
+            return new ResultadoValidacion(false, MensajeUnidadObligatoria);
+        }
+
+        if (unidadMedida.Length > MaxLongitudUnidad)
+        {
+            return new ResultadoValidacion(false, MensajeUnidadLarga);
+        }
+
+        if (!string.IsNullOrEmpty(descripcion) && descripcion.Length > MaxLongitudDescripcion)
+        {
+            return new ResultadoValidacion(false, MensajeDescripcionLarga);
+        }
+
+        return ResultadoValido;
     }
 }
