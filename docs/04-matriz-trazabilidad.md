@@ -33,7 +33,7 @@
 
 | CP | Nivel | Técnica | Prueba automatizada | Evidencia |
 |---|---|---|---|---|
-| CP-01 | Integración | Partición | | `evidencias/CP-01/` |
+| CP-01 | Integración | Partición / Humo | `SmokeDatabaseTests.InsertarYLeerProducto_ConContextosNuevos_PersisteEnBaseDeDatosReal` | `evidencias/SI-010/BD_Pruebas_Aisladas.md` |
 | CP-02 | Integración | Partición | | `evidencias/CP-02/` |
 | CP-03 | Funcional | Escenario | | `evidencias/CP-03/` |
 | CP-04 | Funcional | Tabla de decisión | | `evidencias/CP-04/` |
@@ -51,7 +51,7 @@
 | CP-16 | Funcional | Valores límite | | `evidencias/CP-16/` |
 | CP-17 | Unitaria | Escenario E-03 | | `evidencias/CP-17/` |
 | CP-18 | Funcional | Tabla de decisión | | `evidencias/CP-18/` |
-| CP-19 | Integración | Escenario | | `evidencias/CP-19/` |
+| CP-19 | Integración / Regresión | Escenario / Auditoría | `Producto_Schema_DebeTenerPrecisionDecimalCorrecta` | `evidencias/DEF-001/` |
 
 ## 3. RNF-05 · Componentes y responsabilidades (completar al cierre)
 
