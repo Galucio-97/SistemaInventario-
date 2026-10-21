@@ -37,19 +37,19 @@
 | CP-02 | Integración | Partición | | `evidencias/CP-02/` |
 | CP-03 | Funcional | Escenario | | `evidencias/CP-03/` |
 | CP-04 | Funcional | Tabla de decisión | | `evidencias/CP-04/` |
-| CP-05 | Unitaria + Integración | Valores límite | | `evidencias/CP-05/` |
-| CP-06 | Unitaria | Valores límite | | `evidencias/CP-06/` |
-| CP-07 | Funcional | Valores límite + Tabla | | `evidencias/CP-07/` |
-| CP-08 | Unitaria + Funcional | Escenario E-01 | | `evidencias/CP-08/` |
-| CP-09 | Unitaria + Funcional | Escenario E-01 | | `evidencias/CP-09/` |
+| CP-05 | Unitaria + Integración | Valores límite | `ValidadorCantidadTests` | `evidencias/SI-012/Validacion_Cantidades.md` |
+| CP-06 | Unitaria | Valores límite | `ValidadorCostoUnitarioTests` | `evidencias/SI-013/Validacion_Costo_Unitario.md` |
+| CP-07 | Unitaria + Funcional | Valores límite + Tabla | `ValidadorExistenciaTests` | `evidencias/SI-014/Green_Test.md` |
+| CP-08 | Unitaria + Funcional | Escenario E-01 | `CalculadoraPepsTests` | `evidencias/SI-017/Green_Test.md` |
+| CP-09 | Unitaria + Funcional | Escenario E-01 | `CalculadoraPromedioPonderadoTests` | `evidencias/SI-016/Promedio_Ponderado_Salidas.md` |
 | CP-10 | Funcional | Escenario E-01 | | `evidencias/CP-10/` |
 | CP-11 | Funcional | Tabla de decisión | | `evidencias/CP-11/` |
 | CP-12 | Integración + manual | Escenario | | `evidencias/CP-12/` |
 | CP-13 | Integración | Escenario | | `evidencias/CP-13/` |
 | CP-14 | Regresión | — | Suite completa | `evidencias/ciclos/` |
-| CP-15 | Unitaria | Escenario E-02 | | `evidencias/CP-15/` |
-| CP-16 | Funcional | Valores límite | | `evidencias/CP-16/` |
-| CP-17 | Unitaria | Escenario E-03 | | `evidencias/CP-17/` |
+| CP-15 | Unitaria | Escenario E-02 | `CalculadoraPepsTests` | `evidencias/SI-018/Green_Test.md` |
+| CP-16 | Unitaria + Funcional | Valores límite | `ValidadorExistenciaTests`, `CalculadoraPepsTests` | `evidencias/SI-014/Green_Test.md`, `evidencias/SI-018/Green_Test.md` |
+| CP-17 | Unitaria | Escenario E-03 | `PoliticaRedondeoTests`, `CalculadoraPromedioPonderadoTests`, `CalculadoraPepsTests` | `evidencias/SI-016/Promedio_Ponderado_Salidas.md`, `evidencias/SI-018/Green_Test.md` |
 | CP-18 | Funcional | Tabla de decisión | | `evidencias/CP-18/` |
 | CP-19 | Integración / Regresión | Escenario / Auditoría | `Producto_Schema_DebeTenerPrecisionDecimalCorrecta` | `evidencias/DEF-001/` |
 
@@ -58,6 +58,8 @@
 | Componente | Responsabilidad | Probado por |
 |---|---|---|
 | `PoliticaRedondeo` | Redondeo bancario de costos unitarios e importes | CP-17 |
+| `ValidadorCantidad`, `ValidadorCostoUnitario` | RB-01, RB-02, RB-03 | CP-05, CP-06, CP-07 |
+| `ValidadorExistencia` | RB-03 (salida <= existencia disponible) | CP-07, CP-16 |
 | `ValidadorMovimiento` | RB-01, RB-02, RB-03 | CP-05, CP-06, CP-07 |
 | `CalculadoraPeps` | Creación y consumo de capas | CP-08, CP-15 |
 | `CalculadoraPromedioPonderado` | Promedio móvil y costo de salida | CP-09, CP-17 |
