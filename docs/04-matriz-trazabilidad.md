@@ -33,8 +33,8 @@
 
 | CP | Nivel | Técnica | Prueba automatizada | Evidencia |
 |---|---|---|---|---|
-| CP-01 | Integración | Partición / Humo | `SmokeDatabaseTests.InsertarYLeerProducto_ConContextosNuevos_PersisteEnBaseDeDatosReal` | `evidencias/SI-010/BD_Pruebas_Aisladas.md` |
-| CP-02 | Integración | Partición | | `evidencias/CP-02/` |
+| CP-01 | Integración | Partición / Humo | `SmokeDatabaseTests`, `ProductoServiceIntegrationTests` | `evidencias/SI-020/Registro_Productos.md` |
+| CP-02 | Integración | Partición | `ProductoServiceIntegrationTests`, `ValidadorProductoTests` | `evidencias/SI-020/Registro_Productos.md` |
 | CP-03 | Funcional | Escenario | | `evidencias/CP-03/` |
 | CP-04 | Funcional | Tabla de decisión | | `evidencias/CP-04/` |
 | CP-05 | Unitaria + Integración | Valores límite | `ValidadorCantidadTests` | `evidencias/SI-012/Validacion_Cantidades.md` |
@@ -43,7 +43,7 @@
 | CP-08 | Unitaria + Funcional | Escenario E-01 | `CalculadoraPepsTests` | `evidencias/SI-017/Green_Test.md` |
 | CP-09 | Unitaria + Funcional | Escenario E-01 | `CalculadoraPromedioPonderadoTests` | `evidencias/SI-016/Promedio_Ponderado_Salidas.md` |
 | CP-10 | Funcional | Escenario E-01 | | `evidencias/CP-10/` |
-| CP-11 | Funcional | Tabla de decisión | | `evidencias/CP-11/` |
+| CP-11 | Funcional / Integración | Tabla de decisión | `ProductoServiceIntegrationTests` | `evidencias/SI-021/Consulta_Listado_Productos.md` |
 | CP-12 | Integración + manual | Escenario | | `evidencias/CP-12/` |
 | CP-13 | Integración | Escenario | | `evidencias/CP-13/` |
 | CP-14 | Regresión | — | Suite completa | `evidencias/ciclos/` |
@@ -63,5 +63,6 @@
 | `ValidadorMovimiento` | RB-01, RB-02, RB-03 | CP-05, CP-06, CP-07 |
 | `CalculadoraPeps` | Creación y consumo de capas | CP-08, CP-15 |
 | `CalculadoraPromedioPonderado` | Promedio móvil y costo de salida | CP-09, CP-17 |
-| `ProductoService` | RF-01, RB-10 (alta, consulta, modificación, estado) | CP-01, CP-02, CP-11, base CP-18 |
+| `ValidadorProducto` | RF-01, RNF-03 (código, nombre, unidad obligatorios, longitudes y validación en modificación) | CP-02, base CP-18 |
+| `ProductoService` | RF-01, RF-05, RB-10 (alta, consulta, modificación, estado) | CP-01, CP-02, CP-11, base CP-18 |
 | `InventarioService` | RF-02, RF-03, RF-05 con transacción | CP-03, CP-04, CP-13 |

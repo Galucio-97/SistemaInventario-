@@ -62,9 +62,9 @@ flowchart TD
 | **SI-016** | Promedio ponderado: salidas y residuo | v0.2.0 | Dev B | 1.5 h | **3 SP** | ✅ **Completado**: Salidas a costo vigente, agotamiento de stock y ajuste por residuo D-03 (`CalculadoraPromedioPonderado.CalcularSalida`). |
 | **SI-017** | PEPS: creación y consumo simple | v0.2.0 | Dev A | 1.5 h | **3 SP** | ✅ **Completado**: Lógica FIFO para lote único, cálculo de saldo remanente y valor total (`CalculadoraPeps`). |
 | **SI-018** | PEPS: salida multicapa y agotamiento | v0.2.0 | Dev A | 2.0 h | **5 SP** | ✅ **Completado**: Consumo multicapa en orden FIFO, agotamiento D-03 y costo unitario equivalente (`CalculadoraPeps.CalcularSalida`). |
-| **SI-020** | Registrar producto | v0.3.0 | Dev B | 2.0 h | **3 SP** | Servicio de negocio + validación duplicados + prueba de persistencia. |
-| **SI-021** | Consultar y listar productos | v0.3.0 | Dev B | 1.0 h | **2 SP** | Manejo de producto inexistente, filtros de estado. |
-| **SI-022** | Modificar producto y cambiar estado | v0.3.0 | Dev B | 1.5 h | **2 SP** | Modificación de metadatos, preservación de clave e historial. |
+| **SI-020** | Registrar producto | v0.3.0 | Dev B | 2.0 h | **3 SP** | ✅ **Completado**: Servicio de negocio, validaciones de dominio y persistencia real con índice único (`ProductoService`, `ValidadorProducto`). |
+| **SI-021** | Consultar y listar productos | v0.3.0 | Dev B | 1.0 h | **2 SP** | ✅ **Completado**: Consulta por ID/Código, manejo de inexistencia sin excepción visible, listado completo con estado y verificación de idempotencia (`ProductoService`). |
+| **SI-022** | Modificar producto y cambiar estado | v0.3.0 | Dev B | 1.5 h | **2 SP** | ✅ **Completado**: Modificación de datos descriptivos, inmutabilidad de clave e historial, validaciones de dominio y activación/desactivación (`ProductoService`, `ValidadorProducto`). |
 | **SI-023** | UI administración de productos | v0.3.0 | Dev B | 3.0 h | **5 SP** | Formularios Razor, validaciones cliente/servidor, alertas visuales. |
 | **SI-024** | Registrar entrada con transacción | v0.4.0 | Dev A | 3.0 h | **5 SP** | Coordinación atómica: Producto + Movimiento + Capa + Commit EF. |
 | **SI-025** | Registrar salida con transacción | v0.4.0 | Dev A | 3.0 h | **5 SP** | Coordinación atómica: Consumo PEPS + Promedio + Actualización stock. |
