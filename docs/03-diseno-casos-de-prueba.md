@@ -95,7 +95,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Pasos | 1. Registrar el producto. 2. Consultar la tabla `Productos` con un `DbContext` nuevo |
 | Esperado | 1 fila con los datos exactos, `Activo = 1`, existencia `0`, valores `0.00` |
 | Verificación BD | `SELECT * FROM Productos WHERE Codigo = 'P-001'` |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | Persistencia y lectura íntegra en SQL Server real verificada mediante prueba de humo con contextos desacoplados · **Aprobado (Humo)** · 18-oct-2026 · Dev A · `evidencias/SI-010/BD_Pruebas_Aisladas.md` |
 
 ### CP-02 — Rechazar producto con clave duplicada
 | Campo | Valor |
@@ -140,7 +140,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Datos | Cantidades `-1`, `0`, `0.00001` en entrada y salida; control válido `0.0001` |
 | Pasos | 1. Intentar cada operación. 2. Comparar estado de BD antes/después |
 | Esperado | Rechazo con mensaje "La cantidad debe ser mayor que cero" (o "máximo 4 decimales"); conteo de movimientos, existencia y valores **idénticos** al estado previo. `0.0001` se acepta en la prueba unitaria del validador |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | Rechazo correcto con mensajes en español esperados para valores <= 0 y > 4 decimales; aceptación para valores válidos (0.0001, 1, 10.5, 100.1234) · **Aprobado (Unitaria)** · 18-oct-2026 · Dev B · `evidencias/SI-012/Validacion_Cantidades.md` |
 
 ### CP-06 — Rechazar costo de entrada negativo o cero
 | Campo | Valor |
@@ -149,7 +149,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Técnica / Nivel | Valores límite / Unitaria |
 | Datos | Costos `-0.01`, `0`; controles válidos `0.0001`, `0.01` |
 | Esperado | Rechazo con mensaje "El costo unitario debe ser mayor que cero"; sin cambios en BD |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | Rechazo correcto con mensajes en español esperados para valores <= 0 y > 4 decimales; aceptación para valores válidos (0.0001, 0.01, 20.00, 100.1234) · **Aprobado (Unitaria)** · 18-oct-2026 · Dev B · `evidencias/SI-013/Validacion_Costo_Unitario.md` |
 
 ### CP-07 — Rechazar salida mayor a la existencia
 | Campo | Valor |
@@ -159,7 +159,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Precondiciones | Estado final de E-01 (existencia 15) |
 | Datos | Cantidad `15.0001` y `16` |
 | Esperado | Rechazo "Existencia insuficiente: disponible 15"; existencia 15, valores 400.00 / 375.00, capas y número de movimientos sin cambios |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | Rechazo validado con mensaje "Existencia insuficiente: disponible 15." ante 15.0001 y 20; aceptación en 14.9999 y 15.0000 · **Aprobado (Unitaria)** · 18-oct-2026 · Dev B · `evidencias/SI-014/Green_Test.md` |
 
 ### CP-08 — Costeo de salida por PEPS (ejercicio de referencia)
 | Campo | Valor |
@@ -167,7 +167,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Requisito | RF-04, RB-07 |
 | Técnica / Nivel | Escenario E-01 / Unitaria + Funcional |
 | Esperado | Costo salida **100.00** · valor restante **400.00** · capas `[5 @ 20, 10 @ 30]` |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | Escenario E-01 (S1) validado: salida de 5 unidades consume exclusivamente de la primera capa (10 @ 20.00), resultando en costo salida 100.00, saldo restante 400.00 y capas resultantes [5 @ 20.00, 10 @ 30.00]; creación de capas y valuación patrimonial verificadas · **Aprobado (Unitaria)** · 20-oct-2026 · Dev A · `evidencias/SI-017/Green_Test.md` |
 
 ### CP-09 — Costeo de salida por Promedio (ejercicio de referencia)
 | Campo | Valor |
@@ -175,7 +175,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Requisito | RF-04, RB-07 |
 | Técnica / Nivel | Escenario E-01 / Unitaria + Funcional |
 | Esperado | Promedio vigente **25.0000** · costo salida **125.00** · valor restante **375.00** · promedio tras salida 25.0000 |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | Escenario E-01 completo verificado: promedio vigente 25.0000, costo salida 125.00, saldo restante 375.00; salidas con agotamiento y residuo D-03 probadas con éxito · **Aprobado (Unitaria)** · 18-oct-2026 · Dev B · `evidencias/SI-016/Promedio_Ponderado_Salidas.md` |
 
 ### CP-10 — Cambiar de método de costeo
 | Campo | Valor |
@@ -229,7 +229,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Requisito | RF-04 |
 | Técnica / Nivel | Escenario E-02 / Unitaria |
 | Esperado | S1 = **52.00** (capa 1 agotada, capa 2 con 2 disponibles) · Prom S1 = **52.86** · saldo final 0.00 en ambos |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | S1 = 52.00, S2 = 22.00, saldo final 0.00 verificado · **Aprobado (Unitaria)** · 20-oct-2026 · Dev A · `evidencias/SI-018/Green_Test.md` |
 
 ### CP-16 — Salida igual a la existencia exacta
 | Campo | Valor |
@@ -239,7 +239,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Precondiciones | Estado final de E-01 (existencia 15) |
 | Datos | Cantidad 15 |
 | Esperado | Aceptada; existencia 0; valor 0.00 en ambos métodos; costo PEPS 400.00; costo Prom 375.00 |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | Aceptación validada en ValidadorExistencia; valuación completa PEPS (costo 400.00 y saldo 0.00) verificada en CalculadoraPeps · **Aprobado (Unitaria)** · 20-oct-2026 · Dev A · `evidencias/SI-018/Green_Test.md` |
 
 ### CP-17 — Redondeo bancario y ajuste por residuo
 | Campo | Valor |
@@ -247,7 +247,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Requisito | RB-08, RB-09, RNF-01 |
 | Técnica / Nivel | Escenario E-03 / Unitaria |
 | Esperado | Prom S1 = **10.00** (no 10.01) · Prom S2 = **50.03** (ajuste D-03) · saldo final **0.00** con existencia 0 |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | Redondeo bancario (ToEven) a 2 y 4 decimales validado; ajuste por residuo D-03 verificado al 100% en Promedio (costo 50.03 y saldo 0.00) y en PEPS E-03 (S1=10.00, S2=50.03 y saldo final 0.00) · **Aprobado (Unitaria)** · 20-oct-2026 · Dev A · `evidencias/SI-018/Green_Test.md` |
 
 ### CP-18 — Movimiento sobre producto inactivo
 | Campo | Valor |

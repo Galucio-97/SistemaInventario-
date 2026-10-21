@@ -86,15 +86,15 @@ flowchart LR
 | SI-007 | Modelo de datos de movimientos | v0.1.0 | A | D1 | 1.5 | Must | TERMINADO   |
 | SI-008 | Modelo de datos de capas PEPS | v0.1.0 | A | D1 | 1 | Must | TERMINADO   |
 | SI-009 | Creación reproducible de la base de datos | v0.1.0 | A | D1 | 0.5 | Must | TERMINADO   |
-| SI-010 | Base de datos de pruebas aislada | v0.1.0 | A | D1 | 2 | Must | EN REVISION |
-| SI-011 | Política de redondeo bancario | v0.2.0 | B | D1 | 1 | Must | Por hacer   |
-| SI-012 | Validación de cantidades | v0.2.0 | B | D1 | 1 | Must | Por hacer   |
-| SI-013 | Validación de costo unitario | v0.2.0 | B | D1 | 0.5 | Must | Por hacer   |
-| SI-014 | Validación de existencia suficiente | v0.2.0 | B | D1 | 0.5 | Must | Por hacer   |
-| SI-015 | Promedio ponderado: entradas | v0.2.0 | B | D2 | 1 | Must | Por hacer   |
-| SI-016 | Promedio ponderado: salidas y ajuste por residuo | v0.2.0 | B | D2 | 1.5 | Must | Por hacer   |
-| SI-017 | PEPS: creación de capas y salida de una capa | v0.2.0 | A | D2 | 1.5 | Must | Por hacer   |
-| SI-018 | PEPS: salida multicapa y agotamiento | v0.2.0 | A | D2 | 2 | Must | Por hacer   |
+| SI-010 | Base de datos de pruebas aislada | v0.1.0 | A | D1 | 2 | Must | TERMINADO   |
+| SI-011 | Política de redondeo bancario | v0.2.0 | B | D1 | 1 | Must | TERMINADO   |
+| SI-012 | Validación de cantidades | v0.2.0 | B | D1 | 1 | Must | TERMINADO  |
+| SI-013 | Validación de costo unitario | v0.2.0 | B | D1 | 0.5 | Must | TERMINADO   |
+| SI-014 | Validación de existencia suficiente | v0.2.0 | B | D1 | 0.5 | Must | TERMINADO   |
+| SI-015 | Promedio ponderado: entradas | v0.2.0 | B | D2 | 1 | Must | TERMINADO   |
+| SI-016 | Promedio ponderado: salidas y ajuste por residuo | v0.2.0 | B | D2 | 1.5 | Must | TERMINADO   |
+| SI-017 | PEPS: creación de capas y salida de una capa | v0.2.0 | A | D2 | 1.5 | Must | TERMINADO   |
+| SI-018 | PEPS: salida multicapa y agotamiento | v0.2.0 | A | D2 | 2 | Must | TERMINADO   |
 | SI-020 | Registrar producto | v0.3.0 | B | D3 | 2 | Must | Por hacer   |
 | SI-021 | Consultar y listar productos | v0.3.0 | B | D3 | 1 | Must | Por hacer   |
 | SI-022 | Modificar producto y cambiar su estado | v0.3.0 | B | D3 | 1.5 | Must | Por hacer   |
@@ -329,10 +329,10 @@ flowchart LR
 **Objetivo:** un único punto que aplique la política de redondeo (§5 de `02`) para que sea uniforme en todo el sistema (RB-09).
 
 **Criterios de aceptación:**
-- [ ] Hay redondeo de costo unitario a 4 decimales y de importe a 2, ambos bancarios (`ToEven` explícito)
-- [ ] Pruebas parametrizadas con la tabla 5.1: `10.005 → 10.00`, `10.015 → 10.02`, `10.0051 → 10.01`, `50.025 → 50.02`
-- [ ] Pruebas a 4 decimales: `10.00005 → 10.0000`, `10.00015 → 10.0002`
-- [ ] Ningún otro componente redondea por su cuenta (se revisa en el PR)
+- [X] Hay redondeo de costo unitario a 4 decimales y de importe a 2, ambos bancarios (`ToEven` explícito)
+- [X] Pruebas parametrizadas con la tabla 5.1: `10.005 → 10.00`, `10.015 → 10.02`, `10.0051 → 10.01`, `50.025 → 50.02`
+- [X] Pruebas a 4 decimales: `10.00005 → 10.0000`, `10.00015 → 10.0002`
+- [X] Ningún otro componente redondea por su cuenta (se revisa en el PR)
 
 **Trazabilidad:** RB-08, RB-09 · CP-17
 **Depende de:** SI-004
@@ -346,10 +346,10 @@ flowchart LR
 **Objetivo:** rechazar cantidades inválidas con mensajes comprensibles antes de tocar datos.
 
 **Criterios de aceptación:**
-- [ ] Se rechazan `-1`, `0` y `0.00001` (más de 4 decimales)
-- [ ] Se aceptan `0.0001` y `1`
-- [ ] Mensajes en español y comprensibles (ej. "La cantidad debe ser mayor que cero", "La cantidad admite máximo 4 decimales")
-- [ ] Aplica igual a entradas y salidas
+- [X] Se rechazan `-1`, `0` y `0.00001` (más de 4 decimales)
+- [X] Se aceptan `0.0001` y `1`
+- [X] Mensajes en español y comprensibles (ej. "La cantidad debe ser mayor que cero", "La cantidad no puede tener más de 4 decimales")
+- [X] Aplica igual a entradas y salidas
 
 **Trazabilidad:** RB-01 · RNF-03 · CP-05
 **Depende de:** SI-001 (D-01)
@@ -363,13 +363,13 @@ flowchart LR
 **Objetivo:** impedir entradas con costo negativo, cero o con precisión no soportada.
 
 **Criterios de aceptación:**
-- [ ] Se rechazan `-0.01`, `0` y valores con más de 4 decimales
-- [ ] Se aceptan `0.0001` y `0.01`
-- [ ] Mensaje comprensible ("El costo unitario debe ser mayor que cero")
+- [X] Se rechazan `-0.01`, `0` y valores con más de 4 decimales
+- [X] Se aceptan `0.0001` y `0.01`
+- [X] Mensaje comprensible ("El costo unitario debe ser mayor que cero")
 
 **Trazabilidad:** RB-02 · RNF-03 · CP-06
 **Depende de:** SI-001 (D-01)
-**Evidencia:** salida de las pruebas
+**Evidencia:** `docs/evidencias/SI-013/Validacion_Costo_Unitario.md` (Green_Test.md y Red_Test.md)
 
 ---
 
@@ -379,12 +379,12 @@ flowchart LR
 **Objetivo:** impedir salidas mayores a lo disponible.
 
 **Criterios de aceptación:**
-- [ ] Con existencia 15: se aceptan `14.9999` y `15`; se rechaza `15.0001`
-- [ ] El mensaje indica la existencia disponible ("Existencia insuficiente: disponible 15")
+- [X] Con existencia 15: se aceptan `14.9999` y `15`; se rechaza `15.0001`
+- [X] El mensaje indica la existencia disponible ("Existencia insuficiente: disponible 15")
 
 **Trazabilidad:** RB-03 · RNF-03 · CP-07, CP-16
 **Depende de:** SI-012
-**Evidencia:** salida de las pruebas
+**Evidencia:** `docs/evidencias/SI-014/` (Red_Test.md y Green_Test.md)
 
 ---
 
@@ -394,15 +394,15 @@ flowchart LR
 **Objetivo:** recalcular el costo promedio móvil en cada entrada con la fórmula del enunciado.
 
 **Criterios de aceptación:**
-- [ ] El promedio es `(valor anterior + valor de entrada) / (cantidad anterior + cantidad de entrada)`, redondeado según la política
-- [ ] E-01: tras E1 → `20.0000` y saldo `200.00`; tras E2 → `25.0000` y saldo `500.00`
-- [ ] E-02: tras E2 → `10.5714` y saldo `74.00`
-- [ ] E-03: tras E2 → `10.0050` y saldo `60.03`
-- [ ] La primera entrada sobre existencia 0 no divide entre cero
+- [X] El promedio es `(valor anterior + valor de entrada) / (cantidad anterior + cantidad de entrada)`, redondeado según la política
+- [X] E-01: tras E1 → `20.0000` y saldo `200.00`; tras E2 → `25.0000` y saldo `500.00`
+- [X] E-02: tras E2 → `10.5714` y saldo `74.00`
+- [X] E-03: tras E2 → `10.0050` y saldo `60.03`
+- [X] La primera entrada sobre existencia 0 no divide entre cero
 
 **Trazabilidad:** RF-04 · CP-09
 **Depende de:** SI-011
-**Evidencia:** salida de las pruebas
+**Evidencia:** `docs/evidencias/SI-015/Promedio_Ponderado_Entradas.md` (Green_Test.md y Red_Test.md)
 
 ---
 
@@ -412,16 +412,16 @@ flowchart LR
 **Objetivo:** costear salidas con el promedio vigente sin alterarlo, y garantizar que existencia 0 implique valor 0.
 
 **Criterios de aceptación:**
-- [ ] El costo de salida es `cantidad × promedio vigente`, redondeado como importe
-- [ ] La salida **no** modifica el promedio de las unidades restantes
-- [ ] E-01: S1 → costo `125.00`, saldo `375.00`, promedio sigue en `25.0000`
-- [ ] E-02: S1 → `52.86` / `21.14`; S2 → `21.14` / `0.00`
-- [ ] E-03: S1 → `10.00` (bancario); S2 → `50.03` por ajuste D-03; saldo final `0.00`
-- [ ] Con existencia 0 el valor es siempre `0.00`
+- [X] El costo de salida es `cantidad × promedio vigente`, redondeado como importe
+- [X] La salida **no** modifica el promedio de las unidades restantes
+- [X] E-01: S1 → costo `125.00`, saldo `375.00`, promedio sigue en `25.0000`
+- [X] E-02: S1 → `52.86` / `21.14`; S2 → `21.14` / `0.00`
+- [X] E-03: S1 → `10.00` (bancario); S2 → `50.03` por ajuste D-03; saldo final `0.00`
+- [X] Con existencia 0 el valor es siempre `0.00`
 
 **Trazabilidad:** RF-04 · RB-07, RB-09 · RNF-01 · CP-09, CP-17
 **Depende de:** SI-015, SI-001 (D-03)
-**Evidencia:** salida de las pruebas
+**Evidencia:** `docs/evidencias/SI-016/Promedio_Ponderado_Salidas.md` (Green_Test.md y Red_Test.md)
 
 ---
 
@@ -431,14 +431,14 @@ flowchart LR
 **Objetivo:** costear salidas con el costo de las unidades más antiguas.
 
 **Criterios de aceptación:**
-- [ ] Cada entrada crea una capa con su cantidad y su costo
-- [ ] Una salida que cabe en la capa más antigua consume solo de ella
-- [ ] E-01: S1 → costo `100.00`, saldo `400.00`, capas resultantes `[5 @ 20.00, 10 @ 30.00]`
-- [ ] El valor del inventario es la suma de `cantidad disponible × costo` de las capas, redondeada como importe
+- [X] Cada entrada crea una capa con su cantidad y su costo
+- [X] Una salida que cabe en la capa más antigua consume solo de ella
+- [X] E-01: S1 → costo `100.00`, saldo `400.00`, capas resultantes `[5 @ 20.00, 10 @ 30.00]`
+- [X] El valor del inventario es la suma de `cantidad disponible × costo` de las capas, redondeada como importe
 
 **Trazabilidad:** RF-04 · RB-07 · CP-08
 **Depende de:** SI-011
-**Evidencia:** salida de las pruebas
+**Evidencia:** `docs/evidencias/SI-017/Green_Test.md`
 
 ---
 
@@ -448,16 +448,16 @@ flowchart LR
 **Objetivo:** cubrir salidas que abarcan varias capas, en orden de antigüedad, hasta completar la cantidad.
 
 **Criterios de aceptación:**
-- [ ] E-02: S1 → costo `52.00` (3 × 10.00 + 2 × 11.00), saldo `22.00`; S2 → `22.00`, saldo `0.00`
-- [ ] E-03: S1 → `10.00`; S2 → `50.03`; saldo `0.00`
-- [ ] Salida igual a toda la existencia (E-01, 15 unidades) → costo `400.00`, saldo `0.00`
-- [ ] Una capa agotada no vuelve a consumirse
-- [ ] Con capas de la misma fecha, se respeta el orden de registro
-- [ ] Hay un costo unitario equivalente de la salida (`costo total / cantidad`, 4 decimales) para mostrar en el historial
+- [X] E-02: S1 → costo `52.00` (3 × 10.00 + 2 × 11.00), saldo `22.00`; S2 → `22.00`, saldo `0.00`
+- [X] E-03: S1 → `10.00`; S2 → `50.03`; saldo `0.00`
+- [X] Salida igual a toda la existencia (E-01, 15 unidades) → costo `400.00`, saldo `0.00`
+- [X] Una capa agotada no vuelve a consumirse
+- [X] Con capas de la misma fecha, se respeta el orden de registro
+- [X] Hay un costo unitario equivalente de la salida (`costo total / cantidad`, 4 decimales) para mostrar en el historial
 
 **Trazabilidad:** RF-04 · RB-07 · CP-15, CP-16, CP-17
 **Depende de:** SI-017
-**Evidencia:** salida de las pruebas
+**Evidencia:** `docs/evidencias/SI-018/Green_Test.md`
 
 ---
 
