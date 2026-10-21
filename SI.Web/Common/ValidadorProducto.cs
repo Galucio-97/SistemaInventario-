@@ -59,4 +59,10 @@ public static class ValidadorProducto
 
         return ResultadoValido;
     }
+
+    public static ResultadoValidacion ValidarModificacion(string? nombre, string? unidadMedida, string? descripcion = null)
+    {
+        // Stub inicial para fase RED
+        return new ResultadoValidacion(false, "No implementado");
+    }
 }

@@ -6,7 +6,7 @@ using SI.Web.Data.Entities;
 namespace SI.Web.Services;
 
 /// <summary>
-/// Servicio de dominio para administración de productos (RF-01, RF-05, SI-020, SI-021).
+/// Servicio de dominio para administración de productos (RF-01, RF-05, RB-10, SI-020, SI-021, SI-022).
 /// </summary>
 public class ProductoService(InventarioDbContext context)
 {
@@ -102,5 +102,33 @@ public class ProductoService(InventarioDbContext context)
             .AsNoTracking()
             .OrderBy(p => p.Codigo)
             .ToListAsync(cancellationToken);
+    }
+
+    /// <summary>
+    /// Modifica los datos descriptivos y el estado de un producto existente (RF-01, RB-10, SI-022).
+    /// El código del producto no se modifica. No altera existencias, costos ni movimientos.
+    /// </summary>
+    public async Task<ResultadoOperacion> ModificarAsync(
+        int id,
+        string nombre,
+        string unidadMedida,
+        string? descripcion = null,
+        bool? activo = null,
+        CancellationToken cancellationToken = default)
+    {
+        // Stub inicial para fase RED
+        return await Task.FromResult(new ResultadoOperacion(false, "No implementado"));
+    }
+
+    /// <summary>
+    /// Cambia el estado de activación (Activo/Inactivo) de un producto (RF-01, RB-10, SI-022).
+    /// </summary>
+    public async Task<ResultadoOperacion> CambiarEstadoAsync(
+        int id,
+        bool activo,
+        CancellationToken cancellationToken = default)
+    {
+        // Stub inicial para fase RED
+        return await Task.FromResult(new ResultadoOperacion(false, "No implementado"));
     }
 }
