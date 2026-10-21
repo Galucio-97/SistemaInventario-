@@ -167,7 +167,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Requisito | RF-04, RB-07 |
 | Técnica / Nivel | Escenario E-01 / Unitaria + Funcional |
 | Esperado | Costo salida **100.00** · valor restante **400.00** · capas `[5 @ 20, 10 @ 30]` |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | Escenario E-01 (S1) validado: salida de 5 unidades consume exclusivamente de la primera capa (10 @ 20.00), resultando en costo salida 100.00, saldo restante 400.00 y capas resultantes [5 @ 20.00, 10 @ 30.00]; creación de capas y valuación patrimonial verificadas · **Aprobado (Unitaria)** · 20-oct-2026 · Dev A · `evidencias/SI-017/Green_Test.md` |
 
 ### CP-09 — Costeo de salida por Promedio (ejercicio de referencia)
 | Campo | Valor |
