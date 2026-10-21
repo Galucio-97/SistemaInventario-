@@ -175,7 +175,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Requisito | RF-04, RB-07 |
 | Técnica / Nivel | Escenario E-01 / Unitaria + Funcional |
 | Esperado | Promedio vigente **25.0000** · costo salida **125.00** · valor restante **375.00** · promedio tras salida 25.0000 |
-| Obtenido / Estado / Evidencia | Entradas E1 (promedio 20.0000, saldo 200.00) y E2 (promedio 25.0000, saldo 500.00) calculadas correctamente con redondeo bancario; validado con E-02 (10.5714), E-03 (10.0050) y caso borde cero · **Aprobado parcial (Unitaria - Entradas SI-015)** · 18-oct-2026 · Dev B · `evidencias/SI-015/Promedio_Ponderado_Entradas.md` |
+| Obtenido / Estado / Evidencia | Escenario E-01 completo verificado: promedio vigente 25.0000, costo salida 125.00, saldo restante 375.00; salidas con agotamiento y residuo D-03 probadas con éxito · **Aprobado (Unitaria)** · 18-oct-2026 · Dev B · `evidencias/SI-016/Promedio_Ponderado_Salidas.md` |
 
 ### CP-10 — Cambiar de método de costeo
 | Campo | Valor |
@@ -247,7 +247,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Requisito | RB-08, RB-09, RNF-01 |
 | Técnica / Nivel | Escenario E-03 / Unitaria |
 | Esperado | Prom S1 = **10.00** (no 10.01) · Prom S2 = **50.03** (ajuste D-03) · saldo final **0.00** con existencia 0 |
-| Obtenido / Estado / Evidencia | Redondeo bancario (ToEven) a 2 y 4 decimales validado al 100% en función pura · **Aprobado (Unitaria - Redondeo)** · 18-oct-2026 · Dev B · `evidencias/SI-011/Green_Test.md` (ajuste por residuo D-03 pendiente en SI-016) |
+| Obtenido / Estado / Evidencia | Redondeo bancario (ToEven) a 2 y 4 decimales validado; ajuste por residuo D-03 verificado al 100% en salida S2 (costo 50.03 y saldo 0.00 con existencia 0) · **Aprobado (Unitaria)** · 18-oct-2026 · Dev B · `evidencias/SI-016/Promedio_Ponderado_Salidas.md` |
 
 ### CP-18 — Movimiento sobre producto inactivo
 | Campo | Valor |
