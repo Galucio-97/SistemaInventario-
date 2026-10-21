@@ -6,9 +6,9 @@
 
 ## 1. Resumen Ejecutivo de Calidad
 
-* **Estado General:** Fase 0 (Foundation / `v0.0.1`) completada y en `main`. Fase 1 (Datos y Esquema / `v0.1.0`) completada al 100% (tickets SI-006 a SI-010).
-* **Tag de Línea Base (`main`):** `v0.0.1` (Commit `1ae5a48706c177c2d0169d7ed3da1c030f436a48`).
-* **Rama de Trabajo Actual:** `feat/SI-018-PEPS_Salida_multicapa` (PEPS: salida multicapa y agotamiento).
+* **Estado General:** Fase 0 (Foundation / `v0.0.1`) completada y en `main`. Fase 1 (Datos y Esquema / `v0.1.0`) completada al 100% en `main`. Fase 2 (Reglas y Motor de Costeo / `v0.2.0`) completada al 100% en `dev` (tickets SI-011 a SI-018).
+* **Tag de Línea Base (`main`):** `v0.1.0` (Commit `636cd79`).
+* **Rama de Trabajo Actual:** `dev` (Promoción de Release `v0.2.0` hacia `beta`).
 * **Defectos Críticos/Altos Detectados y Gestionados:** 1 defecto real (`DEF-001`, severidad Alta, corregido y verificado con prueba de regresión).
 * **Infraestructura de Pruebas:** Automatización xUnit con 59 pruebas en verde (7 integración, 1 regresión, 51 unitarias/teorías) ejecutando en local y CI.
 
@@ -23,7 +23,7 @@
 | **Motor de Base de Datos** | SQL Server 2022 en Docker (`mcr.microsoft.com/mssql/server:2022-latest`) | Contenedor SQL Server / Service Container en GitHub Runner |
 | **Herramienta de Pruebas** | xUnit 2.5.3 + VSTest 17.11.1 | `dotnet test --no-build --verbosity normal` |
 | **Medición de Cobertura** | Coverlet Collector 6.0.0 | Habilitado para reporte de métricas |
-| **Commit Evaluado** | `feat/SI-016-promedio-salidas-residuo` (`d99f3a1`) | Pipeline CI en pull requests hacia `dev`, `beta` y `main` |
+| **Commit Evaluado** | `dev` (`660470f`) | Pipeline CI en pull requests hacia `dev`, `beta` y `main` |
 
 ---
 
