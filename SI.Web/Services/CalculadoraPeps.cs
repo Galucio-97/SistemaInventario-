@@ -32,8 +32,15 @@ public static class CalculadoraPeps
         int productoId = 0,
         int movimientoId = 0)
     {
-        // TODO (GREEN): Implementar creación de capa con CantidadInicial y CantidadDisponible
-        return new CapasPeps();
+        return new CapasPeps
+        {
+            FechaEntrada = fecha,
+            CantidadInicial = cantidad,
+            CantidadDisponible = cantidad,
+            CostoUnitario =  costoUnitario,
+            ProductoId = productoId,
+            MovimientoId = movimientoId
+        };
     }
 
     /// <summary>
@@ -41,8 +48,9 @@ public static class CalculadoraPeps
     /// </summary>
     public static decimal CalcularValorInventario(IEnumerable<CapasPeps> capas)
     {
-        // TODO (GREEN): Implementar suma de capas con PoliticaRedondeo.Importe
-        return 0m;
+        return capas.Sum(capa => 
+            PoliticaRedondeo.Importe(capa.CantidadDisponible * capa.CostoUnitario)
+        );
     }
 
     /// <summary>
@@ -51,7 +59,22 @@ public static class CalculadoraPeps
     /// </summary>
     public static ResultadoSalidaPeps CalcularSalida(IList<CapasPeps> capas, decimal cantidadSalida)
     {
-        // TODO (GREEN): Implementar consumo FIFO de capas y cálculo de costo y saldo
-        return new ResultadoSalidaPeps(0m, 0m, 0m, Array.Empty<CapasPeps>());
+        var capaMasAntigua = capas
+            .Where(c => c.CantidadDisponible > 0)
+            .OrderBy(c => c.FechaEntrada)
+            .ThenBy(c => c.Id)
+            .FirstOrDefault();
+
+        if (capaMasAntigua is null || cantidadSalida <= 0)
+        {
+            return new ResultadoSalidaPeps(0m, CalcularValorInventario(capas), capas.Sum(c => c.CantidadDisponible), capas.ToList());
+        }
+
+        capaMasAntigua.CantidadDisponible -= cantidadSalida;
+        var costoTotalSalida = PoliticaRedondeo.Importe(cantidadSalida * capaMasAntigua.CostoUnitario);
+        var saldoValorRestante = CalcularValorInventario(capas);
+        var existenciaRestante = capas.Sum(c => c.CantidadDisponible);
+
+        return new ResultadoSalidaPeps(costoTotalSalida, saldoValorRestante, existenciaRestante, capas.ToList());
     }
 }

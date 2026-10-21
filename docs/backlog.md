@@ -93,7 +93,7 @@ flowchart LR
 | SI-014 | Validación de existencia suficiente | v0.2.0 | B | D1 | 0.5 | Must | TERMINADO   |
 | SI-015 | Promedio ponderado: entradas | v0.2.0 | B | D2 | 1 | Must | TERMINADO   |
 | SI-016 | Promedio ponderado: salidas y ajuste por residuo | v0.2.0 | B | D2 | 1.5 | Must | TERMINADO   |
-| SI-017 | PEPS: creación de capas y salida de una capa | v0.2.0 | A | D2 | 1.5 | Must | Por hacer   |
+| SI-017 | PEPS: creación de capas y salida de una capa | v0.2.0 | A | D2 | 1.5 | Must | TERMINADO   |
 | SI-018 | PEPS: salida multicapa y agotamiento | v0.2.0 | A | D2 | 2 | Must | Por hacer   |
 | SI-020 | Registrar producto | v0.3.0 | B | D3 | 2 | Must | Por hacer   |
 | SI-021 | Consultar y listar productos | v0.3.0 | B | D3 | 1 | Must | Por hacer   |
@@ -431,14 +431,14 @@ flowchart LR
 **Objetivo:** costear salidas con el costo de las unidades más antiguas.
 
 **Criterios de aceptación:**
-- [ ] Cada entrada crea una capa con su cantidad y su costo
-- [ ] Una salida que cabe en la capa más antigua consume solo de ella
-- [ ] E-01: S1 → costo `100.00`, saldo `400.00`, capas resultantes `[5 @ 20.00, 10 @ 30.00]`
-- [ ] El valor del inventario es la suma de `cantidad disponible × costo` de las capas, redondeada como importe
+- [X] Cada entrada crea una capa con su cantidad y su costo
+- [X] Una salida que cabe en la capa más antigua consume solo de ella
+- [X] E-01: S1 → costo `100.00`, saldo `400.00`, capas resultantes `[5 @ 20.00, 10 @ 30.00]`
+- [X] El valor del inventario es la suma de `cantidad disponible × costo` de las capas, redondeada como importe
 
 **Trazabilidad:** RF-04 · RB-07 · CP-08
 **Depende de:** SI-011
-**Evidencia:** salida de las pruebas
+**Evidencia:** `docs/evidencias/SI-017/Green_Test.md`
 
 ---
 

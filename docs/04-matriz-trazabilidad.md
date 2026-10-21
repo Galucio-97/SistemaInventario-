@@ -40,7 +40,7 @@
 | CP-05 | Unitaria + Integración | Valores límite | `ValidadorCantidadTests` | `evidencias/SI-012/Validacion_Cantidades.md` |
 | CP-06 | Unitaria | Valores límite | `ValidadorCostoUnitarioTests` | `evidencias/SI-013/Validacion_Costo_Unitario.md` |
 | CP-07 | Unitaria + Funcional | Valores límite + Tabla | `ValidadorExistenciaTests` | `evidencias/SI-014/Green_Test.md` |
-| CP-08 | Unitaria + Funcional | Escenario E-01 | | `evidencias/CP-08/` |
+| CP-08 | Unitaria + Funcional | Escenario E-01 | `CalculadoraPepsTests` | `evidencias/SI-017/Green_Test.md` |
 | CP-09 | Unitaria + Funcional | Escenario E-01 | `CalculadoraPromedioPonderadoTests` | `evidencias/SI-016/Promedio_Ponderado_Salidas.md` |
 | CP-10 | Funcional | Escenario E-01 | | `evidencias/CP-10/` |
 | CP-11 | Funcional | Tabla de decisión | | `evidencias/CP-11/` |
