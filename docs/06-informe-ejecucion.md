@@ -8,9 +8,9 @@
 
 * **Estado General:** Fase 0 (Foundation / `v0.0.1`) completada y en `main`. Fase 1 (Datos y Esquema / `v0.1.0`) completada al 100% (tickets SI-006 a SI-010).
 * **Tag de Línea Base (`main`):** `v0.0.1` (Commit `1ae5a48706c177c2d0169d7ed3da1c030f436a48`).
-* **Rama de Trabajo Actual:** `feat/SI-017-PEPS_Creacion_Entrada_Salida` (PEPS: creación de capas y salida de una capa).
+* **Rama de Trabajo Actual:** `feat/SI-018-PEPS_Salida_multicapa` (PEPS: salida multicapa y agotamiento).
 * **Defectos Críticos/Altos Detectados y Gestionados:** 1 defecto real (`DEF-001`, severidad Alta, corregido y verificado con prueba de regresión).
-* **Infraestructura de Pruebas:** Automatización xUnit con 54 pruebas en verde (7 integración, 1 regresión, 46 unitarias/teorías) ejecutando en local y CI.
+* **Infraestructura de Pruebas:** Automatización xUnit con 59 pruebas en verde (7 integración, 1 regresión, 51 unitarias/teorías) ejecutando en local y CI.
 
 ---
 
@@ -33,13 +33,13 @@
 |---|:---:|:---:|:---:|
 | **Fecha de Corte** | 17-oct-2026 | 18-oct-2026 | *Programado (Día 6)* |
 | **Casos Diseñados Totales** | 19 casos | 19 casos | 19 casos |
-| **Casos Ejecutados** | 2 casos preliminares (`CP-19` y base) | 9 casos ejecutados (`CP-01` humo, `CP-05`, `CP-06`, `CP-07`, `CP-08`, `CP-09`, `CP-16`, `CP-17`, `CP-19`) | — |
-| **Casos Aprobados (Pass)** | 2 | 9 | — |
+| **Casos Ejecutados** | 2 casos preliminares (`CP-19` y base) | 10 casos ejecutados (`CP-01` humo, `CP-05`, `CP-06`, `CP-07`, `CP-08`, `CP-09`, `CP-15`, `CP-16`, `CP-17`, `CP-19`) | — |
+| **Casos Aprobados (Pass)** | 2 | 10 | — |
 | **Casos Fallidos (Fail)** | 0 (post-fix DEF-001) | 0 | — |
-| **Casos Bloqueados / Pendientes** | 17 pendientes de implementación | 10 pendientes de servicios/UI | — |
+| **Casos Bloqueados / Pendientes** | 17 pendientes de implementación | 9 pendientes de servicios/UI | — |
 | **Defectos Detectados Totales** | 1 (`DEF-001`) | 1 (`DEF-001`) | — |
 | **Defectos Corregidos y Verificados** | 1 (`DEF-001`) | 1 (`DEF-001`) | — |
-| **Pruebas Automatizadas en Verde** | 100% de las suites activas | 54 pruebas en verde (100% de la suite) | — |
+| **Pruebas Automatizadas en Verde** | 100% de las suites activas | 59 pruebas en verde (100% de la suite) | — |
 
 ---
 
@@ -61,9 +61,9 @@
 | **CP-12** | RNF-02, RB-05 | Integración | Basada en Escenarios | *Pendiente (v0.4.0)* | `PersistenciaTests.ReinicioAplicacion_ConservaDatos` | `evidencias/CP-12/` |
 | **CP-13** | RNF-04, RB-06 | Integración | Inyección de Fallos | *Pendiente (v0.4.0)* | `TransaccionRollbackTests.FalloOperacion_HaceRollbackCompleto` | `evidencias/CP-13/` |
 | **CP-14** | Todos | Regresión | Suite Completa | *Pendiente (v0.9.x)* | Re-ejecución total automatizada tras fixes | `evidencias/ciclos/` |
-| **CP-15** | RF-04 | Unitaria | Escenario E-02 | *Pendiente (v0.2.0)* | `CalculadoraPepsTests.Salida_Multicapa_ConsumeEnOrdenFIFO` | `evidencias/CP-15/` |
-| **CP-16** | RB-03 | Unitaria + Func. | Valores Límite | **✅ APROBADO (Unitaria)** | `ValidadorExistenciaTests` | `evidencias/SI-014/Green_Test.md` |
-| **CP-17** | RB-08, RB-09 | Unitaria | Escenario E-03 | **✅ APROBADO (Unitaria + D-03)** | `PoliticaRedondeoTests`, `CalculadoraPromedioPonderadoTests` | `evidencias/SI-016/Promedio_Ponderado_Salidas.md` |
+| **CP-15** | RF-04 | Unitaria | Escenario E-02 | **✅ APROBADO (Unitaria)** | `CalculadoraPepsTests` | `evidencias/SI-018/Green_Test.md` |
+| **CP-16** | RB-03 | Unitaria + Func. | Valores Límite | **✅ APROBADO (Unitaria)** | `ValidadorExistenciaTests`, `CalculadoraPepsTests` | `evidencias/SI-014/Green_Test.md`, `evidencias/SI-018/Green_Test.md` |
+| **CP-17** | RB-08, RB-09 | Unitaria | Escenario E-03 | **✅ APROBADO (Unitaria + D-03)** | `PoliticaRedondeoTests`, `CalculadoraPromedioPonderadoTests`, `CalculadoraPepsTests` | `evidencias/SI-016/Promedio_Ponderado_Salidas.md`, `evidencias/SI-018/Green_Test.md` |
 | **CP-18** | RF-01, RB-10 | Funcional | Tabla de Decisión (R2) | *Pendiente (v0.3.0)* | `InventarioServiceTests.Movimiento_ProductoInactivo_Rechaza` | `evidencias/CP-18/` |
 | **CP-19** | RNF-01, RB-08 | Regresión / Int. | Auditoría de Esquema | **✅ APROBADO (C1)** | `Def001PrecisionProductoTests.Producto_Schema_DebeTenerPrecisionDecimalCorrecta` | `evidencias/DEF-001/` |
 

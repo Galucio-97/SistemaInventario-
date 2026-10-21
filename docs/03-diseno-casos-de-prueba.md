@@ -229,7 +229,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Requisito | RF-04 |
 | Técnica / Nivel | Escenario E-02 / Unitaria |
 | Esperado | S1 = **52.00** (capa 1 agotada, capa 2 con 2 disponibles) · Prom S1 = **52.86** · saldo final 0.00 en ambos |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | S1 = 52.00, S2 = 22.00, saldo final 0.00 verificado · **Aprobado (Unitaria)** · 20-oct-2026 · Dev A · `evidencias/SI-018/Green_Test.md` |
 
 ### CP-16 — Salida igual a la existencia exacta
 | Campo | Valor |

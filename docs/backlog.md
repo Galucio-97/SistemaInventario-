@@ -93,8 +93,8 @@ flowchart LR
 | SI-014 | Validación de existencia suficiente | v0.2.0 | B | D1 | 0.5 | Must | TERMINADO   |
 | SI-015 | Promedio ponderado: entradas | v0.2.0 | B | D2 | 1 | Must | TERMINADO   |
 | SI-016 | Promedio ponderado: salidas y ajuste por residuo | v0.2.0 | B | D2 | 1.5 | Must | TERMINADO   |
-| SI-017 | PEPS: creación de capas y salida de una capa | v0.2.0 | A | D2 | 1.5 | Must | EN REVISION |
-| SI-018 | PEPS: salida multicapa y agotamiento | v0.2.0 | A | D2 | 2 | Must | Por hacer   |
+| SI-017 | PEPS: creación de capas y salida de una capa | v0.2.0 | A | D2 | 1.5 | Must | TERMINADO   |
+| SI-018 | PEPS: salida multicapa y agotamiento | v0.2.0 | A | D2 | 2 | Must | TERMINADO   |
 | SI-020 | Registrar producto | v0.3.0 | B | D3 | 2 | Must | Por hacer   |
 | SI-021 | Consultar y listar productos | v0.3.0 | B | D3 | 1 | Must | Por hacer   |
 | SI-022 | Modificar producto y cambiar su estado | v0.3.0 | B | D3 | 1.5 | Must | Por hacer   |
@@ -448,16 +448,16 @@ flowchart LR
 **Objetivo:** cubrir salidas que abarcan varias capas, en orden de antigüedad, hasta completar la cantidad.
 
 **Criterios de aceptación:**
-- [ ] E-02: S1 → costo `52.00` (3 × 10.00 + 2 × 11.00), saldo `22.00`; S2 → `22.00`, saldo `0.00`
-- [ ] E-03: S1 → `10.00`; S2 → `50.03`; saldo `0.00`
-- [ ] Salida igual a toda la existencia (E-01, 15 unidades) → costo `400.00`, saldo `0.00`
-- [ ] Una capa agotada no vuelve a consumirse
-- [ ] Con capas de la misma fecha, se respeta el orden de registro
-- [ ] Hay un costo unitario equivalente de la salida (`costo total / cantidad`, 4 decimales) para mostrar en el historial
+- [X] E-02: S1 → costo `52.00` (3 × 10.00 + 2 × 11.00), saldo `22.00`; S2 → `22.00`, saldo `0.00`
+- [X] E-03: S1 → `10.00`; S2 → `50.03`; saldo `0.00`
+- [X] Salida igual a toda la existencia (E-01, 15 unidades) → costo `400.00`, saldo `0.00`
+- [X] Una capa agotada no vuelve a consumirse
+- [X] Con capas de la misma fecha, se respeta el orden de registro
+- [X] Hay un costo unitario equivalente de la salida (`costo total / cantidad`, 4 decimales) para mostrar en el historial
 
 **Trazabilidad:** RF-04 · RB-07 · CP-15, CP-16, CP-17
 **Depende de:** SI-017
-**Evidencia:** salida de las pruebas
+**Evidencia:** `docs/evidencias/SI-018/Green_Test.md`
 
 ---
 
