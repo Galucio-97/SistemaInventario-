@@ -9,11 +9,13 @@ namespace SI.Web.Services;
 /// <param name="SaldoValorRestante">Saldo patrimonial restante del inventario tras la salida.</param>
 /// <param name="ExistenciaRestante">Existencia física total disponible restante.</param>
 /// <param name="CapasResultantes">Lista de capas con sus cantidades disponibles actualizadas.</param>
+/// <param name="CostoUnitarioEquivalente">Costo unitario equivalente ponderado de la salida (CostoTotal / Cantidad) a 4 decimales.</param>
 public record ResultadoSalidaPeps(
     decimal CostoTotalSalida,
     decimal SaldoValorRestante,
     decimal ExistenciaRestante,
-    IReadOnlyList<CapasPeps> CapasResultantes
+    IReadOnlyList<CapasPeps> CapasResultantes,
+    decimal CostoUnitarioEquivalente = 0m
 );
 
 /// <summary>
@@ -55,26 +57,48 @@ public static class CalculadoraPeps
 
     /// <summary>
     /// Consume existencias de las capas en estricto orden cronológico (FechaEntrada ASC, Id ASC).
-    /// En SI-017: cuando la salida cabe en la capa más antigua, consume únicamente de ella.
+    /// Soporta salidas multicapa (CP-15), agotamiento de inventario (CP-16) y cálculo de costo unitario equivalente.
     /// </summary>
     public static ResultadoSalidaPeps CalcularSalida(IList<CapasPeps> capas, decimal cantidadSalida)
     {
-        var capaMasAntigua = capas
-            .Where(c => c.CantidadDisponible > 0)
-            .OrderBy(c => c.FechaEntrada)
-            .ThenBy(c => c.Id)
-            .FirstOrDefault();
-
-        if (capaMasAntigua is null || cantidadSalida <= 0)
+        if (cantidadSalida <= 0 || !capas.Any(c => c.CantidadDisponible > 0))
         {
-            return new ResultadoSalidaPeps(0m, CalcularValorInventario(capas), capas.Sum(c => c.CantidadDisponible), capas.ToList());
+            var existenciaActual = capas.Sum(c => c.CantidadDisponible);
+            var saldoActual = existenciaActual == 0 ? 0m : CalcularValorInventario(capas);
+            return new ResultadoSalidaPeps(0m, saldoActual, existenciaActual, capas.ToList(), 0m);
         }
 
-        capaMasAntigua.CantidadDisponible -= cantidadSalida;
-        var costoTotalSalida = PoliticaRedondeo.Importe(cantidadSalida * capaMasAntigua.CostoUnitario);
-        var saldoValorRestante = CalcularValorInventario(capas);
-        var existenciaRestante = capas.Sum(c => c.CantidadDisponible);
+        var capasDisponibles = capas
+            .Where(c => c.CantidadDisponible > 0)
+            .OrderBy(c => c.FechaEntrada)
+            .ThenBy(c => c.Id);
 
-        return new ResultadoSalidaPeps(costoTotalSalida, saldoValorRestante, existenciaRestante, capas.ToList());
+        decimal remanente = cantidadSalida;
+        decimal costoTotal = 0m;
+
+        foreach (var capa in capasDisponibles)
+        {
+            if (remanente <= 0)
+                break;
+
+            var aTomar = Math.Min(capa.CantidadDisponible, remanente);
+            capa.CantidadDisponible -= aTomar;
+            costoTotal += PoliticaRedondeo.Importe(aTomar * capa.CostoUnitario);
+            remanente -= aTomar;
+        }
+
+        var existenciaRestante = capas.Sum(c => c.CantidadDisponible);
+        var saldoValorRestante = existenciaRestante == 0 ? 0m : CalcularValorInventario(capas);
+        var costoUnitarioEquivalente = cantidadSalida > 0
+            ? PoliticaRedondeo.CostoUnitario(costoTotal / cantidadSalida)
+            : 0m;
+
+        return new ResultadoSalidaPeps(
+            costoTotal,
+            saldoValorRestante,
+            existenciaRestante,
+            capas.ToList(),
+            costoUnitarioEquivalente
+        );
     }
 }
