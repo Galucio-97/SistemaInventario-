@@ -97,7 +97,7 @@ flowchart LR
 | SI-018 | PEPS: salida multicapa y agotamiento | v0.2.0 | A | D2 | 2 | Must | TERMINADO   |
 | SI-020 | Registrar producto | v0.3.0 | B | D3 | 2 | Must | TERMINADO   |
 | SI-021 | Consultar y listar productos | v0.3.0 | B | D3 | 1 | Must | TERMINADO   |
-| SI-022 | Modificar producto y cambiar su estado | v0.3.0 | B | D3 | 1.5 | Must | Por hacer   |
+| SI-022 | Modificar producto y cambiar su estado | v0.3.0 | B | D3 | 1.5 | Must | TERMINADO   |
 | SI-023 | Interfaz de administración de productos | v0.3.0 | B | D4 | 3 | Must | Por hacer   |
 | SI-024 | Registrar entrada con transacción | v0.4.0 | A | D3 | 3 | Must | Por hacer   |
 | SI-025 | Registrar salida con transacción | v0.4.0 | A | D3 | 3 | Must | Por hacer   |
@@ -505,14 +505,14 @@ flowchart LR
 **Objetivo:** permitir corregir datos descriptivos y activar o desactivar productos.
 
 **Criterios de aceptación:**
-- [ ] Se pueden modificar nombre, descripción, unidad de medida y estado, con las mismas validaciones del alta
-- [ ] El código no se modifica (D-10, pendiente de confirmar en SI-001)
-- [ ] Modificar un producto no altera sus existencias, valores ni movimientos
-- [ ] Modificar un producto inexistente devuelve "El producto no existe"
+- [x] Se pueden modificar nombre, descripción, unidad de medida y estado, con las mismas validaciones del alta
+- [x] El código no se modifica (D-10, pendiente de confirmar en SI-001)
+- [x] Modificar un producto no altera sus existencias, valores ni movimientos
+- [x] Modificar un producto inexistente devuelve "El producto no existe"
 
 **Trazabilidad:** RF-01 · RB-10 · base de CP-18
 **Depende de:** SI-021
-**Evidencia:** salida de las pruebas
+**Evidencia:** `docs/evidencias/SI-022/Modificacion_Producto_Estado.md` (Green_Test.md y Red_Test.md)
 
 ---
 

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SI.Tests.Fixtures;
+using SI.Web.Common;
 using SI.Web.Data.Entities;
 using SI.Web.Services;
 
@@ -274,5 +275,179 @@ public class ProductoServiceIntegrationTests(TestDbContextFixture fixture)
 
         Assert.Equal(countProductosAntes, countProductosDespues);
         Assert.Equal(countMovimientosAntes, countMovimientosDespues);
+    }
+
+    [Fact]
+    [Trait("RF", "RF-01")]
+    [Trait("RB", "RB-10")]
+    [Trait("Nivel", "Integracion")]
+    public async Task ModificarAsync_ProductoExistente_ActualizaCamposPermitidosYNoModificaCodigoNiExistenciasNiValores()
+    {
+        // Arrange
+        fixture.ResetDatabase();
+        int productoId;
+        using (var ctx = fixture.CreateDbContext())
+        {
+            var service = new ProductoService(ctx);
+            var res = await service.RegistrarAsync("P-100", "Clavo 1 pulg", "caja", "Original");
+            productoId = res.EntidadId!.Value;
+        }
+
+        // Act: Modificar nombre, unidad, descripción y estado
+        using var contextModif = fixture.CreateDbContext();
+        var serviceModif = new ProductoService(contextModif);
+        var resultado = await serviceModif.ModificarAsync(
+            productoId,
+            nombre: "Clavo 1.5 pulg",
+            unidadMedida: "paquete",
+            descripcion: "Modificado",
+            activo: false);
+
+        // Assert
+        Assert.True(resultado.Exitoso);
+
+        using var contextVerificacion = fixture.CreateDbContext();
+        var producto = await contextVerificacion.Productos.FirstOrDefaultAsync(p => p.Id == productoId);
+
+        Assert.NotNull(producto);
+        Assert.Equal("P-100", producto.Codigo); // Inmutable D-10
+        Assert.Equal("Clavo 1.5 pulg", producto.Nombre);
+        Assert.Equal("paquete", producto.UnidadMedida);
+        Assert.Equal("Modificado", producto.Descripcion);
+        Assert.False(producto.Activo);
+
+        // Invariantes intactos
+        Assert.Equal(0m, producto.ExistenciaActual);
+        Assert.Equal(0m, producto.CostoPromedioActual);
+        Assert.Equal(0m, producto.ValorInventarioPeps);
+        Assert.Equal(0m, producto.ValorInventarioPromedio);
+
+        // Cero movimientos generados
+        var totalMovimientos = await contextVerificacion.Movimientos.CountAsync();
+        Assert.Equal(0, totalMovimientos);
+    }
+
+    [Fact]
+    [Trait("CP", "CP-11")]
+    [Trait("RF", "RF-01")]
+    [Trait("RB", "RB-04")]
+    [Trait("Nivel", "Integracion")]
+    public async Task ModificarAsync_ProductoInexistente_RetornaFalsoConMensajeNoExiste()
+    {
+        // Arrange
+        fixture.ResetDatabase();
+        using var context = fixture.CreateDbContext();
+        var service = new ProductoService(context);
+
+        // Act
+        var resultado = await service.ModificarAsync(
+            99999,
+            nombre: "Producto Fantasma",
+            unidadMedida: "pieza");
+
+        // Assert
+        Assert.False(resultado.Exitoso);
+        Assert.Equal(ProductoService.MensajeProductoNoExiste, resultado.MensajeError);
+    }
+
+    [Fact]
+    [Trait("RF", "RF-01")]
+    [Trait("RNF", "RNF-03")]
+    [Trait("Nivel", "Integracion")]
+    public async Task ModificarAsync_DatosInvalidos_RetornaFalsoConMensajeValidacion()
+    {
+        // Arrange
+        fixture.ResetDatabase();
+        int productoId;
+        using (var ctx = fixture.CreateDbContext())
+        {
+            var service = new ProductoService(ctx);
+            var res = await service.RegistrarAsync("P-101", "Perno", "pieza");
+            productoId = res.EntidadId!.Value;
+        }
+
+        using var contextModif = fixture.CreateDbContext();
+        var serviceModif = new ProductoService(contextModif);
+
+        // Act: Enviar nombre vacío
+        var resultado = await serviceModif.ModificarAsync(
+            productoId,
+            nombre: "",
+            unidadMedida: "pieza");
+
+        // Assert
+        Assert.False(resultado.Exitoso);
+        Assert.Equal(ValidadorProducto.MensajeNombreObligatorio, resultado.MensajeError);
+
+        // Verificar que no cambió en base de datos
+        using var contextVerif = fixture.CreateDbContext();
+        var producto = await contextVerif.Productos.FirstOrDefaultAsync(p => p.Id == productoId);
+        Assert.NotNull(producto);
+        Assert.Equal("Perno", producto.Nombre);
+    }
+
+    [Fact]
+    [Trait("RF", "RF-01")]
+    [Trait("RB", "RB-10")]
+    [Trait("Nivel", "Integracion")]
+    public async Task CambiarEstadoAsync_ProductoExistente_CambiaActivoSinModificarOtrosCampos()
+    {
+        // Arrange
+        fixture.ResetDatabase();
+        int productoId;
+        using (var ctx = fixture.CreateDbContext())
+        {
+            var serviceRegistro = new ProductoService(ctx);
+            var res = await serviceRegistro.RegistrarAsync("P-102", "Cinta aislante", "rollo");
+            productoId = res.EntidadId!.Value;
+        }
+
+        using var context = fixture.CreateDbContext();
+        var service = new ProductoService(context);
+
+        // Act 1: Desactivar producto
+        var resDesactivar = await service.CambiarEstadoAsync(productoId, activo: false);
+
+        // Assert 1
+        Assert.True(resDesactivar.Exitoso);
+        using (var ctxLectura = fixture.CreateDbContext())
+        {
+            var prod = await ctxLectura.Productos.FirstOrDefaultAsync(p => p.Id == productoId);
+            Assert.NotNull(prod);
+            Assert.False(prod.Activo);
+            Assert.Equal("Cinta aislante", prod.Nombre);
+        }
+
+        // Act 2: Reactivar producto
+        var resActivar = await service.CambiarEstadoAsync(productoId, activo: true);
+
+        // Assert 2
+        Assert.True(resActivar.Exitoso);
+        using (var ctxLectura = fixture.CreateDbContext())
+        {
+            var prod = await ctxLectura.Productos.FirstOrDefaultAsync(p => p.Id == productoId);
+            Assert.NotNull(prod);
+            Assert.True(prod.Activo);
+        }
+    }
+
+    [Fact]
+    [Trait("CP", "CP-11")]
+    [Trait("RF", "RF-01")]
+    [Trait("RB", "RB-04")]
+    [Trait("Nivel", "Integracion")]
+    public async Task CambiarEstadoAsync_ProductoInexistente_RetornaFalsoConMensajeNoExiste()
+    {
+        // Arrange
+        fixture.ResetDatabase();
+        using var context = fixture.CreateDbContext();
+        var service = new ProductoService(context);
+
+        // Act
+        var resultado = await service.CambiarEstadoAsync(99999, activo: false);
+
+        // Assert
+        Assert.False(resultado.Exitoso);
+        Assert.Equal(ProductoService.MensajeProductoNoExiste, resultado.MensajeError);
     }
 }

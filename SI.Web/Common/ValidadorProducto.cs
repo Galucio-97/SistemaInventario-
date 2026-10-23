@@ -59,4 +59,34 @@ public static class ValidadorProducto
 
         return ResultadoValido;
     }
+
+    public static ResultadoValidacion ValidarModificacion(string? nombre, string? unidadMedida, string? descripcion = null)
+    {
+        if (string.IsNullOrWhiteSpace(nombre))
+        {
+            return new ResultadoValidacion(false, MensajeNombreObligatorio);
+        }
+
+        if (nombre.Length > MaxLongitudNombre)
+        {
+            return new ResultadoValidacion(false, MensajeNombreLargo);
+        }
+
+        if (string.IsNullOrWhiteSpace(unidadMedida))
+        {
+            return new ResultadoValidacion(false, MensajeUnidadObligatoria);
+        }
+
+        if (unidadMedida.Length > MaxLongitudUnidad)
+        {
+            return new ResultadoValidacion(false, MensajeUnidadLarga);
+        }
+
+        if (!string.IsNullOrEmpty(descripcion) && descripcion.Length > MaxLongitudDescripcion)
+        {
+            return new ResultadoValidacion(false, MensajeDescripcionLarga);
+        }
+
+        return ResultadoValido;
+    }
 }
