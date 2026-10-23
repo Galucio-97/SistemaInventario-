@@ -102,4 +102,177 @@ public class ProductoServiceIntegrationTests(TestDbContextFixture fixture)
 
         await Assert.ThrowsAsync<DbUpdateException>(() => contextDuplicado.SaveChangesAsync());
     }
+
+    [Fact]
+    [Trait("CP", "CP-01")]
+    [Trait("RF", "RF-01")]
+    [Trait("RF", "RF-05")]
+    [Trait("Nivel", "Integracion")]
+    public async Task ObtenerPorIdAsync_CuandoProductoExiste_RetornaProductoConSusDatos()
+    {
+        // Arrange
+        fixture.ResetDatabase();
+        int productoId;
+        using (var ctx = fixture.CreateDbContext())
+        {
+            var service = new ProductoService(ctx);
+            var res = await service.RegistrarAsync("P-010", "Tuerca M6", "pieza", "Acero inoxidable");
+            productoId = res.EntidadId!.Value;
+        }
+
+        // Act
+        using var contextLectura = fixture.CreateDbContext();
+        var serviceLectura = new ProductoService(contextLectura);
+        var resultado = await serviceLectura.ObtenerPorIdAsync(productoId);
+
+        // Assert
+        Assert.True(resultado.Encontrado);
+        Assert.NotNull(resultado.Producto);
+        Assert.Equal("P-010", resultado.Producto.Codigo);
+        Assert.Equal("Tuerca M6", resultado.Producto.Nombre);
+        Assert.Equal("pieza", resultado.Producto.UnidadMedida);
+        Assert.Equal("Acero inoxidable", resultado.Producto.Descripcion);
+        Assert.True(resultado.Producto.Activo);
+        Assert.Null(resultado.MensajeError);
+    }
+
+    [Fact]
+    [Trait("CP", "CP-01")]
+    [Trait("RF", "RF-01")]
+    [Trait("RF", "RF-05")]
+    [Trait("Nivel", "Integracion")]
+    public async Task ObtenerPorCodigoAsync_CuandoProductoExiste_RetornaProductoConSusDatos()
+    {
+        // Arrange
+        fixture.ResetDatabase();
+        using (var ctx = fixture.CreateDbContext())
+        {
+            var service = new ProductoService(ctx);
+            await service.RegistrarAsync("P-020", "Rondana Plana", "pieza");
+        }
+
+        // Act
+        using var contextLectura = fixture.CreateDbContext();
+        var serviceLectura = new ProductoService(contextLectura);
+        var resultado = await serviceLectura.ObtenerPorCodigoAsync("P-020");
+
+        // Assert
+        Assert.True(resultado.Encontrado);
+        Assert.NotNull(resultado.Producto);
+        Assert.Equal("P-020", resultado.Producto.Codigo);
+        Assert.Equal("Rondana Plana", resultado.Producto.Nombre);
+        Assert.Null(resultado.MensajeError);
+    }
+
+    [Fact]
+    [Trait("CP", "CP-11")]
+    [Trait("RF", "RF-01")]
+    [Trait("RF", "RF-05")]
+    [Trait("RB", "RB-04")]
+    [Trait("Nivel", "Integracion")]
+    public async Task ObtenerPorIdAsync_CuandoProductoNoExiste_RetornaNoEncontradoConMensaje()
+    {
+        // Arrange
+        fixture.ResetDatabase();
+        using var contextLectura = fixture.CreateDbContext();
+        var serviceLectura = new ProductoService(contextLectura);
+
+        // Act
+        var resultado = await serviceLectura.ObtenerPorIdAsync(99999);
+
+        // Assert
+        Assert.False(resultado.Encontrado);
+        Assert.Null(resultado.Producto);
+        Assert.Equal(ProductoService.MensajeProductoNoExiste, resultado.MensajeError);
+    }
+
+    [Fact]
+    [Trait("CP", "CP-11")]
+    [Trait("RF", "RF-01")]
+    [Trait("RF", "RF-05")]
+    [Trait("RB", "RB-04")]
+    [Trait("Nivel", "Integracion")]
+    public async Task ObtenerPorCodigoAsync_CuandoProductoNoExiste_RetornaNoEncontradoConMensaje()
+    {
+        // Arrange
+        fixture.ResetDatabase();
+        using var contextLectura = fixture.CreateDbContext();
+        var serviceLectura = new ProductoService(contextLectura);
+
+        // Act
+        var resultado = await serviceLectura.ObtenerPorCodigoAsync("NO-EXISTE-999");
+
+        // Assert
+        Assert.False(resultado.Encontrado);
+        Assert.Null(resultado.Producto);
+        Assert.Equal(ProductoService.MensajeProductoNoExiste, resultado.MensajeError);
+    }
+
+    [Fact]
+    [Trait("CP", "CP-01")]
+    [Trait("RF", "RF-05")]
+    [Trait("Nivel", "Integracion")]
+    public async Task ListarTodosAsync_RetornaTodosLosProductosConEstadoYExistencia()
+    {
+        // Arrange
+        fixture.ResetDatabase();
+        using (var ctx = fixture.CreateDbContext())
+        {
+            var service = new ProductoService(ctx);
+            await service.RegistrarAsync("P-002", "Clavo 2 pulg", "caja");
+            await service.RegistrarAsync("P-001", "Alambre galvanizado", "rollo");
+        }
+
+        // Act
+        using var contextLectura = fixture.CreateDbContext();
+        var serviceLectura = new ProductoService(contextLectura);
+        var productos = await serviceLectura.ListarTodosAsync();
+
+        // Assert
+        Assert.Equal(2, productos.Count);
+        Assert.Equal("P-001", productos[0].Codigo);
+        Assert.Equal("P-002", productos[1].Codigo);
+        Assert.All(productos, p =>
+        {
+            Assert.True(p.Activo);
+            Assert.Equal(0m, p.ExistenciaActual);
+        });
+    }
+
+    [Fact]
+    [Trait("CP", "CP-11")]
+    [Trait("RF", "RF-01")]
+    [Trait("RNF", "RNF-01")]
+    [Trait("RB", "RB-04")]
+    [Trait("Nivel", "Integracion")]
+    public async Task Consultar_NoModificaDatosNiCreaMovimientos()
+    {
+        // Arrange
+        fixture.ResetDatabase();
+        using (var ctx = fixture.CreateDbContext())
+        {
+            var service = new ProductoService(ctx);
+            await service.RegistrarAsync("P-001", "Arandela", "pieza");
+        }
+
+        using var contextLectura = fixture.CreateDbContext();
+        var countProductosAntes = await contextLectura.Productos.CountAsync();
+        var countMovimientosAntes = await contextLectura.Movimientos.CountAsync();
+
+        var serviceLectura = new ProductoService(contextLectura);
+
+        // Act: Consultas existentes e inexistentes
+        await serviceLectura.ObtenerPorIdAsync(1);
+        await serviceLectura.ObtenerPorIdAsync(999);
+        await serviceLectura.ObtenerPorCodigoAsync("P-001");
+        await serviceLectura.ObtenerPorCodigoAsync("INEXISTENTE");
+        await serviceLectura.ListarTodosAsync();
+
+        // Assert: ningún estado cambió
+        var countProductosDespues = await contextLectura.Productos.CountAsync();
+        var countMovimientosDespues = await contextLectura.Movimientos.CountAsync();
+
+        Assert.Equal(countProductosAntes, countProductosDespues);
+        Assert.Equal(countMovimientosAntes, countMovimientosDespues);
+    }
 }

@@ -43,7 +43,7 @@
 | CP-08 | Unitaria + Funcional | Escenario E-01 | `CalculadoraPepsTests` | `evidencias/SI-017/Green_Test.md` |
 | CP-09 | Unitaria + Funcional | Escenario E-01 | `CalculadoraPromedioPonderadoTests` | `evidencias/SI-016/Promedio_Ponderado_Salidas.md` |
 | CP-10 | Funcional | Escenario E-01 | | `evidencias/CP-10/` |
-| CP-11 | Funcional | Tabla de decisión | | `evidencias/CP-11/` |
+| CP-11 | Funcional / Integración | Tabla de decisión | `ProductoServiceIntegrationTests` | `evidencias/SI-021/Consulta_Listado_Productos.md` |
 | CP-12 | Integración + manual | Escenario | | `evidencias/CP-12/` |
 | CP-13 | Integración | Escenario | | `evidencias/CP-13/` |
 | CP-14 | Regresión | — | Suite completa | `evidencias/ciclos/` |
@@ -54,15 +54,14 @@
 | CP-19 | Integración / Regresión | Escenario / Auditoría | `Producto_Schema_DebeTenerPrecisionDecimalCorrecta` | `evidencias/DEF-001/` |
 
 ## 3. RNF-05 · Componentes y responsabilidades (completar al cierre)
-
 | Componente | Responsabilidad | Probado por |
 |---|---|---|
 | `PoliticaRedondeo` | Redondeo bancario de costos unitarios e importes | CP-17 |
 | `ValidadorCantidad`, `ValidadorCostoUnitario` | RB-01, RB-02, RB-03 | CP-05, CP-06, CP-07 |
 | `ValidadorExistencia` | RB-03 (salida <= existencia disponible) | CP-07, CP-16 |
+| `ValidadorProducto` | RF-01, RNF-03 (código, nombre, unidad obligatorios y límites de longitud) | CP-02 |
 | `ValidadorMovimiento` | RB-01, RB-02, RB-03 | CP-05, CP-06, CP-07 |
 | `CalculadoraPeps` | Creación y consumo de capas | CP-08, CP-15 |
-| `CalculadoraPromedioPonderado` | Promedio móvil y costo de salida | CP-09, CP-17 |
-| `ValidadorProducto` | RF-01, RNF-03 (código, nombre, unidad obligatorios y límites de longitud) | CP-02 |
-| `ProductoService` | RF-01 (registro, unicidad, persistencia) | CP-01, CP-02, CP-11 |
+| `CalculadoraPromedioPonderado` | Promedio móvil, costo de salida y ajuste por residuo D-03 | CP-09, CP-17 |
+| `ProductoService` | RF-01, RF-05 (registro, unicidad, persistencia, consulta y listado) | CP-01, CP-02, CP-11 |
 | `InventarioService` | RF-02, RF-03, RF-05 con transacción | CP-03, CP-04, CP-13 |

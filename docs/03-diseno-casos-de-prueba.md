@@ -193,7 +193,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Técnica / Nivel | Tabla R1 / Funcional |
 | Datos | Id `99999` / código `NO-EXISTE`; además intentar entrada sobre él |
 | Esperado | Mensaje "El producto no existe"; `COUNT(*)` de movimientos sin cambios |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | Mensaje "El producto no existe" al consultar por Id y Código inexistentes sin excepción técnica; listado completo de productos ordenado con estado y existencias; verificación de idempotencia y conteo inalterado de movimientos y productos · **Aprobado (Integración)** · 20-oct-2026 · Dev B · `evidencias/SI-021/Consulta_Listado_Productos.md` |
 
 ### CP-12 — Persistencia tras reinicio
 | Campo | Valor |
@@ -247,6 +247,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Requisito | RB-08, RB-09, RNF-01 |
 | Técnica / Nivel | Escenario E-03 / Unitaria |
 | Esperado | Prom S1 = **10.00** (no 10.01) · Prom S2 = **50.03** (ajuste D-03) · saldo final **0.00** con existencia 0 |
+| Obtenido / Estado / Evidencia | Redondeo bancario (ToEven) a 2 y 4 decimales validado; ajuste por residuo D-03 verificado al 100% en salida S2 (costo 50.03 y saldo 0.00 con existencia 0) · **Aprobado (Unitaria)** · 18-oct-2026 · Dev B · `evidencias/SI-016/Promedio_Ponderado_Salidas.md` |
 | Obtenido / Estado / Evidencia | Redondeo bancario (ToEven) a 2 y 4 decimales validado; ajuste por residuo D-03 verificado al 100% en Promedio (costo 50.03 y saldo 0.00) y en PEPS E-03 (S1=10.00, S2=50.03 y saldo final 0.00) · **Aprobado (Unitaria)** · 20-oct-2026 · Dev A · `evidencias/SI-018/Green_Test.md` |
 
 ### CP-18 — Movimiento sobre producto inactivo

@@ -96,7 +96,7 @@ flowchart LR
 | SI-017 | PEPS: creación de capas y salida de una capa | v0.2.0 | A | D2 | 1.5 | Must | TERMINADO   |
 | SI-018 | PEPS: salida multicapa y agotamiento | v0.2.0 | A | D2 | 2 | Must | TERMINADO   |
 | SI-020 | Registrar producto | v0.3.0 | B | D3 | 2 | Must | TERMINADO   |
-| SI-021 | Consultar y listar productos | v0.3.0 | B | D3 | 1 | Must | Por hacer   |
+| SI-021 | Consultar y listar productos | v0.3.0 | B | D3 | 1 | Must | TERMINADO   |
 | SI-022 | Modificar producto y cambiar su estado | v0.3.0 | B | D3 | 1.5 | Must | Por hacer   |
 | SI-023 | Interfaz de administración de productos | v0.3.0 | B | D4 | 3 | Must | Por hacer   |
 | SI-024 | Registrar entrada con transacción | v0.4.0 | A | D3 | 3 | Must | Por hacer   |
@@ -488,14 +488,14 @@ flowchart LR
 **Objetivo:** recuperar productos y avisar con claridad cuando no existen.
 
 **Criterios de aceptación:**
-- [ ] Se puede consultar un producto por identificador y por código
-- [ ] Un producto inexistente devuelve "El producto no existe", sin excepción técnica visible
-- [ ] El listado muestra todos los productos con su estado y existencia
-- [ ] La consulta no crea ni modifica datos (se verifica el conteo de movimientos antes y después)
+- [x] Se puede consultar un producto por identificador y por código
+- [x] Un producto inexistente devuelve "El producto no existe", sin excepción técnica visible
+- [x] El listado muestra todos los productos con su estado y existencia
+- [x] La consulta no crea ni modifica datos (se verifica el conteo de movimientos antes y después)
 
 **Trazabilidad:** RF-01, RF-05 · CP-11
 **Depende de:** SI-020
-**Evidencia:** salida de las pruebas
+**Evidencia:** `docs/evidencias/SI-021/Consulta_Listado_Productos.md` (Green_Test.md y Red_Test.md)
 
 ---
 
