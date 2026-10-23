@@ -128,4 +128,166 @@ public class CalculadoraPromedioPonderadoTests
         Assert.Equal(0.00m, resultado.SaldoValor);
         Assert.Equal(0.0000m, resultado.CostoPromedio);
     }
+
+    [Fact]
+    [Trait("CP", "CP-09")]
+    [Trait("RF", "RF-04")]
+    [Trait("RB", "RB-07")]
+    [Trait("Nivel", "Unitaria")]
+    public void CalcularSalida_EscenarioE01_SalidaParcial_MantieneCostoPromedioYDescuentaSaldo()
+    {
+        // Arrange (E-01 / S1: Sale 5 unidades sobre existencia 20, saldo 500.00, promedio 25.0000)
+        decimal existenciaActual = 20m;
+        decimal saldoValorActual = 500.00m;
+        decimal costoPromedioActual = 25.0000m;
+        decimal cantidadSalida = 5m;
+
+        // Act
+        var resultado = CalculadoraPromedioPonderado.CalcularSalida(
+            existenciaActual,
+            saldoValorActual,
+            costoPromedioActual,
+            cantidadSalida);
+
+        // Assert: 5 * 25.0000 = 125.00 costo salida, saldo remanente 375.00, promedio se mantiene
+        Assert.Equal(15m, resultado.Existencia);
+        Assert.Equal(375.00m, resultado.SaldoValor);
+        Assert.Equal(25.0000m, resultado.CostoPromedio);
+        Assert.Equal(125.00m, resultado.CostoTotalSalida);
+    }
+
+    [Fact]
+    [Trait("CP", "CP-09")]
+    [Trait("RF", "RF-04")]
+    [Trait("RB", "RB-07")]
+    [Trait("Nivel", "Unitaria")]
+    public void CalcularSalida_EscenarioE02_SalidaS1_CalculaCostoConCuatroDecimalesYRedondeoImporte()
+    {
+        // Arrange (E-02 / S1: Sale 5 unidades sobre existencia 7, saldo 74.00, promedio 10.5714)
+        decimal existenciaActual = 7m;
+        decimal saldoValorActual = 74.00m;
+        decimal costoPromedioActual = 10.5714m;
+        decimal cantidadSalida = 5m;
+
+        // Act
+        var resultado = CalculadoraPromedioPonderado.CalcularSalida(
+            existenciaActual,
+            saldoValorActual,
+            costoPromedioActual,
+            cantidadSalida);
+
+        // Assert: 5 * 10.5714 = 52.857 -> 52.86; saldo = 74.00 - 52.86 = 21.14
+        Assert.Equal(2m, resultado.Existencia);
+        Assert.Equal(21.14m, resultado.SaldoValor);
+        Assert.Equal(10.5714m, resultado.CostoPromedio);
+        Assert.Equal(52.86m, resultado.CostoTotalSalida);
+    }
+
+    [Fact]
+    [Trait("CP", "CP-09")]
+    [Trait("RF", "RF-04")]
+    [Trait("RB", "RB-07")]
+    [Trait("RB", "D-03")]
+    [Trait("Nivel", "Unitaria")]
+    public void CalcularSalida_EscenarioE02_SalidaS2_AgotamientoTotal_AjustaResiduoYDejaSaldoEnCero()
+    {
+        // Arrange (E-02 / S2: Sale 2 unidades sobre existencia 2, saldo 21.14, promedio 10.5714)
+        decimal existenciaActual = 2m;
+        decimal saldoValorActual = 21.14m;
+        decimal costoPromedioActual = 10.5714m;
+        decimal cantidadSalida = 2m;
+
+        // Act
+        var resultado = CalculadoraPromedioPonderado.CalcularSalida(
+            existenciaActual,
+            saldoValorActual,
+            costoPromedioActual,
+            cantidadSalida);
+
+        // Assert: Agota existencia -> saldo queda 0.00 y costo salida absorbe saldo restante (21.14)
+        Assert.Equal(0m, resultado.Existencia);
+        Assert.Equal(0.00m, resultado.SaldoValor);
+        Assert.Equal(0.0000m, resultado.CostoPromedio);
+        Assert.Equal(21.14m, resultado.CostoTotalSalida);
+    }
+
+    [Fact]
+    [Trait("CP", "CP-17")]
+    [Trait("RF", "RF-04")]
+    [Trait("RB", "RB-09")]
+    [Trait("Nivel", "Unitaria")]
+    public void CalcularSalida_EscenarioE03_SalidaS1_AplicaRedondeoBancarioParImpar()
+    {
+        // Arrange (E-03 / S1: Sale 1 unidad sobre existencia 6, saldo 60.03, promedio 10.0050)
+        decimal existenciaActual = 6m;
+        decimal saldoValorActual = 60.03m;
+        decimal costoPromedioActual = 10.0050m;
+        decimal cantidadSalida = 1m;
+
+        // Act
+        var resultado = CalculadoraPromedioPonderado.CalcularSalida(
+            existenciaActual,
+            saldoValorActual,
+            costoPromedioActual,
+            cantidadSalida);
+
+        // Assert: 1 * 10.0050 = 10.005 -> bancario al par 10.00 (half-up daría 10.01)
+        Assert.Equal(5m, resultado.Existencia);
+        Assert.Equal(50.03m, resultado.SaldoValor);
+        Assert.Equal(10.0050m, resultado.CostoPromedio);
+        Assert.Equal(10.00m, resultado.CostoTotalSalida);
+    }
+
+    [Fact]
+    [Trait("CP", "CP-17")]
+    [Trait("RF", "RF-04")]
+    [Trait("RB", "RB-09")]
+    [Trait("RB", "D-03")]
+    [Trait("RNF", "RNF-01")]
+    [Trait("Nivel", "Unitaria")]
+    public void CalcularSalida_EscenarioE03_SalidaS2_AgotamientoTotal_AjustaCentavoResiduoD03()
+    {
+        // Arrange (E-03 / S2: Sale 5 unidades sobre existencia 5, saldo 50.03, promedio 10.0050)
+        // 5 * 10.0050 = 50.025 -> bancario daría 50.02 dejando residuo de 0.01.
+        // D-03 exige ajustar el costo de salida al saldo restante (50.03) para que el saldo quede en 0.00.
+        decimal existenciaActual = 5m;
+        decimal saldoValorActual = 50.03m;
+        decimal costoPromedioActual = 10.0050m;
+        decimal cantidadSalida = 5m;
+
+        // Act
+        var resultado = CalculadoraPromedioPonderado.CalcularSalida(
+            existenciaActual,
+            saldoValorActual,
+            costoPromedioActual,
+            cantidadSalida);
+
+        // Assert
+        Assert.Equal(0m, resultado.Existencia);
+        Assert.Equal(0.00m, resultado.SaldoValor);
+        Assert.Equal(0.0000m, resultado.CostoPromedio);
+        Assert.Equal(50.03m, resultado.CostoTotalSalida);
+    }
+
+    [Fact]
+    [Trait("CP", "CP-07")]
+    [Trait("RF", "RF-04")]
+    [Trait("RB", "RB-03")]
+    [Trait("Nivel", "Unitaria")]
+    public void CalcularSalida_CuandoSalidaMayorAExistencia_LanzaInvalidOperationException()
+    {
+        // Arrange: intento de salida de 10 con existencia 5
+        decimal existenciaActual = 5m;
+        decimal saldoValorActual = 50.00m;
+        decimal costoPromedioActual = 10.0000m;
+        decimal cantidadSalida = 10m;
+
+        // Act & Assert
+        Assert.Throws<InvalidOperationException>(() =>
+            CalculadoraPromedioPonderado.CalcularSalida(
+                existenciaActual,
+                saldoValorActual,
+                costoPromedioActual,
+                cantidadSalida));
+    }
 }
