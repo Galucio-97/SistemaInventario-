@@ -19,15 +19,45 @@ public class EditarModel(ProductoService productoService) : PageModel
         public bool Activo { get; set; }
     }
 
-    public async Task<IActionResult> OnGetAsync(int id)
+    public async Task<IActionResult> OnGetAsync(int id, CancellationToken cancellationToken = default)
     {
-        // Stub para fase RED
-        return await Task.FromResult<IActionResult>(Page());
+        var resultado = await productoService.ObtenerPorIdAsync(id, cancellationToken);
+        if (!resultado.Encontrado || resultado.Producto is null)
+        {
+            TempData["MensajeError"] = resultado.MensajeError ?? ProductoService.MensajeProductoNoExiste;
+            return RedirectToPage("./Index");
+        }
+
+        Input = new InputModel
+        {
+            Id = resultado.Producto.Id,
+            Codigo = resultado.Producto.Codigo,
+            Nombre = resultado.Producto.Nombre,
+            UnidadMedida = resultado.Producto.UnidadMedida,
+            Descripcion = resultado.Producto.Descripcion,
+            Activo = resultado.Producto.Activo
+        };
+
+        return Page();
     }
 
-    public async Task<IActionResult> OnPostAsync(int id)
+    public async Task<IActionResult> OnPostAsync(int id, CancellationToken cancellationToken = default)
     {
-        // Stub para fase RED
-        return await Task.FromResult<IActionResult>(Page());
+        var resultado = await productoService.ModificarAsync(
+            id,
+            Input.Nombre,
+            Input.UnidadMedida,
+            Input.Descripcion,
+            Input.Activo,
+            cancellationToken);
+
+        if (!resultado.Exitoso)
+        {
+            ModelState.AddModelError(string.Empty, resultado.MensajeError!);
+            return Page();
+        }
+
+        TempData["MensajeExito"] = "Producto modificado exitosamente.";
+        return RedirectToPage("./Index");
     }
 }

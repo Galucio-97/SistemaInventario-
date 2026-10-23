@@ -47,6 +47,10 @@
 
 | ID | Requisito | Nivel | Técnica de Diseño | Estado Actual | Prueba Automatizada Asociada | Evidencia Documentada |
 |:---|:---|:---:|:---:|:---:|:---|:---|
+| **CP-01** | RF-01, RNF-02 | Integración + Funcional | Partición / Humo | **✅ APROBADO (Integración + UI)** | `SmokeDatabaseTests`, `ProductoServiceIntegrationTests`, `ProductosPagesTests` | `evidencias/SI-020/Registro_Productos.md`, `evidencias/SI-023/Interfaz_Productos.md` |
+| **CP-02** | RF-01, RNF-03 | Unitaria + Integración + Funcional | Partición (Inválida) | **✅ APROBADO (Integración + UI)** | `ValidadorProductoTests`, `ProductoServiceIntegrationTests`, `ProductosPagesTests` | `evidencias/SI-020/Registro_Productos.md`, `evidencias/SI-023/Interfaz_Productos.md` |
+| **CP-03** | RF-02, RB-04 | Funcional | Basada en Escenarios | *Pendiente (v0.4.0)* | `InventarioServiceTests.Entrada_Valida_ActualizaStockYValor` | `evidencias/CP-03/` |
+| **CP-04** | RF-03, RB-07 | Funcional | Tabla de Decisión (R5) | *Pendiente (v0.4.0)* | `InventarioServiceTests.Salida_Valida_CalculaCostoYDescuenta` | `evidencias/CP-04/` |
 | **CP-01** | RF-01, RNF-02 | Integración | Partición / Humo | **✅ APROBADO (Integración)** | `SmokeDatabaseTests`, `ProductoServiceIntegrationTests` | `evidencias/SI-020/Registro_Productos.md` |
 | **CP-02** | RF-01, RNF-03 | Unitaria + Integración | Partición (Inválida) | **✅ APROBADO (Integración)** | `ValidadorProductoTests`, `ProductoServiceIntegrationTests` | `evidencias/SI-020/Registro_Productos.md` |
 | **CP-03** | RF-02, RB-04, RB-05 | Integración | Basada en Escenarios | **✅ APROBADO (Integración)** | `InventarioServiceIntegrationTests` | `evidencias/SI-024/Green_Test.md` |
@@ -57,7 +61,7 @@
 | **CP-08** | RF-04, RB-07 | Unitaria + Func. | Escenario Obligatorio 6.3 | **✅ APROBADO (Unitaria)** | `CalculadoraPepsTests` | `evidencias/SI-017/Green_Test.md` |
 | **CP-09** | RF-04, RB-07 | Unitaria + Func. | Escenario Obligatorio 6.3 | **✅ APROBADO (Unitaria)** | `CalculadoraPromedioPonderadoTests` | `evidencias/SI-016/Promedio_Ponderado_Salidas.md` |
 | **CP-10** | RF-04, RF-05 | Funcional | Escenario Obligatorio 6.3 | *Pendiente (v0.5.0)* | `ConsultaInventarioTests.CambioMetodo_RecalculaSinAlterarHistorial` | `evidencias/CP-10/` |
-| **CP-11** | RF-01, RF-05, RB-04 | Funcional / Integración | Tabla de Decisión (R1) | **✅ APROBADO (Integración)** | `ProductoServiceIntegrationTests` | `evidencias/SI-021/Consulta_Listado_Productos.md` |
+| **CP-11** | RF-01, RF-05, RB-04 | Funcional / Integración | Tabla de Decisión (R1) | **✅ APROBADO (Integración + UI)** | `ProductoServiceIntegrationTests`, `ProductosPagesTests` | `evidencias/SI-021/Consulta_Listado_Productos.md`, `evidencias/SI-023/Interfaz_Productos.md` |
 | **CP-12** | RNF-02, RB-05 | Integración | Basada en Escenarios | *Pendiente (v0.4.0)* | `PersistenciaTests.ReinicioAplicacion_ConservaDatos` | `evidencias/CP-12/` |
 | **CP-13** | RNF-04, RB-06 | Integración | Inyección de Fallos | **✅ APROBADO (Integración)** | `TransaccionRollbackTests` | `evidencias/SI-026/Green_Test.md` |
 | **CP-14** | Todos | Regresión | Suite Completa | *Pendiente (v0.9.x)* | Re-ejecución total automatizada tras fixes | `evidencias/ciclos/` |

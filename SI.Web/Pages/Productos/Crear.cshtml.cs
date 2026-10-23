@@ -21,9 +21,22 @@ public class CrearModel(ProductoService productoService) : PageModel
     {
     }
 
-    public async Task<IActionResult> OnPostAsync()
+    public async Task<IActionResult> OnPostAsync(CancellationToken cancellationToken = default)
     {
-        // Stub para fase RED
-        return await Task.FromResult<IActionResult>(Page());
+        var resultado = await productoService.RegistrarAsync(
+            Input.Codigo,
+            Input.Nombre,
+            Input.UnidadMedida,
+            Input.Descripcion,
+            cancellationToken);
+
+        if (!resultado.Exitoso)
+        {
+            ModelState.AddModelError(string.Empty, resultado.MensajeError!);
+            return Page();
+        }
+
+        TempData["MensajeExito"] = $"Producto '{Input.Codigo?.Trim()}' registrado exitosamente.";
+        return RedirectToPage("./Index");
     }
 }

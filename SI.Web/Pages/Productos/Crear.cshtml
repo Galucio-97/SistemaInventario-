@@ -1,0 +1,50 @@
+@page
+@model SI.Web.Pages.Productos.CrearModel
+@{
+    ViewData["Title"] = "Registrar Producto";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white border-bottom py-3">
+                <h1 class="h4 mb-0 text-primary">Registrar Nuevo Producto</h1>
+                <small class="text-muted">Alta de producto en catálogo (RF-01, RNF-02, RNF-03).</small>
+            </div>
+            <div class="card-body p-4">
+                <form method="post" novalidate>
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="Input.Codigo" class="form-label fw-semibold">Código del Producto <span class="text-danger">*</span></label>
+                        <input asp-for="Input.Codigo" class="form-control font-monospace" placeholder="Ej. P-001" autofocus />
+                        <span class="form-text text-muted">Clave única de negocio. Máximo 50 caracteres.</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Input.Nombre" class="form-label fw-semibold">Nombre <span class="text-danger">*</span></label>
+                        <input asp-for="Input.Nombre" class="form-control" placeholder="Ej. Tornillo de acero 1/4" />
+                        <span class="form-text text-muted">Nombre descriptivo del producto. Máximo 150 caracteres.</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Input.UnidadMedida" class="form-label fw-semibold">Unidad de Medida <span class="text-danger">*</span></label>
+                        <input asp-for="Input.UnidadMedida" class="form-control" placeholder="Ej. pieza, kg, caja, litro" />
+                        <span class="form-text text-muted">Unidad estándar de conteo y costeo. Máximo 30 caracteres.</span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Input.Descripcion" class="form-label fw-semibold">Descripción (Opcional)</label>
+                        <textarea asp-for="Input.Descripcion" class="form-control" rows="3" placeholder="Detalles técnicos, especificaciones o notas adicionales..."></textarea>
+                        <span class="form-text text-muted">Máximo 500 caracteres.</span>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                        <a asp-page="./Index" class="btn btn-outline-secondary">Cancelar</a>
+                        <button type="submit" class="btn btn-primary px-4">Guardar Producto</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -9,15 +9,29 @@ public class IndexModel(ProductoService productoService) : PageModel
 {
     public IReadOnlyList<Producto> Productos { get; private set; } = [];
 
-    public async Task OnGetAsync()
+    [TempData]
+    public string? MensajeExito { get; set; }
+
+    [TempData]
+    public string? MensajeError { get; set; }
+
+    public async Task OnGetAsync(CancellationToken cancellationToken = default)
     {
-        // Stub para fase RED
-        Productos = await Task.FromResult<IReadOnlyList<Producto>>([]);
+        Productos = await productoService.ListarTodosAsync(cancellationToken);
     }
 
-    public async Task<IActionResult> OnPostCambiarEstadoAsync(int id, bool nuevoEstado)
+    public async Task<IActionResult> OnPostCambiarEstadoAsync(int id, bool nuevoEstado, CancellationToken cancellationToken = default)
     {
-        // Stub para fase RED
-        return await Task.FromResult<IActionResult>(Page());
+        var resultado = await productoService.CambiarEstadoAsync(id, nuevoEstado, cancellationToken);
+        if (resultado.Exitoso)
+        {
+            MensajeExito = $"El estado del producto fue actualizado a {(nuevoEstado ? "Activo" : "Inactivo")}.";
+        }
+        else
+        {
+            MensajeError = resultado.MensajeError;
+        }
+
+        return RedirectToPage("./Index");
     }
 }

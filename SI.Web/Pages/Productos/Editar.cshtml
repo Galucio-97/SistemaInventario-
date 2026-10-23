@@ -1,0 +1,63 @@
+@page "{id:int?}"
+@model SI.Web.Pages.Productos.EditarModel
+@{
+    ViewData["Title"] = "Editar Producto";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white border-bottom py-3">
+                <h1 class="h4 mb-0 text-primary">Editar Producto</h1>
+                <small class="text-muted">Modificación de datos descriptivos y estado (RF-01, RB-10, SI-022).</small>
+            </div>
+            <div class="card-body p-4">
+                <form method="post" novalidate>
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                    <input type="hidden" asp-for="Input.Id" />
+                    <input type="hidden" asp-for="Input.Codigo" />
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold text-muted">Código del Producto (Inmutable)</label>
+                        <input value="@Model.Input.Codigo" class="form-control font-monospace bg-light" readonly disabled />
+                        <span class="form-text text-muted">El código es la clave de negocio y no se puede modificar (Decisión D-10).</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Input.Nombre" class="form-label fw-semibold">Nombre <span class="text-danger">*</span></label>
+                        <input asp-for="Input.Nombre" class="form-control" />
+                        <span class="form-text text-muted">Máximo 150 caracteres.</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Input.UnidadMedida" class="form-label fw-semibold">Unidad de Medida <span class="text-danger">*</span></label>
+                        <input asp-for="Input.UnidadMedida" class="form-control" />
+                        <span class="form-text text-muted">Máximo 30 caracteres.</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Input.Descripcion" class="form-label fw-semibold">Descripción (Opcional)</label>
+                        <textarea asp-for="Input.Descripcion" class="form-control" rows="3"></textarea>
+                        <span class="form-text text-muted">Máximo 500 caracteres.</span>
+                    </div>
+
+                    <div class="mb-4 form-check form-switch">
+                        <input asp-for="Input.Activo" class="form-check-input" type="checkbox" id="switchActivo" />
+                        <label class="form-check-label fw-semibold" for="switchActivo">
+                            Producto activo para operaciones
+                        </label>
+                        <div class="form-text text-muted">
+                            Si está inactivo, el sistema rechazará cualquier entrada o salida de inventario (Regla RB-10 / CP-18).
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                        <a asp-page="./Index" class="btn btn-outline-secondary">Cancelar</a>
+                        <button type="submit" class="btn btn-primary px-4">Guardar Cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
