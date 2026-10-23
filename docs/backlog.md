@@ -469,16 +469,16 @@ flowchart LR
 **Objetivo:** dar de alta productos válidos y rechazar los inválidos o duplicados.
 
 **Criterios de aceptación:**
-- [ ] Se exigen código, nombre y unidad de medida, sin vacíos ni espacios en blanco; la descripción es opcional
-- [ ] Se respetan las longitudes máximas con mensaje claro si se exceden
-- [ ] El producto nuevo queda activo, con existencia 0 y valores en 0.00
-- [ ] Un código duplicado se rechaza con "Ya existe un producto con el código X" (la validación vive en la aplicación **y** en la BD)
-- [ ] **Integración:** tras registrar, un contexto nuevo lee el producto con los datos exactos (CP-01)
-- [ ] **Integración:** el intento duplicado deja exactamente 1 fila con ese código (CP-02)
+- [X] Se exigen código, nombre y unidad de medida, sin vacíos ni espacios en blanco; la descripción es opcional
+- [X] Se respetan las longitudes máximas con mensaje claro si se exceden
+- [X] El producto nuevo queda activo, con existencia 0 y valores en 0.00
+- [X] Un código duplicado se rechaza con "Ya existe un producto con el código X" (la validación vive en la aplicación **y** en la BD)
+- [X] **Integración:** tras registrar, un contexto nuevo lee el producto con los datos exactos (CP-01)
+- [X] **Integración:** el intento duplicado deja exactamente 1 fila con ese código (CP-02)
 
 **Trazabilidad:** RF-01 · RNF-02, RNF-03 · CP-01, CP-02
 **Depende de:** SI-010
-**Evidencia:** consulta SQL de la tabla de productos tras cada prueba
+**Evidencia:** `docs/evidencias/SI-020/Registro_Productos.md` (Green_Test.md y Red_Test.md)
 
 ---
 
@@ -488,14 +488,14 @@ flowchart LR
 **Objetivo:** recuperar productos y avisar con claridad cuando no existen.
 
 **Criterios de aceptación:**
-- [ ] Se puede consultar un producto por identificador y por código
-- [ ] Un producto inexistente devuelve "El producto no existe", sin excepción técnica visible
-- [ ] El listado muestra todos los productos con su estado y existencia
-- [ ] La consulta no crea ni modifica datos (se verifica el conteo de movimientos antes y después)
+- [x] Se puede consultar un producto por identificador y por código
+- [x] Un producto inexistente devuelve "El producto no existe", sin excepción técnica visible
+- [x] El listado muestra todos los productos con su estado y existencia
+- [x] La consulta no crea ni modifica datos (se verifica el conteo de movimientos antes y después)
 
 **Trazabilidad:** RF-01, RF-05 · CP-11
 **Depende de:** SI-020
-**Evidencia:** salida de las pruebas
+**Evidencia:** `docs/evidencias/SI-021/Consulta_Listado_Productos.md` (Green_Test.md y Red_Test.md)
 
 ---
 
