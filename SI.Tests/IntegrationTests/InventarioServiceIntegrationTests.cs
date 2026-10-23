@@ -21,7 +21,8 @@ public class InventarioServiceIntegrationTests(TestDbContextFixture fixture)
         // Arrange — Producto P-001 activo sin movimientos (CP-03, E-01 E1)
         fixture.ResetDatabase();
         int productoId;
-        using (var contextInicial = fixture.CreateDbContext())
+
+        await using (var contextInicial = fixture.CreateDbContext())
         {
             var p = new Producto
             {
@@ -35,15 +36,16 @@ public class InventarioServiceIntegrationTests(TestDbContextFixture fixture)
                 ValorInventarioPromedio = 0m
             };
             contextInicial.Productos.Add(p);
+            
             await contextInicial.SaveChangesAsync();
             productoId = p.Id;
         }
 
-        using var contextOperacion = fixture.CreateDbContext();
+        await using var contextOperacion = fixture.CreateDbContext();
         var service = new InventarioService(contextOperacion);
         var fechaEntrada = new DateTime(2026, 10, 1, 10, 0, 0);
-        decimal cantidad = 10.0000m;
-        decimal costoUnitario = 20.0000m;
+        var cantidad = 10.0000m;
+        var costoUnitario = 20.0000m;
 
         // Act — CP-03: Entrada de 10 @ 20.00
         var resultado = await service.RegistrarEntradaAsync(productoId, fechaEntrada, cantidad, costoUnitario);
@@ -53,8 +55,9 @@ public class InventarioServiceIntegrationTests(TestDbContextFixture fixture)
         Assert.NotNull(resultado.EntidadId);
 
         // Verificación con contexto desacoplado de lectura
-        using var contextLectura = fixture.CreateDbContext();
+        await using var contextLectura = fixture.CreateDbContext();
         var productoActualizado = await contextLectura.Productos.FindAsync(productoId);
+        
         Assert.NotNull(productoActualizado);
         Assert.Equal(10.0000m, productoActualizado.ExistenciaActual);
         Assert.Equal(20.0000m, productoActualizado.CostoPromedioActual);
@@ -63,6 +66,7 @@ public class InventarioServiceIntegrationTests(TestDbContextFixture fixture)
 
         // Movimiento registrado en BD
         var movimiento = await contextLectura.Movimientos.FirstOrDefaultAsync(m => m.ProductoId == productoId);
+        
         Assert.NotNull(movimiento);
         Assert.Equal(resultado.EntidadId, movimiento.Id);
         Assert.Equal(TipoMovimiento.Entrada, movimiento.Tipo);
@@ -79,6 +83,7 @@ public class InventarioServiceIntegrationTests(TestDbContextFixture fixture)
 
         // Capa PEPS registrada en BD
         var capa = await contextLectura.CapasInventarioPeps.FirstOrDefaultAsync(c => c.ProductoId == productoId);
+        
         Assert.NotNull(capa);
         Assert.Equal(movimiento.Id, capa.MovimientoId);
         Assert.Equal(fechaEntrada, capa.FechaEntrada);
@@ -198,7 +203,8 @@ public class InventarioServiceIntegrationTests(TestDbContextFixture fixture)
     {
         // Arrange
         fixture.ResetDatabase();
-        using var contextOperacion = fixture.CreateDbContext();
+        await using var contextOperacion = fixture.CreateDbContext();
+        
         var service = new InventarioService(contextOperacion);
 
         // Act — Intentar registrar entrada sobre producto inexistente
@@ -208,7 +214,7 @@ public class InventarioServiceIntegrationTests(TestDbContextFixture fixture)
         Assert.False(resultado.Exitoso);
         Assert.Equal(InventarioService.MensajeProductoNoExiste, resultado.MensajeError);
 
-        using var contextLectura = fixture.CreateDbContext();
+        await using var contextLectura = fixture.CreateDbContext();
         Assert.Empty(contextLectura.Movimientos);
         Assert.Empty(contextLectura.CapasInventarioPeps);
     }

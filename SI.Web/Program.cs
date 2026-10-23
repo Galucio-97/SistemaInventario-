@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SI.Web.Data;
+using SI.Web.Interfaces;
+using SI.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +11,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<InventarioDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-// Add services to the container.
+builder.Services.AddScoped<IInventarioService, InventarioService>();
 builder.Services.AddRazorPages();
 
 var app = builder.Build();

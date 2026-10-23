@@ -3,13 +3,14 @@ using SI.Web.Common;
 using SI.Web.Data;
 using SI.Web.Data.Entities;
 using SI.Web.Enums;
+using SI.Web.Interfaces;
 
 namespace SI.Web.Services;
 
 /// <summary>
 /// Servicio de dominio para registro transaccional de movimientos de inventario (RF-02, RF-03, RB-04..07, SI-024, SI-025).
 /// </summary>
-public class InventarioService(InventarioDbContext context)
+public class InventarioService(InventarioDbContext context) : IInventarioService
 {
     public const string MensajeProductoNoExiste = "El producto no existe";
     public const string MensajeProductoInactivo = "El producto está inactivo";
@@ -18,13 +19,67 @@ public class InventarioService(InventarioDbContext context)
     /// Registra una entrada de inventario de forma atómica actualizando existencias, capas PEPS y promedio ponderado (RF-02, SI-024).
     /// </summary>
     public async Task<ResultadoOperacion> RegistrarEntradaAsync(
-        int productoId,
-        DateTime fecha,
-        decimal cantidad,
-        decimal costoUnitario,
-        CancellationToken cancellationToken = default)
+        int productoId, DateTime fecha, decimal cantidad, decimal costoUnitario, CancellationToken ct = default
+    )
     {
-        // Stub inicial para fase RED
-        return await Task.FromResult(new ResultadoOperacion(false, "No implementado"));
+        var cantidadEsValida = ValidadorCantidad.Validar(cantidad);
+
+        if (!cantidadEsValida.EsValido)
+            return new ResultadoOperacion(false, cantidadEsValida.MensajeError);
+        
+        var costoUnitarioEsValido = ValidadorCostoUnitario.Validar(costoUnitario);
+        
+        if (!costoUnitarioEsValido.EsValido)
+            return new ResultadoOperacion(false, costoUnitarioEsValido.MensajeError);
+        
+        var producto = await context.Productos.FirstOrDefaultAsync(p => p.Id == productoId, ct);
+
+        if (producto == null) 
+            return new ResultadoOperacion(false, MensajeProductoNoExiste);
+        
+        if (!producto.Activo)
+            return new ResultadoOperacion(false, MensajeProductoInactivo);
+
+        var calculoPromedioPonderado = CalculadoraPromedioPonderado.CalcularEntrada(
+            producto.ExistenciaActual, producto.ValorInventarioPromedio, cantidad, costoUnitario
+        );
+        
+        var valorEntrada = PoliticaRedondeo.Importe(cantidad * costoUnitario);
+        var nuevoValorPeps = PoliticaRedondeo.Importe(producto.ValorInventarioPeps + valorEntrada);
+        await using var transaction = await context.Database.BeginTransactionAsync(ct);
+
+        // Crear Movimiento
+        var movimiento = new Movimiento
+        {
+            ProductoId = producto.Id,
+            Fecha = fecha,
+            Tipo = TipoMovimiento.Entrada,
+            Cantidad = cantidad,
+            CostoUnitarioEntrada = costoUnitario,
+            ExistenciaResultante = calculoPromedioPonderado.Existencia,
+            CostoUnitarioPeps = costoUnitario,
+            CostoTotalPeps = valorEntrada,
+            SaldoValorPeps = nuevoValorPeps,
+            CostoUnitarioPromedio = calculoPromedioPonderado.CostoPromedio,
+            CostoTotalPromedio = valorEntrada,
+            SaldoValorPromedio = calculoPromedioPonderado.SaldoValor
+        };
+        context.Movimientos.Add(movimiento);
+        await context.SaveChangesAsync(ct);
+
+        // Crear Capa PEPS
+        var capa = CalculadoraPeps.CrearCapa(fecha, cantidad, costoUnitario, producto.Id, movimiento.Id);
+        context.CapasInventarioPeps.Add(capa);
+
+        // Actualizar saldos del Producto
+        producto.ExistenciaActual = calculoPromedioPonderado.Existencia;
+        producto.CostoPromedioActual = calculoPromedioPonderado.CostoPromedio;
+        producto.ValorInventarioPromedio = calculoPromedioPonderado.SaldoValor;
+        producto.ValorInventarioPeps = nuevoValorPeps;
+
+        await context.SaveChangesAsync(ct);
+        await transaction.CommitAsync(ct);
+
+        return new ResultadoOperacion(true, null, movimiento.Id);
     }
 }

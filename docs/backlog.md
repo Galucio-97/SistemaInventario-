@@ -99,7 +99,7 @@ flowchart LR
 | SI-021 | Consultar y listar productos | v0.3.0 | B | D3 | 1 | Must | TERMINADO   |
 | SI-022 | Modificar producto y cambiar su estado | v0.3.0 | B | D3 | 1.5 | Must | TERMINADO   |
 | SI-023 | Interfaz de administración de productos | v0.3.0 | B | D4 | 3 | Must | Por hacer   |
-| SI-024 | Registrar entrada con transacción | v0.4.0 | A | D3 | 3 | Must | Por hacer   |
+| SI-024 | Registrar entrada con transacción | v0.4.0 | A | D3 | 3 | Must | EN REVISION |
 | SI-025 | Registrar salida con transacción | v0.4.0 | A | D3 | 3 | Must | Por hacer   |
 | SI-026 | Atomicidad ante fallos | v0.4.0 | A | D3 | 2 | Must | Por hacer   |
 | SI-027 | Persistencia tras reinicio | v0.4.0 | A | D4 | 1 | Must | Por hacer   |
@@ -542,14 +542,14 @@ flowchart LR
 **Objetivo:** registrar una entrada que actualice existencias y valores de **ambos** métodos de forma atómica.
 
 **Criterios de aceptación:**
-- [ ] En una sola transacción: se crea el movimiento, se crea la capa PEPS y se actualizan existencia, promedio y valores del producto
-- [ ] Se rechazan con mensaje y **sin cambios en la BD**: cantidad inválida (CP-05), costo inválido (CP-06), producto inexistente (CP-11) y producto inactivo (CP-18)
-- [ ] **CP-03:** entrada 10 @ 20.00 sobre producto nuevo → existencia 10, valores 200.00 / 200.00, promedio 20.0000, 1 movimiento, 1 capa
-- [ ] Toda verificación de rechazo compara el estado de la BD antes y después (conteos, existencia, valores)
+- [X] En una sola transacción: se crea el movimiento, se crea la capa PEPS y se actualizan existencia, promedio y valores del producto
+- [X] Se rechazan con mensaje y **sin cambios en la BD**: cantidad inválida (CP-05), costo inválido (CP-06), producto inexistente (CP-11) y producto inactivo (CP-18)
+- [X] **CP-03:** entrada 10 @ 20.00 sobre producto nuevo → existencia 10, valores 200.00 / 200.00, promedio 20.0000, 1 movimiento, 1 capa
+- [X] Toda verificación de rechazo compara el estado de la BD antes y después (conteos, existencia, valores)
 
 **Trazabilidad:** RF-02 · RB-01, 02, 04, 05, 06, 10 · RNF-04 · CP-03, CP-05, CP-06, CP-11, CP-18
 **Depende de:** SI-013, SI-015, SI-017, SI-020
-**Evidencia:** consultas SQL de producto, movimientos y capas tras cada caso
+**Evidencia:** `docs/evidencias/SI-024/Green_Test.md`
 
 ---
 
