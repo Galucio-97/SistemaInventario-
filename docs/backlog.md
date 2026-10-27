@@ -95,12 +95,12 @@ flowchart LR
 | SI-016 | Promedio ponderado: salidas y ajuste por residuo | v0.2.0 | B | D2 | 1.5 | Must | TERMINADO   |
 | SI-017 | PEPS: creación de capas y salida de una capa | v0.2.0 | A | D2 | 1.5 | Must | TERMINADO   |
 | SI-018 | PEPS: salida multicapa y agotamiento | v0.2.0 | A | D2 | 2 | Must | TERMINADO   |
-| SI-020 | Registrar producto | v0.3.0 | B | D3 | 2 | Must | Por hacer   |
-| SI-021 | Consultar y listar productos | v0.3.0 | B | D3 | 1 | Must | Por hacer   |
-| SI-022 | Modificar producto y cambiar su estado | v0.3.0 | B | D3 | 1.5 | Must | Por hacer   |
+| SI-020 | Registrar producto | v0.3.0 | B | D3 | 2 | Must | TERMINADO   |
+| SI-021 | Consultar y listar productos | v0.3.0 | B | D3 | 1 | Must | TERMINADO   |
+| SI-022 | Modificar producto y cambiar su estado | v0.3.0 | B | D3 | 1.5 | Must | TERMINADO   |
 | SI-023 | Interfaz de administración de productos | v0.3.0 | B | D4 | 3 | Must | Por hacer   |
-| SI-024 | Registrar entrada con transacción | v0.4.0 | A | D3 | 3 | Must | Por hacer   |
-| SI-025 | Registrar salida con transacción | v0.4.0 | A | D3 | 3 | Must | Por hacer   |
+| SI-024 | Registrar entrada con transacción | v0.4.0 | A | D3 | 3 | Must | TERMINADO   |
+| SI-025 | Registrar salida con transacción | v0.4.0 | A | D3 | 3 | Must | TERMINADO   |
 | SI-026 | Atomicidad ante fallos | v0.4.0 | A | D3 | 2 | Must | Por hacer   |
 | SI-027 | Persistencia tras reinicio | v0.4.0 | A | D4 | 1 | Must | Por hacer   |
 | SI-028 | Invariante de valores almacenados | v0.4.0 | A | D4 | 1.5 | Must | Por hacer   |
@@ -469,16 +469,16 @@ flowchart LR
 **Objetivo:** dar de alta productos válidos y rechazar los inválidos o duplicados.
 
 **Criterios de aceptación:**
-- [ ] Se exigen código, nombre y unidad de medida, sin vacíos ni espacios en blanco; la descripción es opcional
-- [ ] Se respetan las longitudes máximas con mensaje claro si se exceden
-- [ ] El producto nuevo queda activo, con existencia 0 y valores en 0.00
-- [ ] Un código duplicado se rechaza con "Ya existe un producto con el código X" (la validación vive en la aplicación **y** en la BD)
-- [ ] **Integración:** tras registrar, un contexto nuevo lee el producto con los datos exactos (CP-01)
-- [ ] **Integración:** el intento duplicado deja exactamente 1 fila con ese código (CP-02)
+- [X] Se exigen código, nombre y unidad de medida, sin vacíos ni espacios en blanco; la descripción es opcional
+- [X] Se respetan las longitudes máximas con mensaje claro si se exceden
+- [X] El producto nuevo queda activo, con existencia 0 y valores en 0.00
+- [X] Un código duplicado se rechaza con "Ya existe un producto con el código X" (la validación vive en la aplicación **y** en la BD)
+- [X] **Integración:** tras registrar, un contexto nuevo lee el producto con los datos exactos (CP-01)
+- [X] **Integración:** el intento duplicado deja exactamente 1 fila con ese código (CP-02)
 
 **Trazabilidad:** RF-01 · RNF-02, RNF-03 · CP-01, CP-02
 **Depende de:** SI-010
-**Evidencia:** consulta SQL de la tabla de productos tras cada prueba
+**Evidencia:** `docs/evidencias/SI-020/Registro_Productos.md` (Green_Test.md y Red_Test.md)
 
 ---
 
@@ -488,14 +488,14 @@ flowchart LR
 **Objetivo:** recuperar productos y avisar con claridad cuando no existen.
 
 **Criterios de aceptación:**
-- [ ] Se puede consultar un producto por identificador y por código
-- [ ] Un producto inexistente devuelve "El producto no existe", sin excepción técnica visible
-- [ ] El listado muestra todos los productos con su estado y existencia
-- [ ] La consulta no crea ni modifica datos (se verifica el conteo de movimientos antes y después)
+- [x] Se puede consultar un producto por identificador y por código
+- [x] Un producto inexistente devuelve "El producto no existe", sin excepción técnica visible
+- [x] El listado muestra todos los productos con su estado y existencia
+- [x] La consulta no crea ni modifica datos (se verifica el conteo de movimientos antes y después)
 
 **Trazabilidad:** RF-01, RF-05 · CP-11
 **Depende de:** SI-020
-**Evidencia:** salida de las pruebas
+**Evidencia:** `docs/evidencias/SI-021/Consulta_Listado_Productos.md` (Green_Test.md y Red_Test.md)
 
 ---
 
@@ -505,14 +505,14 @@ flowchart LR
 **Objetivo:** permitir corregir datos descriptivos y activar o desactivar productos.
 
 **Criterios de aceptación:**
-- [ ] Se pueden modificar nombre, descripción, unidad de medida y estado, con las mismas validaciones del alta
-- [ ] El código no se modifica (D-10, pendiente de confirmar en SI-001)
-- [ ] Modificar un producto no altera sus existencias, valores ni movimientos
-- [ ] Modificar un producto inexistente devuelve "El producto no existe"
+- [x] Se pueden modificar nombre, descripción, unidad de medida y estado, con las mismas validaciones del alta
+- [x] El código no se modifica (D-10, pendiente de confirmar en SI-001)
+- [x] Modificar un producto no altera sus existencias, valores ni movimientos
+- [x] Modificar un producto inexistente devuelve "El producto no existe"
 
 **Trazabilidad:** RF-01 · RB-10 · base de CP-18
 **Depende de:** SI-021
-**Evidencia:** salida de las pruebas
+**Evidencia:** `docs/evidencias/SI-022/Modificacion_Producto_Estado.md` (Green_Test.md y Red_Test.md)
 
 ---
 
@@ -542,14 +542,14 @@ flowchart LR
 **Objetivo:** registrar una entrada que actualice existencias y valores de **ambos** métodos de forma atómica.
 
 **Criterios de aceptación:**
-- [ ] En una sola transacción: se crea el movimiento, se crea la capa PEPS y se actualizan existencia, promedio y valores del producto
-- [ ] Se rechazan con mensaje y **sin cambios en la BD**: cantidad inválida (CP-05), costo inválido (CP-06), producto inexistente (CP-11) y producto inactivo (CP-18)
-- [ ] **CP-03:** entrada 10 @ 20.00 sobre producto nuevo → existencia 10, valores 200.00 / 200.00, promedio 20.0000, 1 movimiento, 1 capa
-- [ ] Toda verificación de rechazo compara el estado de la BD antes y después (conteos, existencia, valores)
+- [X] En una sola transacción: se crea el movimiento, se crea la capa PEPS y se actualizan existencia, promedio y valores del producto
+- [X] Se rechazan con mensaje y **sin cambios en la BD**: cantidad inválida (CP-05), costo inválido (CP-06), producto inexistente (CP-11) y producto inactivo (CP-18)
+- [X] **CP-03:** entrada 10 @ 20.00 sobre producto nuevo → existencia 10, valores 200.00 / 200.00, promedio 20.0000, 1 movimiento, 1 capa
+- [X] Toda verificación de rechazo compara el estado de la BD antes y después (conteos, existencia, valores)
 
 **Trazabilidad:** RF-02 · RB-01, 02, 04, 05, 06, 10 · RNF-04 · CP-03, CP-05, CP-06, CP-11, CP-18
 **Depende de:** SI-013, SI-015, SI-017, SI-020
-**Evidencia:** consultas SQL de producto, movimientos y capas tras cada caso
+**Evidencia:** `docs/evidencias/SI-024/Green_Test.md`
 
 ---
 
@@ -559,14 +559,14 @@ flowchart LR
 **Objetivo:** registrar una salida que consuma capas PEPS, aplique el promedio vigente y deje todo consistente.
 
 **Criterios de aceptación:**
-- [ ] En una sola transacción: se crea el movimiento con los resultados de ambos métodos, se consumen las capas y se actualiza el producto
-- [ ] **CP-04:** sobre E1 + E2 de E-01, una salida de 5 → existencia 15, costo PEPS 100.00, costo Promedio 125.00, capas `[5, 10]`
-- [ ] **CP-16:** salida igual a toda la existencia → aceptada, existencia 0, valores 0.00
-- [ ] Se rechazan sin cambios en la BD: existencia insuficiente (CP-07), cantidad inválida (CP-05), producto inexistente (CP-11) y producto inactivo (CP-18)
+- [X] En una sola transacción: se crea el movimiento con los resultados de ambos métodos, se consumen las capas y se actualiza el producto
+- [X] **CP-04:** sobre E1 + E2 de E-01, una salida de 5 → existencia 15, costo PEPS 100.00, costo Promedio 125.00, capas `[5, 10]`
+- [X] **CP-16:** salida igual a toda la existencia → aceptada, existencia 0, valores 0.00
+- [X] Se rechazan sin cambios en la BD: existencia insuficiente (CP-07), cantidad inválida (CP-05), producto inexistente (CP-11) y producto inactivo (CP-18)
 
 **Trazabilidad:** RF-03 · RB-01, 03, 04, 05, 06, 07, 10 · CP-04, CP-05, CP-07, CP-11, CP-16, CP-18
 **Depende de:** SI-014, SI-016, SI-018, SI-024
-**Evidencia:** consultas SQL antes y después
+**Evidencia:** `docs/evidencias/SI-025/Green_Test.md`
 
 ---
 

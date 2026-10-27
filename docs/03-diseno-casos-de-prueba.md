@@ -95,7 +95,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Pasos | 1. Registrar el producto. 2. Consultar la tabla `Productos` con un `DbContext` nuevo |
 | Esperado | 1 fila con los datos exactos, `Activo = 1`, existencia `0`, valores `0.00` |
 | Verificación BD | `SELECT * FROM Productos WHERE Codigo = 'P-001'` |
-| Obtenido / Estado / Evidencia | Persistencia y lectura íntegra en SQL Server real verificada mediante prueba de humo con contextos desacoplados · **Aprobado (Humo)** · 18-oct-2026 · Dev A · `evidencias/SI-010/BD_Pruebas_Aisladas.md` |
+| Obtenido / Estado / Evidencia | Persistencia y lectura íntegra en SQL Server real verificada mediante servicio y prueba de humo con contextos desacoplados; valores por defecto correctos (Activo=true, existencia=0, saldos=0.00) · **Aprobado (Integración)** · 20-oct-2026 · Dev B · `evidencias/SI-020/Registro_Productos.md` |
 
 ### CP-02 — Rechazar producto con clave duplicada
 | Campo | Valor |
@@ -107,7 +107,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Pasos | 1. Intentar registrar vía servicio. 2. Intentar insertar directo vía `DbContext` (valida índice único) 3. Contar filas |
 | Esperado | Mensaje "Ya existe un producto con el código P-001"; el índice único lanza excepción; sigue habiendo **1** fila con ese código |
 | Verificación BD | `SELECT COUNT(*) FROM Productos WHERE Codigo = 'P-001'` → 1 |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | Rechazo en aplicación con mensaje "Ya existe un producto con el código P-001" conservando 1 sola fila en BD; inserción directa rechazada por índice único relacional (DbUpdateException); validación de obligatoriedad y longitudes máximas validada al 100% · **Aprobado (Integración)** · 20-oct-2026 · Dev B · `evidencias/SI-020/Registro_Productos.md` |
 
 ### CP-03 — Registrar una entrada válida
 | Campo | Valor |
@@ -118,7 +118,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Datos | Fecha 2026-10-01, cantidad 10, costo 20.00 |
 | Pasos | 1. Registrar entrada. 2. Consultar producto, movimientos y capas |
 | Esperado | Existencia 10 · valor PEPS 200.00 · valor Prom 200.00 · promedio 20.0000 · 1 movimiento ENTRADA · 1 capa `10 @ 20.00` disponible 10 |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | Entrada E-01 E1 (10 @ 20.00) registrada atómicamente en BD real: existencia 10, costo promedio 20.0000, saldos PEPS y Promedio 200.00, movimiento ENTRADA y capa PEPS creados en una sola transacción · **Aprobado (Integración)** · 23-oct-2026 · Dev A · `evidencias/SI-024/Green_Test.md` |
 
 ### CP-04 — Registrar una salida válida
 | Campo | Valor |
@@ -129,7 +129,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Datos | Fecha 2026-10-03, cantidad 5 |
 | Pasos | 1. Registrar salida. 2. Consultar producto, movimiento y capas |
 | Esperado | Existencia 15 · costo PEPS 100.00 · costo Prom 125.00 · capa 1 disponible 5 · capa 2 disponible 10 |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | Salida S1 de E-01 (5 unidades) registrada atómicamente en BD real: existencia 15, costo PEPS 100.00 / saldo 400.00, costo Promedio 125.00 / saldo 375.00, capas actualizadas (5 y 10 disponibles) · **Aprobado (Integración)** · 26-oct-2026 · Dev A · `evidencias/SI-025/Green_Test.md` |
 
 ### CP-05 — Rechazar cantidad cero o negativa
 | Campo | Valor |
@@ -193,7 +193,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Técnica / Nivel | Tabla R1 / Funcional |
 | Datos | Id `99999` / código `NO-EXISTE`; además intentar entrada sobre él |
 | Esperado | Mensaje "El producto no existe"; `COUNT(*)` de movimientos sin cambios |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | Mensaje "El producto no existe" al consultar por Id y Código inexistentes sin excepción técnica; listado completo de productos ordenado con estado y existencias; verificación de idempotencia y conteo inalterado de movimientos y productos · **Aprobado (Integración)** · 20-oct-2026 · Dev B · `evidencias/SI-021/Consulta_Listado_Productos.md` |
 
 ### CP-12 — Persistencia tras reinicio
 | Campo | Valor |
@@ -247,6 +247,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Requisito | RB-08, RB-09, RNF-01 |
 | Técnica / Nivel | Escenario E-03 / Unitaria |
 | Esperado | Prom S1 = **10.00** (no 10.01) · Prom S2 = **50.03** (ajuste D-03) · saldo final **0.00** con existencia 0 |
+| Obtenido / Estado / Evidencia | Redondeo bancario (ToEven) a 2 y 4 decimales validado; ajuste por residuo D-03 verificado al 100% en salida S2 (costo 50.03 y saldo 0.00 con existencia 0) · **Aprobado (Unitaria)** · 18-oct-2026 · Dev B · `evidencias/SI-016/Promedio_Ponderado_Salidas.md` |
 | Obtenido / Estado / Evidencia | Redondeo bancario (ToEven) a 2 y 4 decimales validado; ajuste por residuo D-03 verificado al 100% en Promedio (costo 50.03 y saldo 0.00) y en PEPS E-03 (S1=10.00, S2=50.03 y saldo final 0.00) · **Aprobado (Unitaria)** · 20-oct-2026 · Dev A · `evidencias/SI-018/Green_Test.md` |
 
 ### CP-18 — Movimiento sobre producto inactivo
@@ -257,7 +258,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Precondiciones | `P-002` inactivo |
 | Datos | Entrada 5 @ 10.00 y salida 1 |
 | Esperado | Rechazo "El producto está inactivo"; sin movimientos nuevos |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | Intento de entrada sobre producto inactivo rechazado con mensaje exacto "El producto está inactivo"; BD verificada sin inserción de movimientos ni capas · **Aprobado (Integración)** · 23-oct-2026 · Dev A · `evidencias/SI-024/Green_Test.md` |
 
 ### CP-19 — Invariante de valores almacenados
 | Campo | Valor |
