@@ -99,10 +99,6 @@ flowchart LR
 | SI-021 | Consultar y listar productos | v0.3.0 | B | D3 | 1 | Must | TERMINADO   |
 | SI-022 | Modificar producto y cambiar su estado | v0.3.0 | B | D3 | 1.5 | Must | TERMINADO   |
 | SI-023 | Interfaz de administración de productos | v0.3.0 | B | D4 | 3 | Must | TERMINADO   |
-| SI-024 | Registrar entrada con transacción | v0.4.0 | A | D3 | 3 | Must | Por hacer   |
-| SI-025 | Registrar salida con transacción | v0.4.0 | A | D3 | 3 | Must | Por hacer   |
-| SI-026 | Atomicidad ante fallos | v0.4.0 | A | D3 | 2 | Must | Por hacer   |
-| SI-023 | Interfaz de administración de productos | v0.3.0 | B | D4 | 3 | Must | Por hacer   |
 | SI-024 | Registrar entrada con transacción | v0.4.0 | A | D3 | 3 | Must | TERMINADO   |
 | SI-025 | Registrar salida con transacción | v0.4.0 | A | D3 | 3 | Must | TERMINADO   |
 | SI-026 | Atomicidad ante fallos | v0.4.0 | A | D3 | 2 | Must | TERMINADO   |

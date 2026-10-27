@@ -35,27 +35,15 @@
 |---|---|---|---|---|
 | CP-01 | Integración + Funcional | Partición / Humo | `SmokeDatabaseTests`, `ProductoServiceIntegrationTests`, `ProductosPagesTests` | `evidencias/SI-020/Registro_Productos.md`, `evidencias/SI-023/Interfaz_Productos.md` |
 | CP-02 | Integración + Funcional | Partición | `ProductoServiceIntegrationTests`, `ValidadorProductoTests`, `ProductosPagesTests` | `evidencias/SI-020/Registro_Productos.md`, `evidencias/SI-023/Interfaz_Productos.md` |
-| CP-03 | Funcional | Escenario | | `evidencias/CP-03/` |
-| CP-04 | Funcional | Tabla de decisión | | `evidencias/CP-04/` |
-| CP-05 | Unitaria + Integración | Valores límite | `ValidadorCantidadTests` | `evidencias/SI-012/Validacion_Cantidades.md` |
-| CP-06 | Unitaria | Valores límite | `ValidadorCostoUnitarioTests` | `evidencias/SI-013/Validacion_Costo_Unitario.md` |
-| CP-07 | Unitaria + Funcional | Valores límite + Tabla | `ValidadorExistenciaTests` | `evidencias/SI-014/Green_Test.md` |
-
----
-| CP-01 | Integración | Partición / Humo | `SmokeDatabaseTests`, `ProductoServiceIntegrationTests` | `evidencias/SI-020/Registro_Productos.md` |
-| CP-02 | Integración | Partición | `ProductoServiceIntegrationTests`, `ValidadorProductoTests` | `evidencias/SI-020/Registro_Productos.md` |
 | CP-03 | Integración / Funcional | Escenario | `InventarioServiceIntegrationTests` | `evidencias/SI-024/Green_Test.md` |
 | CP-04 | Integración / Funcional | Tabla de decisión | `InventarioServiceIntegrationTests` | `evidencias/SI-025/Green_Test.md` |
 | CP-05 | Unitaria + Integración | Valores límite | `ValidadorCantidadTests`, `InventarioServiceIntegrationTests` | `evidencias/SI-012/Validacion_Cantidades.md`, `evidencias/SI-024/Green_Test.md` |
 | CP-06 | Unitaria + Integración | Valores límite | `ValidadorCostoUnitarioTests`, `InventarioServiceIntegrationTests` | `evidencias/SI-013/Validacion_Costo_Unitario.md`, `evidencias/SI-024/Green_Test.md` |
 | CP-07 | Unitaria + Funcional / Integración | Valores límite + Tabla | `ValidadorExistenciaTests`, `InventarioServiceIntegrationTests` | `evidencias/SI-014/Green_Test.md`, `evidencias/SI-025/Green_Test.md` |
-
-----
 | CP-08 | Unitaria + Funcional | Escenario E-01 | `CalculadoraPepsTests` | `evidencias/SI-017/Green_Test.md` |
 | CP-09 | Unitaria + Funcional | Escenario E-01 | `CalculadoraPromedioPonderadoTests` | `evidencias/SI-016/Promedio_Ponderado_Salidas.md` |
 | CP-10 | Funcional | Escenario E-01 | | `evidencias/CP-10/` |
-| CP-11 | Funcional + Integración | Tabla de decisión | `ProductoServiceIntegrationTests`, `ProductosPagesTests` | `evidencias/SI-021/Consulta_Listado_Productos.md`, `evidencias/SI-023/Interfaz_Productos.md` |
-| CP-11 | Funcional / Integración | Tabla de decisión | `ProductoServiceIntegrationTests`, `InventarioServiceIntegrationTests` | `evidencias/SI-021/Consulta_Listado_Productos.md`, `evidencias/SI-024/Green_Test.md` |
+| CP-11 | Funcional / Integración | Tabla de decisión | `ProductoServiceIntegrationTests`, `InventarioServiceIntegrationTests`, `ProductosPagesTests` | `evidencias/SI-021/Consulta_Listado_Productos.md`, `evidencias/SI-023/Interfaz_Productos.md`, `evidencias/SI-024/Green_Test.md` |
 | CP-12 | Integración + manual | Escenario | | `evidencias/CP-12/` |
 | CP-13 | Integración | Escenario | `TransaccionRollbackTests` | `evidencias/SI-026/Green_Test.md` |
 | CP-14 | Regresión | — | Suite completa | `evidencias/ciclos/` |
@@ -72,14 +60,10 @@
 | `PoliticaRedondeo` | Redondeo bancario de costos unitarios e importes | CP-17 |
 | `ValidadorCantidad`, `ValidadorCostoUnitario` | RB-01, RB-02, RB-03 | CP-05, CP-06, CP-07 |
 | `ValidadorExistencia` | RB-03 (salida <= existencia disponible) | CP-07, CP-16 |
-| `ValidadorProducto` | RF-01, RNF-03 (código, nombre, unidad obligatorios y límites de longitud) | CP-02 |
 | `ValidadorMovimiento` | RB-01, RB-02, RB-03 | CP-05, CP-06, CP-07 |
 | `CalculadoraPeps` | Creación y consumo de capas | CP-08, CP-15 |
-| `CalculadoraPromedioPonderado` | Promedio móvil y costo de salida | CP-09, CP-17 |
-| `ValidadorProducto` | RF-01, RNF-03 (código, nombre, unidad obligatorios, longitudes y validación en modificación) | CP-02, base CP-18 |
-| `ProductoService` | RF-01, RF-05, RB-10 (alta, consulta, modificación, estado) | CP-01, CP-02, CP-11, base CP-18 |
-| `Pages/Productos/` (`Index`, `Crear`, `Editar`) | RF-01, RF-05, RNF-03, RB-10 (interfaz de usuario) | CP-01, CP-02, CP-11 |
-| `InventarioService` | RF-02, RF-03, RF-05 con transacción | CP-03, CP-04, CP-13 |
 | `CalculadoraPromedioPonderado` | Promedio móvil, costo de salida y ajuste por residuo D-03 | CP-09, CP-17 |
-| `ProductoService` | RF-01, RF-05 (registro, unicidad, persistencia, consulta y listado) | CP-01, CP-02, CP-11 |
-| `InventarioService` | RF-02, RF-03, RF-05 con transacción atómica | CP-03, CP-04, CP-05, CP-06, CP-07, CP-11, CP-15, CP-16, CP-18 |
+| `ValidadorProducto` | RF-01, RNF-03 (código, nombre, unidad obligatorios, longitudes y validación en modificación) | CP-02, base CP-18 |
+| `ProductoService` | RF-01, RF-05, RB-10 (alta, consulta, modificación, estado, persistencia y listado) | CP-01, CP-02, CP-11, base CP-18 |
+| `Pages/Productos/` (`Index`, `Crear`, `Editar`) | RF-01, RF-05, RNF-03, RB-10 (interfaz de usuario) | CP-01, CP-02, CP-11 |
+| `InventarioService` | RF-02, RF-03, RF-05 con transacción atómica | CP-03, CP-04, CP-05, CP-06, CP-07, CP-11, CP-13, CP-15, CP-16, CP-18 |
