@@ -60,10 +60,13 @@
 | `PoliticaRedondeo` | Redondeo bancario de costos unitarios e importes | CP-17 |
 | `ValidadorCantidad`, `ValidadorCostoUnitario` | RB-01, RB-02, RB-03 | CP-05, CP-06, CP-07 |
 | `ValidadorExistencia` | RB-03 (salida <= existencia disponible) | CP-07, CP-16 |
+| `ValidadorProducto` | RF-01, RNF-03 (código, nombre, unidad obligatorios y límites de longitud) | CP-02 |
 | `ValidadorMovimiento` | RB-01, RB-02, RB-03 | CP-05, CP-06, CP-07 |
 | `CalculadoraPeps` | Creación y consumo de capas | CP-08, CP-15 |
-| `CalculadoraPromedioPonderado` | Promedio móvil, costo de salida y ajuste por residuo D-03 | CP-09, CP-17 |
+| `CalculadoraPromedioPonderado` | Promedio móvil y costo de salida | CP-09, CP-17 |
 | `ValidadorProducto` | RF-01, RNF-03 (código, nombre, unidad obligatorios, longitudes y validación en modificación) | CP-02, base CP-18 |
-| `ProductoService` | RF-01, RF-05, RB-10 (alta, consulta, modificación, estado, persistencia y listado) | CP-01, CP-02, CP-11, base CP-18 |
-| `Pages/Productos/` (`Index`, `Crear`, `Editar`) | RF-01, RF-05, RNF-03, RB-10 (interfaz de usuario) | CP-01, CP-02, CP-11 |
-| `InventarioService` | RF-02, RF-03, RF-05 con transacción atómica | CP-03, CP-04, CP-05, CP-06, CP-07, CP-11, CP-13, CP-15, CP-16, CP-18 |
+| `ProductoService` | RF-01, RF-05, RB-10 (alta, consulta, modificación, estado) | CP-01, CP-02, CP-11, base CP-18 |
+| `CalculadoraPromedioPonderado` | Promedio móvil, costo de salida y ajuste por residuo D-03 | CP-09, CP-17 |
+| `ProductoService` | RF-01, RF-05 (registro, unicidad, persistencia, consulta y listado) | CP-01, CP-02, CP-11 |
+| `InventarioService` | RF-02, RF-03, RF-05 con transacción atómica | CP-03, CP-04, CP-05, CP-06, CP-07, CP-11, CP-15, CP-16, CP-18 |
+| `Pages/Movimientos/` (`Entrada`, `Salida`) | RF-02, RF-03, RF-04, RNF-03, RB-10 (interfaz de movimientos) | CP-03, CP-04, CP-05, CP-06, CP-07, CP-18 |
