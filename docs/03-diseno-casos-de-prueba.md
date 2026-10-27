@@ -212,7 +212,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Precondiciones | Estado E1+E2 de E-01 |
 | Pasos | Registrar la salida S1 con un punto de fallo inyectado **después** de actualizar capas/movimiento y **antes** del commit |
 | Esperado | Excepción controlada; existencia 20, valores 500.00/500.00, capas `[10 @ 20, 10 @ 30]` disponibles completas, 2 movimientos |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | **SUPERADO** / Automatizado en `TransaccionRollbackTests.cs` (CP-13 y rollback en entrada) / `docs/evidencias/SI-026/Green_Test.md` |
 
 ### CP-14 — Regresión tras corrección de defectos
 | Campo | Valor |

@@ -101,7 +101,7 @@ flowchart LR
 | SI-023 | Interfaz de administración de productos | v0.3.0 | B | D4 | 3 | Must | Por hacer   |
 | SI-024 | Registrar entrada con transacción | v0.4.0 | A | D3 | 3 | Must | TERMINADO   |
 | SI-025 | Registrar salida con transacción | v0.4.0 | A | D3 | 3 | Must | TERMINADO   |
-| SI-026 | Atomicidad ante fallos | v0.4.0 | A | D3 | 2 | Must | Por hacer   |
+| SI-026 | Atomicidad ante fallos | v0.4.0 | A | D3 | 2 | Must | TERMINADO   |
 | SI-027 | Persistencia tras reinicio | v0.4.0 | A | D4 | 1 | Must | Por hacer   |
 | SI-028 | Invariante de valores almacenados | v0.4.0 | A | D4 | 1.5 | Must | Por hacer   |
 | SI-029 | Rechazo de fechas retroactivas | v0.4.0 | A | D4 | 1 | Should | Por hacer   |
@@ -576,14 +576,14 @@ flowchart LR
 **Objetivo:** demostrar que un fallo a mitad de la operación no deja actualizaciones parciales (RNF-04).
 
 **Criterios de aceptación:**
-- [ ] Desde las pruebas se puede provocar un fallo controlado **después** de modificar datos y **antes** de confirmar, sin alterar el comportamiento normal de la aplicación
-- [ ] **CP-13:** sobre E1 + E2 de E-01, una salida con fallo provocado deja existencia 20, valores 500.00 / 500.00, capas completas y 2 movimientos
-- [ ] Se prueba igual con una entrada
-- [ ] Se verifica con un contexto nuevo, no con el que falló
+- [x] Desde las pruebas se puede provocar un fallo controlado **después** de modificar datos y **antes** de confirmar, sin alterar el comportamiento normal de la aplicación
+- [x] **CP-13:** sobre E1 + E2 de E-01, una salida con fallo provocado deja existencia 20, valores 500.00 / 500.00, capas completas y 2 movimientos
+- [x] Se prueba igual con una entrada
+- [x] Se verifica con un contexto nuevo, no con el que falló
 
 **Trazabilidad:** RNF-04 · RB-06 · CP-13
 **Depende de:** SI-025
-**Evidencia:** salida de la prueba + consulta SQL que muestra el estado intacto
+**Evidencia:** `docs/evidencias/SI-026/Green_Test.md`
 
 ---
 

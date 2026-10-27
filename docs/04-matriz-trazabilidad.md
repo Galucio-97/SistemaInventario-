@@ -45,7 +45,7 @@
 | CP-10 | Funcional | Escenario E-01 | | `evidencias/CP-10/` |
 | CP-11 | Funcional / Integración | Tabla de decisión | `ProductoServiceIntegrationTests`, `InventarioServiceIntegrationTests` | `evidencias/SI-021/Consulta_Listado_Productos.md`, `evidencias/SI-024/Green_Test.md` |
 | CP-12 | Integración + manual | Escenario | | `evidencias/CP-12/` |
-| CP-13 | Integración | Escenario | | `evidencias/CP-13/` |
+| CP-13 | Integración | Escenario | `TransaccionRollbackTests` | `evidencias/SI-026/Green_Test.md` |
 | CP-14 | Regresión | — | Suite completa | `evidencias/ciclos/` |
 | CP-15 | Unitaria | Escenario E-02 | `CalculadoraPepsTests` | `evidencias/SI-018/Green_Test.md` |
 | CP-16 | Unitaria + Integración + Funcional | Valores límite | `ValidadorExistenciaTests`, `CalculadoraPepsTests`, `InventarioServiceIntegrationTests` | `evidencias/SI-014/Green_Test.md`, `evidencias/SI-018/Green_Test.md`, `evidencias/SI-025/Green_Test.md` |
