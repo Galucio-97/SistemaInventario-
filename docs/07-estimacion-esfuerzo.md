@@ -66,7 +66,7 @@ flowchart TD
 | **SI-021** | Consultar y listar productos | v0.3.0 | Dev B | 1.0 h | **2 SP** | ✅ **Completado**: Consulta por ID/Código, manejo de inexistencia sin excepción visible, listado completo con estado y verificación de idempotencia (`ProductoService`). |
 | **SI-022** | Modificar producto y cambiar estado | v0.3.0 | Dev B | 1.5 h | **2 SP** | ✅ **Completado**: Modificación de datos descriptivos, inmutabilidad de clave e historial, validaciones de dominio y activación/desactivación (`ProductoService`, `ValidadorProducto`). |
 | **SI-023** | UI administración de productos | v0.3.0 | Dev B | 3.0 h | **5 SP** | Formularios Razor, validaciones cliente/servidor, alertas visuales. |
-| **SI-024** | Registrar entrada con transacción | v0.4.0 | Dev A | 3.0 h | **5 SP** | Coordinación atómica: Producto + Movimiento + Capa + Commit EF. |
+| **SI-024** | Registrar entrada con transacción | v0.4.0 | Dev A | 3.0 h | **5 SP** | ✅ **Completado**: Coordinación atómica transaccional de Producto + Movimiento + Capas PEPS + Promedio (`InventarioService`, `IInventarioService`). |
 | **SI-025** | Registrar salida con transacción | v0.4.0 | Dev A | 3.0 h | **5 SP** | Coordinación atómica: Consumo PEPS + Promedio + Actualización stock. |
 | **SI-026** | Atomicidad ante fallos (Rollback) | v0.4.0 | Dev A | 2.0 h | **3 SP** | Inyección de fallo de prueba y verificación de invariabilidad en BD. |
 | **SI-027** | Persistencia tras reinicio | v0.4.0 | Dev A | 1.0 h | **2 SP** | Verificación de relectura con contextos limpios e idempotencia. |

@@ -118,7 +118,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Datos | Fecha 2026-10-01, cantidad 10, costo 20.00 |
 | Pasos | 1. Registrar entrada. 2. Consultar producto, movimientos y capas |
 | Esperado | Existencia 10 · valor PEPS 200.00 · valor Prom 200.00 · promedio 20.0000 · 1 movimiento ENTRADA · 1 capa `10 @ 20.00` disponible 10 |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | Entrada E-01 E1 (10 @ 20.00) registrada atómicamente en BD real: existencia 10, costo promedio 20.0000, saldos PEPS y Promedio 200.00, movimiento ENTRADA y capa PEPS creados en una sola transacción · **Aprobado (Integración)** · 23-oct-2026 · Dev A · `evidencias/SI-024/Green_Test.md` |
 
 ### CP-04 — Registrar una salida válida
 | Campo | Valor |
@@ -258,7 +258,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Precondiciones | `P-002` inactivo |
 | Datos | Entrada 5 @ 10.00 y salida 1 |
 | Esperado | Rechazo "El producto está inactivo"; sin movimientos nuevos |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | Intento de entrada sobre producto inactivo rechazado con mensaje exacto "El producto está inactivo"; BD verificada sin inserción de movimientos ni capas · **Aprobado (Integración)** · 23-oct-2026 · Dev A · `evidencias/SI-024/Green_Test.md` |
 
 ### CP-19 — Invariante de valores almacenados
 | Campo | Valor |
