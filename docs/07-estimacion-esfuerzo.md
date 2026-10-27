@@ -65,14 +65,14 @@ flowchart TD
 | **SI-020** | Registrar producto | v0.3.0 | Dev B | 2.0 h | **3 SP** | ✅ **Completado**: Servicio de negocio, validaciones de dominio y persistencia real con índice único (`ProductoService`, `ValidadorProducto`). |
 | **SI-021** | Consultar y listar productos | v0.3.0 | Dev B | 1.0 h | **2 SP** | ✅ **Completado**: Consulta por ID/Código, manejo de inexistencia sin excepción visible, listado completo con estado y verificación de idempotencia (`ProductoService`). |
 | **SI-022** | Modificar producto y cambiar estado | v0.3.0 | Dev B | 1.5 h | **2 SP** | ✅ **Completado**: Modificación de datos descriptivos, inmutabilidad de clave e historial, validaciones de dominio y activación/desactivación (`ProductoService`, `ValidadorProducto`). |
-| **SI-023** | UI administración de productos | v0.3.0 | Dev B | 3.0 h | **5 SP** | Formularios Razor, validaciones cliente/servidor, alertas visuales. |
+| **SI-023** | UI administración de productos | v0.3.0 | Dev B | 3.0 h | **5 SP** | ✅ **Completado**: Formularios Razor Pages (Index, Crear, Editar), validaciones delegadas al dominio, inmutabilidad de código (D-10) y alertas visuales. |
 | **SI-024** | Registrar entrada con transacción | v0.4.0 | Dev A | 3.0 h | **5 SP** | ✅ **Completado**: Coordinación atómica transaccional de Producto + Movimiento + Capas PEPS + Promedio (`InventarioService`, `IInventarioService`). |
 | **SI-025** | Registrar salida con transacción | v0.4.0 | Dev A | 3.0 h | **5 SP** | ✅ **Completado**: Consumo FIFO de capas PEPS, costeo a promedio vigente, actualización transaccional y validación de existencia (`InventarioService.RegistrarSalidaAsync`). |
 | **SI-026** | Atomicidad ante fallos (Rollback) | v0.4.0 | Dev A | 2.0 h | **3 SP** | Inyección de fallo de prueba y verificación de invariabilidad en BD. |
 | **SI-027** | Persistencia tras reinicio | v0.4.0 | Dev A | 1.0 h | **2 SP** | Verificación de relectura con contextos limpios e idempotencia. |
 | **SI-028** | Invariante de valores almacenados | v0.4.0 | Dev A | 1.5 h | **3 SP** | Pruebas de coherencia matemática: Stock = Capas = Historial. |
 | **SI-029** | Rechazo de fechas retroactivas | v0.4.0 | Dev A | 1.0 h | **2 SP** | Regla de negocio de integridad temporal en movimientos. |
-| **SI-030** | UI registro de entradas y salidas | v0.4.0 | Dev B | 3.0 h | **5 SP** | Formularios Razor, selección dinámica, captura de errores. |
+| **SI-030** | UI registro de entradas y salidas | v0.4.0 | Dev B | 3.0 h | **5 SP** | ✅ **Completado**: Formularios Razor Pages de Entrada y Salida, selección de productos activos, comparativa PEPS vs Promedio y retención de datos en rechazos. |
 | **SI-031** | Consulta existencias por método | v0.5.0 | Dev A | 2.0 h | **3 SP** | Servicio de proyección dual (PEPS vs Promedio) sin alterar datos. |
 | **SI-032** | Historial de movimientos por método | v0.5.0 | Dev A | 1.5 h | **3 SP** | Formateo de Kardex según método seleccionado con saldos exactos. |
 | **SI-033** | UI consulta de inventario e historial | v0.5.0 | Dev B | 3.0 h | **5 SP** | Pantalla principal Kardex, selector dual, tabla de capas activas. |
