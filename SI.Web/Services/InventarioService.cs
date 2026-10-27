@@ -82,4 +82,30 @@ public class InventarioService(InventarioDbContext context) : IInventarioService
 
         return new ResultadoOperacion(true, null, movimiento.Id);
     }
+
+    /// <summary>
+    /// Registra una salida de inventario de forma atómica consumiendo capas PEPS, aplicando costo promedio vigente
+    /// y recalculando saldos patrimoniales (RF-03, SI-025).
+    /// </summary>
+    public async Task<ResultadoOperacion> RegistrarSalidaAsync(
+        int productoId, DateTime fecha, decimal cantidad, CancellationToken ct = default
+    )
+    {
+        var cantidadEsValida = ValidadorCantidad.Validar(cantidad);
+
+        if (!cantidadEsValida.EsValido)
+            return new ResultadoOperacion(false, cantidadEsValida.MensajeError);
+        
+        var producto = await context.Productos
+                                    .FirstOrDefaultAsync(p => p.Id == productoId, ct);
+
+        if (producto == null) 
+            return new ResultadoOperacion(false, MensajeProductoNoExiste);
+        
+        if (!producto.Activo)
+            return new ResultadoOperacion(false, MensajeProductoInactivo);
+
+        // Stub inicial para fase RED
+        return await Task.FromResult(new ResultadoOperacion(false, "No implementado"));
+    }
 }
