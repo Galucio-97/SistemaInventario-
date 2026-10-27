@@ -6,9 +6,9 @@
 
 ## 1. Resumen Ejecutivo de Calidad
 
-* **Estado General:** Fase 0 (Foundation / `v0.0.1`) completada y en `main`. Fase 1 (Datos y Esquema / `v0.1.0`) completada al 100% en `main`. Fase 2 (Reglas y Motor de Costeo / `v0.2.0`) completada al 100% en `dev` (tickets SI-011 a SI-018). Fase 3 (Productos / `v0.3.0`) servicios completados en `dev` (SI-020 a SI-022).
-* **Tag de Línea Base (`main`):** `v0.1.0` (Commit `636cd79`).
-* **Rama de Trabajo Actual:** `feat/SI-025-Registrar_salida_con_transaccion` (Registro de salida transaccional atómico, CP-04, CP-07, CP-15, CP-16).
+* **Estado General:** Fase 0 (Foundation / `v0.0.1`) completada y en `main`. Fase 1 (Datos y Esquema / `v0.1.0`) completada al 100% en `main`. Fase 2 (Reglas y Motor de Costeo / `v0.2.0`) completada al 100% en `main`. Fase 3 (Productos / `v0.3.0`) servicios completados en `dev` (SI-020 a SI-022). Fase 4 (Movimientos transaccionales / `v0.4.0`) operaciones transaccionales de entrada y salida completadas en `dev` (SI-024 y SI-025).
+* **Tag de Línea Base (`main`):** `v0.2.0` (Commit `6701d36`).
+* **Rama de Trabajo Actual:** `dev` (Preparación de Release para promoción hacia `beta`).
 * **Defectos Críticos/Altos Detectados y Gestionados:** 1 defecto real (`DEF-001`, severidad Alta, corregido y verificado con prueba de regresión).
 * **Infraestructura de Pruebas:** Automatización xUnit con 117 pruebas en verde (42 integración, 1 regresión, 74 unitarias/teorías) ejecutando en local y CI.
 
@@ -23,7 +23,7 @@
 | **Motor de Base de Datos** | SQL Server 2022 en Docker (`mcr.microsoft.com/mssql/server:2022-latest`) | Contenedor SQL Server / Service Container en GitHub Runner |
 | **Herramienta de Pruebas** | xUnit 2.5.3 + VSTest 17.11.1 | `dotnet test --no-build --verbosity normal` |
 | **Medición de Cobertura** | Coverlet Collector 6.0.0 | Habilitado para reporte de métricas |
-| **Commit Evaluado** | `dev` (`660470f`) | Pipeline CI en pull requests hacia `dev`, `beta` y `main` |
+| **Commit Evaluado** | `dev` (`a96ccee`) | Pipeline CI en pull requests hacia `dev`, `beta` y `main` |
 
 ---
 
