@@ -104,8 +104,54 @@ public class InventarioService(InventarioDbContext context) : IInventarioService
         
         if (!producto.Activo)
             return new ResultadoOperacion(false, MensajeProductoInactivo);
+        
+        var existenciaValida = ValidadorExistencia.Validar(cantidad, producto.ExistenciaActual);
+        if (!existenciaValida.EsValido)
+            return new ResultadoOperacion(false, existenciaValida.MensajeError);
+        
+        var calculoPromedioPonderado = CalculadoraPromedioPonderado.CalcularSalida(
+            producto.ExistenciaActual,
+            producto.ValorInventarioPromedio,
+            producto.CostoPromedioActual,
+            cantidad
+        );
+        
+        var capas = await context.CapasInventarioPeps
+            .Where(c => c.ProductoId == productoId && c.CantidadDisponible > 0)
+            .OrderBy(c => c.FechaEntrada)
+            .ThenBy(c => c.Id)
+            .ToListAsync(ct);
 
-        // Stub inicial para fase RED
-        return await Task.FromResult(new ResultadoOperacion(false, "No implementado"));
+        var calculoSalidaPEPS = CalculadoraPeps.CalcularSalida(capas, cantidad);
+        
+        await using var transaction = await context.Database.BeginTransactionAsync(ct);
+
+        var movimiento = new Movimiento
+        {
+            ProductoId = producto.Id,
+            Fecha = fecha,
+            Tipo = TipoMovimiento.Salida,
+            Cantidad = cantidad,
+            ExistenciaResultante = calculoPromedioPonderado.Existencia,
+            CostoUnitarioPeps = calculoSalidaPEPS.CostoUnitarioEquivalente,
+            CostoTotalPeps = calculoSalidaPEPS.CostoTotalSalida,
+            SaldoValorPeps = calculoSalidaPEPS.SaldoValorRestante,
+            CostoUnitarioPromedio = calculoPromedioPonderado.CostoPromedio,
+            CostoTotalPromedio = calculoPromedioPonderado.CostoTotalSalida,
+            SaldoValorPromedio = calculoPromedioPonderado.SaldoValor
+        };
+        
+        context.Movimientos.Add(movimiento);
+
+        // Actualizar los saldos del Producto
+        producto.ExistenciaActual = calculoPromedioPonderado.Existencia;
+        producto.CostoPromedioActual = calculoPromedioPonderado.CostoPromedio;
+        producto.ValorInventarioPromedio = calculoPromedioPonderado.SaldoValor;
+        producto.ValorInventarioPeps = calculoSalidaPEPS.SaldoValorRestante;
+
+        await context.SaveChangesAsync(ct);
+        await transaction.CommitAsync(ct);
+
+        return new ResultadoOperacion(true, null, movimiento.Id);
     }
 }

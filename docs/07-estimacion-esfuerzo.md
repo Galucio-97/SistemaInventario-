@@ -67,7 +67,7 @@ flowchart TD
 | **SI-022** | Modificar producto y cambiar estado | v0.3.0 | Dev B | 1.5 h | **2 SP** | ✅ **Completado**: Modificación de datos descriptivos, inmutabilidad de clave e historial, validaciones de dominio y activación/desactivación (`ProductoService`, `ValidadorProducto`). |
 | **SI-023** | UI administración de productos | v0.3.0 | Dev B | 3.0 h | **5 SP** | Formularios Razor, validaciones cliente/servidor, alertas visuales. |
 | **SI-024** | Registrar entrada con transacción | v0.4.0 | Dev A | 3.0 h | **5 SP** | ✅ **Completado**: Coordinación atómica transaccional de Producto + Movimiento + Capas PEPS + Promedio (`InventarioService`, `IInventarioService`). |
-| **SI-025** | Registrar salida con transacción | v0.4.0 | Dev A | 3.0 h | **5 SP** | Coordinación atómica: Consumo PEPS + Promedio + Actualización stock. |
+| **SI-025** | Registrar salida con transacción | v0.4.0 | Dev A | 3.0 h | **5 SP** | ✅ **Completado**: Consumo FIFO de capas PEPS, costeo a promedio vigente, actualización transaccional y validación de existencia (`InventarioService.RegistrarSalidaAsync`). |
 | **SI-026** | Atomicidad ante fallos (Rollback) | v0.4.0 | Dev A | 2.0 h | **3 SP** | Inyección de fallo de prueba y verificación de invariabilidad en BD. |
 | **SI-027** | Persistencia tras reinicio | v0.4.0 | Dev A | 1.0 h | **2 SP** | Verificación de relectura con contextos limpios e idempotencia. |
 | **SI-028** | Invariante de valores almacenados | v0.4.0 | Dev A | 1.5 h | **3 SP** | Pruebas de coherencia matemática: Stock = Capas = Historial. |

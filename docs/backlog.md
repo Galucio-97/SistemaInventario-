@@ -99,8 +99,8 @@ flowchart LR
 | SI-021 | Consultar y listar productos | v0.3.0 | B | D3 | 1 | Must | TERMINADO   |
 | SI-022 | Modificar producto y cambiar su estado | v0.3.0 | B | D3 | 1.5 | Must | TERMINADO   |
 | SI-023 | Interfaz de administración de productos | v0.3.0 | B | D4 | 3 | Must | Por hacer   |
-| SI-024 | Registrar entrada con transacción | v0.4.0 | A | D3 | 3 | Must | EN REVISION |
-| SI-025 | Registrar salida con transacción | v0.4.0 | A | D3 | 3 | Must | Por hacer   |
+| SI-024 | Registrar entrada con transacción | v0.4.0 | A | D3 | 3 | Must | TERMINADO   |
+| SI-025 | Registrar salida con transacción | v0.4.0 | A | D3 | 3 | Must | TERMINADO   |
 | SI-026 | Atomicidad ante fallos | v0.4.0 | A | D3 | 2 | Must | Por hacer   |
 | SI-027 | Persistencia tras reinicio | v0.4.0 | A | D4 | 1 | Must | Por hacer   |
 | SI-028 | Invariante de valores almacenados | v0.4.0 | A | D4 | 1.5 | Must | Por hacer   |
@@ -559,14 +559,14 @@ flowchart LR
 **Objetivo:** registrar una salida que consuma capas PEPS, aplique el promedio vigente y deje todo consistente.
 
 **Criterios de aceptación:**
-- [ ] En una sola transacción: se crea el movimiento con los resultados de ambos métodos, se consumen las capas y se actualiza el producto
-- [ ] **CP-04:** sobre E1 + E2 de E-01, una salida de 5 → existencia 15, costo PEPS 100.00, costo Promedio 125.00, capas `[5, 10]`
-- [ ] **CP-16:** salida igual a toda la existencia → aceptada, existencia 0, valores 0.00
-- [ ] Se rechazan sin cambios en la BD: existencia insuficiente (CP-07), cantidad inválida (CP-05), producto inexistente (CP-11) y producto inactivo (CP-18)
+- [X] En una sola transacción: se crea el movimiento con los resultados de ambos métodos, se consumen las capas y se actualiza el producto
+- [X] **CP-04:** sobre E1 + E2 de E-01, una salida de 5 → existencia 15, costo PEPS 100.00, costo Promedio 125.00, capas `[5, 10]`
+- [X] **CP-16:** salida igual a toda la existencia → aceptada, existencia 0, valores 0.00
+- [X] Se rechazan sin cambios en la BD: existencia insuficiente (CP-07), cantidad inválida (CP-05), producto inexistente (CP-11) y producto inactivo (CP-18)
 
 **Trazabilidad:** RF-03 · RB-01, 03, 04, 05, 06, 07, 10 · CP-04, CP-05, CP-07, CP-11, CP-16, CP-18
 **Depende de:** SI-014, SI-016, SI-018, SI-024
-**Evidencia:** consultas SQL antes y después
+**Evidencia:** `docs/evidencias/SI-025/Green_Test.md`
 
 ---
 
