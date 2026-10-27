@@ -11,6 +11,8 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<InventarioDbContext>(options =>
     options.UseSqlServer(connectionString));
 
+// Add services to the container.
+builder.Services.AddScoped<ProductoService>();
 builder.Services.AddScoped<IInventarioService, InventarioService>();
 builder.Services.AddRazorPages();
 

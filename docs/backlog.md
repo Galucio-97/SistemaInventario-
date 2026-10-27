@@ -98,7 +98,7 @@ flowchart LR
 | SI-020 | Registrar producto | v0.3.0 | B | D3 | 2 | Must | TERMINADO   |
 | SI-021 | Consultar y listar productos | v0.3.0 | B | D3 | 1 | Must | TERMINADO   |
 | SI-022 | Modificar producto y cambiar su estado | v0.3.0 | B | D3 | 1.5 | Must | TERMINADO   |
-| SI-023 | Interfaz de administración de productos | v0.3.0 | B | D4 | 3 | Must | Por hacer   |
+| SI-023 | Interfaz de administración de productos | v0.3.0 | B | D4 | 3 | Must | TERMINADO   |
 | SI-024 | Registrar entrada con transacción | v0.4.0 | A | D3 | 3 | Must | TERMINADO   |
 | SI-025 | Registrar salida con transacción | v0.4.0 | A | D3 | 3 | Must | TERMINADO   |
 | SI-026 | Atomicidad ante fallos | v0.4.0 | A | D3 | 2 | Must | TERMINADO   |
@@ -522,15 +522,15 @@ flowchart LR
 **Objetivo:** que el comportamiento de RF-01 sea observable y se pueda capturar como evidencia.
 
 **Criterios de aceptación:**
-- [ ] El listado muestra código, nombre, descripción, unidad, estado y existencia
-- [ ] Hay formularios de alta y edición
-- [ ] Los errores de validación y de duplicado se muestran en pantalla con el mensaje del sistema
-- [ ] Se puede activar o desactivar un producto desde la interfaz
-- [ ] Ninguna validación existe **solo** en la interfaz
+- [x] El listado muestra código, nombre, descripción, unidad, estado y existencia
+- [x] Hay formularios de alta y edición
+- [x] Los errores de validación y de duplicado se muestran en pantalla con el mensaje del sistema
+- [x] Se puede activar o desactivar un producto desde la interfaz
+- [x] Ninguna validación existe **solo** en la interfaz
 
 **Trazabilidad:** RF-01 · RNF-03 · CP-01, CP-02, CP-11 (ejecución manual)
 **Depende de:** SI-022
-**Evidencia:** capturas de alta exitosa, duplicado rechazado y campo vacío rechazado
+**Evidencia:** `docs/evidencias/SI-023/Interfaz_Productos.md` (Green_Test.md y Red_Test.md)
 
 ---
 
