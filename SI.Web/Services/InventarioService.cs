@@ -82,4 +82,76 @@ public class InventarioService(InventarioDbContext context) : IInventarioService
 
         return new ResultadoOperacion(true, null, movimiento.Id);
     }
+
+    /// <summary>
+    /// Registra una salida de inventario de forma atómica consumiendo capas PEPS, aplicando costo promedio vigente
+    /// y recalculando saldos patrimoniales (RF-03, SI-025).
+    /// </summary>
+    public async Task<ResultadoOperacion> RegistrarSalidaAsync(
+        int productoId, DateTime fecha, decimal cantidad, CancellationToken ct = default
+    )
+    {
+        var cantidadEsValida = ValidadorCantidad.Validar(cantidad);
+
+        if (!cantidadEsValida.EsValido)
+            return new ResultadoOperacion(false, cantidadEsValida.MensajeError);
+        
+        var producto = await context.Productos
+                                    .FirstOrDefaultAsync(p => p.Id == productoId, ct);
+
+        if (producto == null) 
+            return new ResultadoOperacion(false, MensajeProductoNoExiste);
+        
+        if (!producto.Activo)
+            return new ResultadoOperacion(false, MensajeProductoInactivo);
+        
+        var existenciaValida = ValidadorExistencia.Validar(cantidad, producto.ExistenciaActual);
+        if (!existenciaValida.EsValido)
+            return new ResultadoOperacion(false, existenciaValida.MensajeError);
+        
+        var calculoPromedioPonderado = CalculadoraPromedioPonderado.CalcularSalida(
+            producto.ExistenciaActual,
+            producto.ValorInventarioPromedio,
+            producto.CostoPromedioActual,
+            cantidad
+        );
+        
+        var capas = await context.CapasInventarioPeps
+            .Where(c => c.ProductoId == productoId && c.CantidadDisponible > 0)
+            .OrderBy(c => c.FechaEntrada)
+            .ThenBy(c => c.Id)
+            .ToListAsync(ct);
+
+        var calculoSalidaPEPS = CalculadoraPeps.CalcularSalida(capas, cantidad);
+        
+        await using var transaction = await context.Database.BeginTransactionAsync(ct);
+
+        var movimiento = new Movimiento
+        {
+            ProductoId = producto.Id,
+            Fecha = fecha,
+            Tipo = TipoMovimiento.Salida,
+            Cantidad = cantidad,
+            ExistenciaResultante = calculoPromedioPonderado.Existencia,
+            CostoUnitarioPeps = calculoSalidaPEPS.CostoUnitarioEquivalente,
+            CostoTotalPeps = calculoSalidaPEPS.CostoTotalSalida,
+            SaldoValorPeps = calculoSalidaPEPS.SaldoValorRestante,
+            CostoUnitarioPromedio = calculoPromedioPonderado.CostoPromedio,
+            CostoTotalPromedio = calculoPromedioPonderado.CostoTotalSalida,
+            SaldoValorPromedio = calculoPromedioPonderado.SaldoValor
+        };
+        
+        context.Movimientos.Add(movimiento);
+
+        // Actualizar los saldos del Producto
+        producto.ExistenciaActual = calculoPromedioPonderado.Existencia;
+        producto.CostoPromedioActual = calculoPromedioPonderado.CostoPromedio;
+        producto.ValorInventarioPromedio = calculoPromedioPonderado.SaldoValor;
+        producto.ValorInventarioPeps = calculoSalidaPEPS.SaldoValorRestante;
+
+        await context.SaveChangesAsync(ct);
+        await transaction.CommitAsync(ct);
+
+        return new ResultadoOperacion(true, null, movimiento.Id);
+    }
 }

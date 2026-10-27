@@ -129,7 +129,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Datos | Fecha 2026-10-03, cantidad 5 |
 | Pasos | 1. Registrar salida. 2. Consultar producto, movimiento y capas |
 | Esperado | Existencia 15 · costo PEPS 100.00 · costo Prom 125.00 · capa 1 disponible 5 · capa 2 disponible 10 |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | Salida S1 de E-01 (5 unidades) registrada atómicamente en BD real: existencia 15, costo PEPS 100.00 / saldo 400.00, costo Promedio 125.00 / saldo 375.00, capas actualizadas (5 y 10 disponibles) · **Aprobado (Integración)** · 26-oct-2026 · Dev A · `evidencias/SI-025/Green_Test.md` |
 
 ### CP-05 — Rechazar cantidad cero o negativa
 | Campo | Valor |
