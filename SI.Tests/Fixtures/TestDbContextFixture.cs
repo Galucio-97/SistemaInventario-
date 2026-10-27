@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using SI.Web.Data;
 
 namespace SI.Tests.Fixtures;
@@ -49,16 +50,21 @@ public sealed class TestDbContextFixture : IDisposable
 
     /// <summary>
     /// Factory para la creación de contextos independientes que conectan a la BD real de pruebas.
+    /// Permite añadir interceptores opcionales (ej. simulación de fallos de transacción).
     /// </summary>
-    public InventarioDbContext CreateDbContext()
+    public InventarioDbContext CreateDbContext(params IInterceptor[] interceptors)
     {
         EnsureDatabaseMigrated();
 
-        var options = new DbContextOptionsBuilder<InventarioDbContext>()
-            .UseSqlServer(ConnectionString)
-            .Options;
-        
-        return new InventarioDbContext(options);
+        var builder = new DbContextOptionsBuilder<InventarioDbContext>()
+            .UseSqlServer(ConnectionString);
+
+        if (interceptors is { Length: > 0 })
+        {
+            builder.AddInterceptors(interceptors);
+        }
+
+        return new InventarioDbContext(builder.Options);
     }
 
     /// <summary>
