@@ -68,3 +68,4 @@
 | `CalculadoraPromedioPonderado` | Promedio móvil, costo de salida y ajuste por residuo D-03 | CP-09, CP-17 |
 | `ProductoService` | RF-01, RF-05 (registro, unicidad, persistencia, consulta y listado) | CP-01, CP-02, CP-11 |
 | `InventarioService` | RF-02, RF-03, RF-05 con transacción atómica | CP-03, CP-04, CP-05, CP-06, CP-07, CP-11, CP-15, CP-16, CP-18 |
+| `Pages/Movimientos/` (`Entrada`, `Salida`) | RF-02, RF-03, RF-04, RNF-03, RB-10 (interfaz de movimientos) | CP-03, CP-04, CP-05, CP-06, CP-07, CP-18 |

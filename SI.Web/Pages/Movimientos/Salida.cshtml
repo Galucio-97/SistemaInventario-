@@ -1,0 +1,94 @@
+@page
+@model SI.Web.Pages.Movimientos.SalidaModel
+@{
+    ViewData["Title"] = "Registrar Salida de Inventario";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-9 col-lg-7">
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-white border-bottom py-3">
+                <h1 class="h4 mb-0 text-danger">Registrar Salida de Inventario</h1>
+                <small class="text-muted">Despacho atómico de stock y cálculo de costos por método (RF-03, SI-025, SI-030).</small>
+            </div>
+            <div class="card-body p-4">
+                <form method="post" novalidate>
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                    @if (Model.Resultado != null)
+                    {
+                        <div class="alert alert-info shadow-sm mb-4" role="alert">
+                            <h5 class="alert-heading fw-bold mb-2">¡Salida registrada con éxito!</h5>
+                            <hr class="my-2" />
+                            <div class="row g-2 small mb-3">
+                                <div class="col-sm-6">
+                                    <strong>Producto:</strong> @Model.Resultado.CodigoProducto - @Model.Resultado.NombreProducto
+                                </div>
+                                <div class="col-sm-6">
+                                    <strong>Cantidad Despachada:</strong> @Model.Resultado.Cantidad.ToString("N4")
+                                </div>
+                                <div class="col-12">
+                                    <strong class="text-primary">Nueva Existencia en Almacén:</strong> @Model.Resultado.ExistenciaNueva.ToString("N4")
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-sm table-bordered bg-white text-center align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Método de Costeo</th>
+                                            <th>Costo Unitario Aplicado</th>
+                                            <th>Costo Total de la Salida</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="fw-semibold">PEPS (FIFO)</td>
+                                            <td class="font-monospace">$@Model.Resultado.CostoUnitarioPeps.ToString("N4")</td>
+                                            <td class="font-monospace fw-bold text-success">$@Model.Resultado.CostoTotalPeps.ToString("N2")</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw-semibold">Costo Promedio Ponderado</td>
+                                            <td class="font-monospace">$@Model.Resultado.CostoUnitarioPromedio.ToString("N4")</td>
+                                            <td class="font-monospace fw-bold text-primary">$@Model.Resultado.CostoTotalPromedio.ToString("N2")</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="mb-3">
+                        <label asp-for="Input.ProductoId" class="form-label fw-semibold">Producto (Solo Activos) <span class="text-danger">*</span></label>
+                        <select asp-for="Input.ProductoId" class="form-select" autofocus>
+                            <option value="">-- Seleccione un producto --</option>
+                            @foreach (var prod in Model.ProductosActivos)
+                            {
+                                <option value="@prod.Id">
+                                    [@prod.Codigo] @prod.Nombre — Existencia disponible: @prod.ExistenciaActual.ToString("N4") @prod.UnidadMedida
+                                </option>
+                            }
+                        </select>
+                        <span class="form-text text-muted">Muestra la existencia física disponible en tiempo real (Regla RB-03).</span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6 mb-3">
+                            <label asp-for="Input.Fecha" class="form-label fw-semibold">Fecha del Movimiento <span class="text-danger">*</span></label>
+                            <input asp-for="Input.Fecha" class="form-control" type="date" />
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <label asp-for="Input.Cantidad" class="form-label fw-semibold">Cantidad a Despachar <span class="text-danger">*</span></label>
+                            <input asp-for="Input.Cantidad" class="form-control" type="number" step="0.0001" placeholder="Ej. 5.0000" />
+                            <span class="form-text text-muted">Debe ser menor o igual a la existencia disponible.</span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                        <a asp-page="/Index" class="btn btn-outline-secondary">Cancelar</a>
+                        <button type="submit" class="btn btn-danger px-4">Registrar Salida</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
