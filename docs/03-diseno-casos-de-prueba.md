@@ -202,7 +202,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Técnica / Nivel | Escenario / Integración + manual |
 | Pasos | Auto: registrar E-01, desechar el `DbContext`, abrir uno nuevo, consultar. Manual: detener la app (`Ctrl+C`), volver a ejecutar `dotnet run`, consultar en la UI |
 | Esperado | Producto, 3 movimientos, capas y valores idénticos a E-01 |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | **SUPERADO** / Automatizado en `PersistenciaTests.cs` (CP-12 escenario E-01 completo tras reinicio/desacoplamiento de contexto) / `docs/evidencias/SI-027/Green_Test.md` |
 
 ### CP-13 — Fallo durante una operación sin actualizaciones parciales
 | Campo | Valor |

@@ -44,7 +44,7 @@
 | CP-09 | Unitaria + Funcional | Escenario E-01 | `CalculadoraPromedioPonderadoTests` | `evidencias/SI-016/Promedio_Ponderado_Salidas.md` |
 | CP-10 | Funcional | Escenario E-01 | | `evidencias/CP-10/` |
 | CP-11 | Funcional / Integración | Tabla de decisión | `ProductoServiceIntegrationTests`, `InventarioServiceIntegrationTests`, `ProductosPagesTests` | `evidencias/SI-021/Consulta_Listado_Productos.md`, `evidencias/SI-023/Interfaz_Productos.md`, `evidencias/SI-024/Green_Test.md` |
-| CP-12 | Integración + manual | Escenario | | `evidencias/CP-12/` |
+| CP-12 | Integración + manual | Escenario | `PersistenciaTests` | `evidencias/SI-027/Green_Test.md` |
 | CP-13 | Integración | Escenario | `TransaccionRollbackTests` | `evidencias/SI-026/Green_Test.md` |
 | CP-14 | Regresión | — | Suite completa | `evidencias/ciclos/` |
 | CP-15 | Unitaria | Escenario E-02 | `CalculadoraPepsTests` | `evidencias/SI-018/Green_Test.md` |
