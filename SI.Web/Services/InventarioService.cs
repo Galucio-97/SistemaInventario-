@@ -154,4 +154,10 @@ public class InventarioService(InventarioDbContext context) : IInventarioService
 
         return new ResultadoOperacion(true, null, movimiento.Id);
     }
+
+    public Task<ResultadoConsultaExistencias> ConsultarExistenciasAsync(
+        int productoId, MetodoCosteo metodo, CancellationToken ct = default)
+    {
+        throw new NotImplementedException("Método no implementado aún (Fase RED).");
+    }
 }

@@ -1,4 +1,5 @@
 using SI.Web.Common;
+using SI.Web.Enums;
 
 namespace SI.Web.Interfaces;
 
@@ -10,5 +11,9 @@ public interface IInventarioService
 
     Task<ResultadoOperacion> RegistrarSalidaAsync(
         int productoId, DateTime fecha, decimal cantidad, CancellationToken ct = default
+    );
+
+    Task<ResultadoConsultaExistencias> ConsultarExistenciasAsync(
+        int productoId, MetodoCosteo metodo, CancellationToken ct = default
     );
 }
