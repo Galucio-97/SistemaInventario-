@@ -69,7 +69,7 @@ flowchart TD
 | **SI-024** | Registrar entrada con transacción | v0.4.0 | Dev A | 3.0 h | **5 SP** | ✅ **Completado**: Coordinación atómica transaccional de Producto + Movimiento + Capas PEPS + Promedio (`InventarioService`, `IInventarioService`). |
 | **SI-025** | Registrar salida con transacción | v0.4.0 | Dev A | 3.0 h | **5 SP** | ✅ **Completado**: Consumo FIFO de capas PEPS, costeo a promedio vigente, actualización transaccional y validación de existencia (`InventarioService.RegistrarSalidaAsync`). |
 | **SI-026** | Atomicidad ante fallos (Rollback) | v0.4.0 | Dev A | 2.0 h | **3 SP** | ✅ **Completado**: Simulación de fallo en commit con interceptor de transacción EF Core (`SimuladorFalloTransaccionInterceptor`) y verificación de rollback total con contexto desacoplado (`TransaccionRollbackTests`). |
-| **SI-027** | Persistencia tras reinicio | v0.4.0 | Dev A | 1.0 h | **2 SP** | Verificación de relectura con contextos limpios e idempotencia. |
+| **SI-027** | Persistencia tras reinicio | v0.4.0 | Dev A | 1.0 h | **2 SP** | ✅ **Completado**: Prueba automatizada de escenario E-01 completo (`PersistenciaTests`) con ciclo de vida desacoplado de contextos en SQL Server 2022 y procedimiento manual para CP-12. |
 | **SI-028** | Invariante de valores almacenados | v0.4.0 | Dev A | 1.5 h | **3 SP** | Pruebas de coherencia matemática: Stock = Capas = Historial. |
 | **SI-029** | Rechazo de fechas retroactivas | v0.4.0 | Dev A | 1.0 h | **2 SP** | Regla de negocio de integridad temporal en movimientos. |
 | **SI-030** | UI registro de entradas y salidas | v0.4.0 | Dev B | 3.0 h | **5 SP** | Formularios Razor, selección dinámica, captura de errores. |
