@@ -266,4 +266,4 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Requisito | RNF-01, RF-05 |
 | Técnica / Nivel | Escenario E-01, E-02 / Integración |
 | Esperado | Tras cada movimiento: `Productos.ValorInventarioPeps = Σ(CantidadDisponible × CostoUnitario)` de capas · `= SaldoValorPeps` del último movimiento · `Productos.ExistenciaActual = Σ entradas − Σ salidas` · `ValorInventarioPromedio = SaldoValorPromedio` del último movimiento |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | **SUPERADO** / Automatizado en `InvarianteValoresTests.cs` (CP-19 verificado paso a paso en E-01, E-02 y sensibilidad a fallas) / `docs/evidencias/SI-028/Green_Test.md` |

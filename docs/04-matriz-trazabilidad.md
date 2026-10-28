@@ -51,7 +51,7 @@
 | CP-16 | Unitaria + Integración + Funcional | Valores límite | `ValidadorExistenciaTests`, `CalculadoraPepsTests`, `InventarioServiceIntegrationTests` | `evidencias/SI-014/Green_Test.md`, `evidencias/SI-018/Green_Test.md`, `evidencias/SI-025/Green_Test.md` |
 | CP-17 | Unitaria | Escenario E-03 | `PoliticaRedondeoTests`, `CalculadoraPromedioPonderadoTests`, `CalculadoraPepsTests` | `evidencias/SI-016/Promedio_Ponderado_Salidas.md`, `evidencias/SI-018/Green_Test.md` |
 | CP-18 | Integración / Funcional | Tabla de decisión | `InventarioServiceIntegrationTests` | `evidencias/SI-024/Green_Test.md` |
-| CP-19 | Integración / Regresión | Escenario / Auditoría | `Producto_Schema_DebeTenerPrecisionDecimalCorrecta` | `evidencias/DEF-001/` |
+| CP-19 | Integración / Regresión | Escenario / Invariante | `InvarianteValoresTests`, `Producto_Schema_DebeTenerPrecisionDecimalCorrecta` | `evidencias/SI-028/Green_Test.md`, `evidencias/DEF-001/` |
 
 ## 3. RNF-05 · Componentes y responsabilidades (completar al cierre)
 

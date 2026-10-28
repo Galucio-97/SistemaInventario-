@@ -10,7 +10,7 @@
 * **Tag de Línea Base (`main`):** `v0.2.0` (Commit `6701d36`).
 * **Rama de Trabajo Actual:** `dev` (Preparación de Release para promoción hacia `beta`).
 * **Defectos Críticos/Altos Detectados y Gestionados:** 1 defecto real (`DEF-001`, severidad Alta, corregido y verificado con prueba de regresión).
-* **Infraestructura de Pruebas:** Automatización xUnit con 129 pruebas en verde (45 integración, 1 regresión, 74 unitarias/teorías, 9 funcionales UI) ejecutando en local y CI.
+* **Infraestructura de Pruebas:** Automatización xUnit con 132 pruebas en verde (48 integración, 1 regresión, 74 unitarias/teorías, 9 funcionales UI) ejecutando en local y CI.
 
 ---
 
@@ -39,7 +39,7 @@
 | **Casos Bloqueados / Pendientes** | 17 pendientes de implementación | 2 pendientes de servicios/UI | — |
 | **Defectos Detectados Totales** | 1 (`DEF-001`) | 1 (`DEF-001`) | — |
 | **Defectos Corregidos y Verificados** | 1 (`DEF-001`) | 1 (`DEF-001`) | — |
-| **Pruebas Automatizadas en Verde** | 100% de las suites activas | 129 pruebas en verde (100% de la suite) | — |
+| **Pruebas Automatizadas en Verde** | 100% de las suites activas | 132 pruebas en verde (100% de la suite) | — |
 
 ---
 
@@ -65,7 +65,7 @@
 | **CP-16** | RB-03 | Unitaria + Func. | Valores Límite | **✅ APROBADO (Unitaria)** | `ValidadorExistenciaTests`, `CalculadoraPepsTests` | `evidencias/SI-014/Green_Test.md`, `evidencias/SI-018/Green_Test.md` |
 | **CP-17** | RB-08, RB-09 | Unitaria | Escenario E-03 | **✅ APROBADO (Unitaria + D-03)** | `PoliticaRedondeoTests`, `CalculadoraPromedioPonderadoTests`, `CalculadoraPepsTests` | `evidencias/SI-016/Promedio_Ponderado_Salidas.md`, `evidencias/SI-018/Green_Test.md` |
 | **CP-18** | RF-01, RB-10 | Integración / Func. | Tabla de Decisión (R2) | **✅ APROBADO (Integración)** | `InventarioServiceIntegrationTests` | `evidencias/SI-024/Green_Test.md` |
-| **CP-19** | RNF-01, RB-08 | Regresión / Int. | Auditoría de Esquema | **✅ APROBADO (C1)** | `Def001PrecisionProductoTests.Producto_Schema_DebeTenerPrecisionDecimalCorrecta` | `evidencias/DEF-001/` |
+| **CP-19** | RNF-01, RB-08 | Integración | Escenario / Invariante | **✅ APROBADO (Integración)** | `InvarianteValoresTests` | `evidencias/SI-028/Green_Test.md` |
 
 ---
 
