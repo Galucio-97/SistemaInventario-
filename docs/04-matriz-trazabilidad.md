@@ -42,7 +42,7 @@
 | CP-07 | Unitaria + Integración + Funcional | Valores límite + Tabla | `ValidadorExistenciaTests`, `InventarioServiceIntegrationTests`, `MovimientosPagesTests` | `evidencias/SI-014/Green_Test.md`, `evidencias/SI-025/Green_Test.md`, `evidencias/SI-030/Interfaz_Entradas_Salidas.md` |
 | CP-08 | Unitaria + Funcional | Escenario E-01 | `CalculadoraPepsTests` | `evidencias/SI-017/Green_Test.md` |
 | CP-09 | Unitaria + Funcional | Escenario E-01 | `CalculadoraPromedioPonderadoTests` | `evidencias/SI-016/Promedio_Ponderado_Salidas.md` |
-| CP-10 | Integración + Funcional | Escenario E-01 | `ConsultaExistenciasIntegrationTests`, `ConsultaExistenciasPageTests`, `HistorialMovimientosIntegrationTests` | `evidencias/SI-031/Consulta_Existencias_Metodo.md` |
+| CP-10 | Integración + Funcional | Escenario E-01 | `ConsultaExistenciasIntegrationTests`, `ConsultaExistenciasPageTests`, `HistorialMovimientosIntegrationTests`, `ConsultaInventarioHistorialPageTests` | `evidencias/SI-031/Consulta_Existencias_Metodo.md` |
 | CP-11 | Funcional / Integración | Tabla de decisión | `ProductoServiceIntegrationTests`, `InventarioServiceIntegrationTests`, `ProductosPagesTests` | `evidencias/SI-021/Consulta_Listado_Productos.md`, `evidencias/SI-023/Interfaz_Productos.md`, `evidencias/SI-024/Green_Test.md` |
 | CP-12 | Integración + manual | Escenario | `PersistenciaTests` | `evidencias/SI-027/Green_Test.md` |
 | CP-13 | Integración | Escenario | `TransaccionRollbackTests` | `evidencias/SI-026/Green_Test.md` |
