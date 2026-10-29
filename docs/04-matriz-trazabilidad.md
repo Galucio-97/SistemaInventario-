@@ -42,7 +42,7 @@
 | CP-07 | Unitaria + Funcional / Integración | Valores límite + Tabla | `ValidadorExistenciaTests`, `InventarioServiceIntegrationTests` | `evidencias/SI-014/Green_Test.md`, `evidencias/SI-025/Green_Test.md` |
 | CP-08 | Unitaria + Funcional | Escenario E-01 | `CalculadoraPepsTests` | `evidencias/SI-017/Green_Test.md` |
 | CP-09 | Unitaria + Funcional | Escenario E-01 | `CalculadoraPromedioPonderadoTests` | `evidencias/SI-016/Promedio_Ponderado_Salidas.md` |
-| CP-10 | Integración + Funcional | Escenario E-01 | `ConsultaExistenciasIntegrationTests`, `ConsultaExistenciasPageTests` | `evidencias/SI-031/Consulta_Existencias_Metodo.md` |
+| CP-10 | Integración + Funcional | Escenario E-01 | `ConsultaExistenciasIntegrationTests`, `ConsultaExistenciasPageTests`, `HistorialMovimientosIntegrationTests` | `evidencias/SI-031/Consulta_Existencias_Metodo.md` |
 | CP-11 | Funcional / Integración | Tabla de decisión | `ProductoServiceIntegrationTests`, `InventarioServiceIntegrationTests`, `ProductosPagesTests` | `evidencias/SI-021/Consulta_Listado_Productos.md`, `evidencias/SI-023/Interfaz_Productos.md`, `evidencias/SI-024/Green_Test.md` |
 | CP-12 | Integración + manual | Escenario | `PersistenciaTests` | `evidencias/SI-027/Green_Test.md` |
 | CP-13 | Integración | Escenario | `TransaccionRollbackTests` | `evidencias/SI-026/Green_Test.md` |
@@ -66,5 +66,5 @@
 | `ValidadorProducto` | RF-01, RNF-03 (código, nombre, unidad obligatorios, longitudes y validación en modificación) | CP-02, base CP-18 |
 | `ProductoService` | RF-01, RF-05, RB-10 (alta, consulta, modificación, estado, persistencia y listado) | CP-01, CP-02, CP-11, base CP-18 |
 | `Pages/Productos/` (`Index`, `Crear`, `Editar`) | RF-01, RF-05, RNF-03, RB-10 (interfaz de usuario) | CP-01, CP-02, CP-11 |
-| `InventarioService` | RF-02, RF-03, RF-04, RF-05 con transacción atómica y consulta dual de existencias | CP-03, CP-04, CP-05, CP-06, CP-07, CP-10, CP-11, CP-13, CP-15, CP-16, CP-18 |
+| `InventarioService` | RF-02, RF-03, RF-04, RF-05 con transacción atómica, consulta dual e historial kardex | CP-03, CP-04, CP-05, CP-06, CP-07, CP-10, CP-11, CP-13, CP-15, CP-16, CP-18 |
 | `Pages/Inventario/Consulta` | RF-04, RF-05, D-09 (consulta de existencias y capas por método) | CP-10, CP-11 |

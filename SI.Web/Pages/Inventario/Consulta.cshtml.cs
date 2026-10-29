@@ -25,6 +25,8 @@ public class ConsultaModel(
 
     public ResultadoConsultaExistencias? ResultadoComparativo { get; private set; }
 
+    public ResultadoHistorialMovimientos? Historial { get; private set; }
+
     public string? MensajeError { get; private set; }
 
     public async Task OnGetAsync(CancellationToken cancellationToken = default)
@@ -57,6 +59,10 @@ public class ConsultaModel(
 
                 ResultadoComparativo = await inventarioService.ConsultarExistenciasAsync(
                     ProductoId.Value, metodoAlterno, cancellationToken);
+
+                // Cargar el historial tipo kardex según el método seleccionado (SI-032)
+                Historial = await inventarioService.ObtenerHistorialMovimientosAsync(
+                    ProductoId.Value, Metodo, cancellationToken);
             }
         }
     }
