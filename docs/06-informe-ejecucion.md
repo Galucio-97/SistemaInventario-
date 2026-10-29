@@ -8,9 +8,9 @@
 
 * **Estado General:** Fase 0 (Foundation / `v0.0.1`) completada y en `main`. Fase 1 (Datos y Esquema / `v0.1.0`) completada al 100% en `main`. Fase 2 (Reglas y Motor de Costeo / `v0.2.0`) completada al 100% en `main`. Fase 3 (Productos / `v0.3.0`) servicios completados en `dev` (SI-020 a SI-022). Fase 4 (Movimientos transaccionales / `v0.4.0`) operaciones transaccionales de entrada y salida completadas en `dev` (SI-024 y SI-025).
 * **Tag de Línea Base (`main`):** `v0.2.0` (Commit `6701d36`).
-* **Rama de Trabajo Actual:** `feat/SI-035-Vista-Comparativa-Peps-Promedio` (RF-04 Vista comparativa PEPS vs Promedio).
+* **Rama de Trabajo Actual:** `feat/SI-036-Pruebas_funcionales_flujo_completo` (RF-01 a RF-05 Pruebas funcionales de flujo completo E2E).
 * **Defectos Críticos/Altos Detectados y Gestionados:** 1 defecto real (`DEF-001`, severidad Alta, corregido y verificado con prueba de regresión).
-* **Infraestructura de Pruebas:** Automatización xUnit con 166 pruebas en verde (61 integración, 1 regresión, 74 unitarias/teorías, 30 funcionales UI) ejecutando en local y CI.
+* **Infraestructura de Pruebas:** Automatización xUnit con 171 pruebas en verde (61 integración, 1 regresión, 74 unitarias/teorías, 35 funcionales UI y flujos E2E) ejecutando en local y CI.
 
 ---
 
@@ -23,7 +23,7 @@
 | **Motor de Base de Datos** | SQL Server 2022 en Docker (`mcr.microsoft.com/mssql/server:2022-latest`) | Contenedor SQL Server / Service Container en GitHub Runner |
 | **Herramienta de Pruebas** | xUnit 2.5.3 + VSTest 17.11.1 | `dotnet test --no-build --verbosity normal` |
 | **Medición de Cobertura** | Coverlet Collector 6.0.0 | Habilitado para reporte de métricas |
-| **Commit Evaluado** | `feat/SI-034-Carga-Ejercicio-Referencia` (`4192c3a`) | Pipeline CI en pull requests hacia `dev`, `beta` y `main` |
+| **Commit Evaluado** | `feat/SI-036-Pruebas_funcionales_flujo_completo` | Pipeline CI en pull requests hacia `dev`, `beta` y `main` |
 
 ---
 
@@ -39,7 +39,7 @@
 | **Casos Bloqueados / Pendientes** | 17 pendientes de implementación | 1 pendiente (CP-14 regresión final) | — |
 | **Defectos Detectados Totales** | 1 (`DEF-001`) | 1 (`DEF-001`) | — |
 | **Defectos Corregidos y Verificados** | 1 (`DEF-001`) | 1 (`DEF-001`) | — |
-| **Pruebas Automatizadas en Verde** | 100% de las suites activas | 166 pruebas en verde (100% de la suite) | — |
+| **Pruebas Automatizadas en Verde** | 100% de las suites activas | 171 pruebas en verde (100% de la suite) | — |
 
 ---
 
@@ -49,22 +49,22 @@
 |:---|:---|:---:|:---:|:---:|:---|:---|
 | **CP-01** | RF-01, RNF-02 | Integración + Funcional | Partición / Humo | **✅ APROBADO (Integración + UI)** | `SmokeDatabaseTests`, `ProductoServiceIntegrationTests`, `ProductosPagesTests` | `evidencias/SI-020/Registro_Productos.md`, `evidencias/SI-023/Interfaz_Productos.md` |
 | **CP-02** | RF-01, RNF-03 | Unitaria + Integración + Funcional | Partición (Inválida) | **✅ APROBADO (Integración + UI)** | `ValidadorProductoTests`, `ProductoServiceIntegrationTests`, `ProductosPagesTests` | `evidencias/SI-020/Registro_Productos.md`, `evidencias/SI-023/Interfaz_Productos.md` |
-| **CP-03** | RF-02, RB-04, RB-05 | Integración + Funcional | Basada en Escenarios | **✅ APROBADO (Integración + UI)** | `InventarioServiceIntegrationTests`, `MovimientosPagesTests` | `evidencias/SI-024/Green_Test.md`, `evidencias/SI-030/Interfaz_Entradas_Salidas.md` |
-| **CP-04** | RF-03, RB-07 | Integración + Funcional | Tabla de Decisión (R5) | **✅ APROBADO (Integración + UI)** | `InventarioServiceIntegrationTests`, `MovimientosPagesTests` | `evidencias/SI-025/Green_Test.md`, `evidencias/SI-030/Interfaz_Entradas_Salidas.md` |
+| **CP-03** | RF-02, RB-04, RB-05 | Integración + Funcional | Basada en Escenarios | **✅ APROBADO (Integración + UI + Funcional)** | `InventarioServiceIntegrationTests`, `MovimientosPagesTests`, `FlujoCompletoFunctionalTests` | `evidencias/SI-024/Green_Test.md`, `evidencias/SI-030/Interfaz_Entradas_Salidas.md`, `evidencias/SI-036/Green_Test.md` |
+| **CP-04** | RF-03, RB-07 | Integración + Funcional | Tabla de Decisión (R5) | **✅ APROBADO (Integración + UI + Funcional)** | `InventarioServiceIntegrationTests`, `MovimientosPagesTests`, `FlujoCompletoFunctionalTests` | `evidencias/SI-025/Green_Test.md`, `evidencias/SI-030/Interfaz_Entradas_Salidas.md`, `evidencias/SI-036/Green_Test.md` |
 | **CP-05** | RB-01, RNF-03 | Unitaria + Int. | Valores Límite | **✅ APROBADO (Unitaria)** | `ValidadorCantidadTests` | `evidencias/SI-012/Validacion_Cantidades.md` |
 | **CP-06** | RB-02, RNF-03 | Unitaria | Valores Límite | **✅ APROBADO (Unitaria)** | `ValidadorCostoUnitarioTests` | `evidencias/SI-013/Validacion_Costo_Unitario.md` |
-| **CP-07** | RB-03, RNF-04 | Unitaria + Func. | Límite / Tabla (R4) | **✅ APROBADO (Unitaria)** | `ValidadorExistenciaTests` | `evidencias/SI-014/Green_Test.md` |
-| **CP-08** | RF-04, RB-07 | Unitaria + Func. | Escenario Obligatorio 6.3 | **✅ APROBADO (Unitaria)** | `CalculadoraPepsTests` | `evidencias/SI-017/Green_Test.md` |
-| **CP-09** | RF-04, RB-07 | Unitaria + Func. | Escenario Obligatorio 6.3 | **✅ APROBADO (Unitaria)** | `CalculadoraPromedioPonderadoTests` | `evidencias/SI-016/Promedio_Ponderado_Salidas.md` |
-| **CP-10** | RF-04, RF-05 | Integración + Funcional | Escenario Obligatorio 6.3 | **✅ APROBADO (Integración + UI)** | `ConsultaExistenciasIntegrationTests`, `ConsultaExistenciasPageTests` | `evidencias/SI-031/Consulta_Existencias_Metodo.md` |
-| **CP-11** | RF-01, RF-05, RB-04 | Funcional / Integración | Tabla de Decisión (R1) | **✅ APROBADO (Integración + UI)** | `ProductoServiceIntegrationTests`, `InventarioServiceIntegrationTests`, `ProductosPagesTests` | `evidencias/SI-021/Consulta_Listado_Productos.md`, `evidencias/SI-023/Interfaz_Productos.md`, `evidencias/SI-024/Green_Test.md` |
+| **CP-07** | RB-03, RNF-04 | Unitaria + Func. | Límite / Tabla (R4) | **✅ APROBADO (Unitaria + Funcional)** | `ValidadorExistenciaTests`, `FlujoCompletoFunctionalTests` | `evidencias/SI-014/Green_Test.md`, `evidencias/SI-036/Green_Test.md` |
+| **CP-08** | RF-04, RB-07 | Unitaria + Func. | Escenario Obligatorio 6.3 | **✅ APROBADO (Unitaria + Funcional)** | `CalculadoraPepsTests`, `FlujoCompletoFunctionalTests` | `evidencias/SI-017/Green_Test.md`, `evidencias/SI-036/Green_Test.md` |
+| **CP-09** | RF-04, RB-07 | Unitaria + Func. | Escenario Obligatorio 6.3 | **✅ APROBADO (Unitaria + Funcional)** | `CalculadoraPromedioPonderadoTests`, `FlujoCompletoFunctionalTests` | `evidencias/SI-016/Promedio_Ponderado_Salidas.md`, `evidencias/SI-036/Green_Test.md` |
+| **CP-10** | RF-04, RF-05 | Integración + Funcional | Escenario Obligatorio 6.3 | **✅ APROBADO (Integración + UI + Funcional)** | `ConsultaExistenciasIntegrationTests`, `ConsultaExistenciasPageTests`, `FlujoCompletoFunctionalTests` | `evidencias/SI-031/Consulta_Existencias_Metodo.md`, `evidencias/SI-036/Green_Test.md` |
+| **CP-11** | RF-01, RF-05, RB-04 | Funcional / Integración | Tabla de Decisión (R1) | **✅ APROBADO (Integración + UI + Funcional)** | `ProductoServiceIntegrationTests`, `InventarioServiceIntegrationTests`, `ProductosPagesTests`, `FlujoCompletoFunctionalTests` | `evidencias/SI-021/Consulta_Listado_Productos.md`, `evidencias/SI-023/Interfaz_Productos.md`, `evidencias/SI-024/Green_Test.md`, `evidencias/SI-036/Green_Test.md` |
 | **CP-12** | RNF-02, RB-05 | Integración | Basada en Escenarios | **✅ APROBADO (Integración)** | `PersistenciaTests` | `evidencias/SI-027/Green_Test.md` |
 | **CP-13** | RNF-04, RB-06 | Integración | Inyección de Fallos | **✅ APROBADO (Integración)** | `TransaccionRollbackTests` | `evidencias/SI-026/Green_Test.md` |
 | **CP-14** | Todos | Regresión | Suite Completa | *Pendiente (v0.9.x)* | Re-ejecución total automatizada tras fixes | `evidencias/ciclos/` |
-| **CP-15** | RF-04 | Unitaria | Escenario E-02 | **✅ APROBADO (Unitaria)** | `CalculadoraPepsTests` | `evidencias/SI-018/Green_Test.md` |
-| **CP-16** | RB-03 | Unitaria + Func. | Valores Límite | **✅ APROBADO (Unitaria)** | `ValidadorExistenciaTests`, `CalculadoraPepsTests` | `evidencias/SI-014/Green_Test.md`, `evidencias/SI-018/Green_Test.md` |
+| **CP-15** | RF-04 | Unitaria + Funcional | Escenario E-02 | **✅ APROBADO (Unitaria + Funcional)** | `CalculadoraPepsTests`, `FlujoCompletoFunctionalTests` | `evidencias/SI-018/Green_Test.md`, `evidencias/SI-036/Green_Test.md` |
+| **CP-16** | RB-03 | Unitaria + Func. | Valores Límite | **✅ APROBADO (Unitaria + Funcional)** | `ValidadorExistenciaTests`, `CalculadoraPepsTests`, `FlujoCompletoFunctionalTests` | `evidencias/SI-014/Green_Test.md`, `evidencias/SI-018/Green_Test.md`, `evidencias/SI-036/Green_Test.md` |
 | **CP-17** | RB-08, RB-09 | Unitaria | Escenario E-03 | **✅ APROBADO (Unitaria + D-03)** | `PoliticaRedondeoTests`, `CalculadoraPromedioPonderadoTests`, `CalculadoraPepsTests` | `evidencias/SI-016/Promedio_Ponderado_Salidas.md`, `evidencias/SI-018/Green_Test.md` |
-| **CP-18** | RF-01, RB-10 | Integración / Func. | Tabla de Decisión (R2) | **✅ APROBADO (Integración)** | `InventarioServiceIntegrationTests` | `evidencias/SI-024/Green_Test.md` |
+| **CP-18** | RF-01, RB-10 | Integración / Func. | Tabla de Decisión (R2) | **✅ APROBADO (Integración + Funcional)** | `InventarioServiceIntegrationTests`, `FlujoCompletoFunctionalTests` | `evidencias/SI-024/Green_Test.md`, `evidencias/SI-036/Green_Test.md` |
 | **CP-19** | RNF-01, RB-08 | Integración | Escenario / Invariante | **✅ APROBADO (Integración)** | `InvarianteValoresTests` | `evidencias/SI-028/Green_Test.md` |
 | **CP-20** | RB-11, D-04 | Unitaria + Integración | Valores Límite / Partición | **✅ APROBADO (Unitaria + Int.)** | `ValidadorFechaMovimientoTests`, `InventarioServiceIntegrationTests` | `evidencias/SI-029/Green_Test.md` |
 

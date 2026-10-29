@@ -111,7 +111,7 @@ flowchart LR
 | SI-033 | Interfaz de consulta de inventario e historial | v0.5.0 | B | D5 | 3 | Must | TERMINADO   |
 | SI-034 | Carga del ejercicio de referencia desde la interfaz | v0.5.0 | B | D5 | 1 | Could | TERMINADO   |
 | SI-035 | Vista comparativa PEPS vs Promedio | v0.5.0 | B | D5 | 1.5 | Could | TERMINADO   |
-| SI-036 | Pruebas funcionales de flujo completo | v0.9.0-rc | A | D5 | 3 | Must | Por hacer   |
+| SI-036 | Pruebas funcionales de flujo completo | v0.9.0-rc | A | D5 | 3 | Must | TERMINADO   |
 | SI-037 | Feature freeze y release candidate | v0.9.0-rc | Ambos | D5 | 0.5 | Must | Por hacer   |
 | SI-038 | Ciclo 1: ejecución manual de CP-01 a CP-10 | v0.9.0-rc | B | D5–D6 | 3 | Must | Por hacer   |
 | SI-039 | Ciclo 1: ejecución manual de CP-11 a CP-19 | v0.9.0-rc | A | D6 | 3 | Must | Por hacer   |
@@ -746,14 +746,14 @@ flowchart LR
 **Objetivo:** verificar los requisitos desde el comportamiento observable de punta a punta, sobre la BD de pruebas.
 
 **Criterios de aceptación:**
-- [ ] Hay escenarios automatizados de inicio a fin: alta de producto → entradas → salidas → consulta con ambos métodos, para E-01 y E-02
-- [ ] Cubren CP-03, 04, 07, 08, 09, 10, 11, 16 y 18 desde la perspectiva del usuario (operaciones disponibles, no funciones internas)
-- [ ] Cada aserción verifica también el estado de la BD cuando corresponde
-- [ ] Están etiquetadas con `Nivel=Funcional`
+- [x] Hay escenarios automatizados de inicio a fin: alta de producto → entradas → salidas → consulta con ambos métodos, para E-01 y E-02
+- [x] Cubren CP-03, 04, 07, 08, 09, 10, 11, 16 y 18 desde la perspectiva del usuario (operaciones disponibles, no funciones internas)
+- [x] Cada aserción verifica también el estado de la BD cuando corresponde
+- [x] Están etiquetadas con `Nivel=Funcional`
 
 **Trazabilidad:** RF-01 a RF-05 · estrategia de pruebas funcionales
 **Depende de:** SI-032
-**Evidencia:** `.trx` de `dotnet test --filter "Nivel=Funcional"`
+**Evidencia:** `docs/evidencias/SI-036/Green_Test.md` y `.trx` en `SI.Tests/TestResults/ciclo1-funcional.trx` (`dotnet test --filter "Nivel=Funcional"`)
 
 ---
 

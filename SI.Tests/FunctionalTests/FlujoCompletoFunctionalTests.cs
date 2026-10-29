@@ -6,12 +6,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using SI.Tests.Fixtures;
-using SI.Web.Common;
-using SI.Web.Data.Entities;
 using SI.Web.Enums;
-using SI.Web.Pages.Inventario;
-using SI.Web.Pages.Movimientos;
-using SI.Web.Pages.Productos;
 using SI.Web.Services;
 
 namespace SI.Tests.FunctionalTests;
@@ -91,17 +86,202 @@ public class FlujoCompletoFunctionalTests(TestDbContextFixture fixture)
         await EjecutarFlujoE02Async();
     }
 
-    private Task EjecutarFlujoE01Async()
+    private async Task EjecutarFlujoE01Async()
     {
-        _ = fixture;
-        throw new NotImplementedException(
-            "Fase RED (SI-036): Orquestación de flujo completo de inicio a fin E-01 pendiente de implementar en la fase GREEN.");
-    }
+        // -------------------------------------------------------------------------------------------------
+        // Escenario E-02:
+        // 2. Entrada 1: 3 @ $10.00
+        // 3. Entrada 2: 4 @ $11.00
+        // 4. Salida 1: 5 u. (Multicapa PEPS: consume 3 de Capa 1 y 2 de Capa 2 - CP-15)
+        // 5. Salida 2: 2 u. (Agotamiento exacto: stock llega a 0, valor $0.00 con ajuste D-03 - CP-16)
+        // 6. Auditoría directa en BD con contexto desacoplado
+        // -------------------------------------------------------------------------------------------------
+        fixture.ResetDatabase();
+        var productoService = new ProductoService(fixture.Context);
+        var inventarioService = new InventarioService(fixture.Context);
+        
+        // Creación de producto
+        var resultadoProducto = await productoService.RegistrarAsync("P-001", "Tornillo 1/4", "pieza");
+        
+        Assert.NotNull(resultadoProducto);
+        Assert.True(resultadoProducto.Exitoso);
+        
+        var productoId = resultadoProducto.EntidadId!.Value;
+        
+        // Creación de entrada
+        var resultadoPrimerEntrada = await inventarioService.RegistrarEntradaAsync(
+            productoId, 
+            DateTime.UtcNow, 
+            10, 
+            20, 
+            CancellationToken.None
+        );
 
-    private Task EjecutarFlujoE02Async()
+        Assert.NotNull(resultadoPrimerEntrada);
+        Assert.True(resultadoPrimerEntrada.Exitoso);
+        
+        // Creación de entrada
+        var resultadoSegundaEntrada = await inventarioService.RegistrarEntradaAsync(
+            productoId, 
+            DateTime.UtcNow, 
+            10, 
+            30, 
+            CancellationToken.None
+        );
+
+        Assert.NotNull(resultadoSegundaEntrada);
+        Assert.True(resultadoSegundaEntrada.Exitoso);
+        
+        // Creación de salida falsa
+        var resultadoPrimeraSalida = await inventarioService.RegistrarSalidaAsync(
+            productoId,
+            DateTime.UtcNow,
+            25,
+            CancellationToken.None
+        );
+        
+        Assert.NotNull(resultadoPrimeraSalida);
+        Assert.True(!resultadoPrimeraSalida.Exitoso);
+        Assert.Contains("Existencia insuficiente", resultadoPrimeraSalida.MensajeError ?? string.Empty);
+        
+        var resultadoSegundaSalida = await inventarioService.RegistrarSalidaAsync(
+            productoId,
+            DateTime.UtcNow,
+            5,
+            CancellationToken.None
+        );
+        
+        Assert.NotNull(resultadoSegundaSalida);
+        Assert.True(resultadoSegundaSalida.Exitoso);
+
+        // 6. Consulta dual PEPS vs Promedio Ponderado (CP-08, CP-09, CP-10)
+        var consultaPeps = await inventarioService.ConsultarExistenciasAsync(productoId, MetodoCosteo.Peps);
+        Assert.True(consultaPeps.Encontrado);
+        Assert.Equal(15.0000m, consultaPeps.ExistenciaActual);
+        Assert.Equal(400.00m, consultaPeps.ValorInventario);
+        Assert.Equal(26.6667m, consultaPeps.CostoUnitario);
+        Assert.Equal(2, consultaPeps.CapasActivas.Count);
+        Assert.Equal(5.0000m, consultaPeps.CapasActivas[0].CantidadDisponible);
+        Assert.Equal(20.0000m, consultaPeps.CapasActivas[0].CostoUnitario);
+        Assert.Equal(10.0000m, consultaPeps.CapasActivas[1].CantidadDisponible);
+        Assert.Equal(30.0000m, consultaPeps.CapasActivas[1].CostoUnitario);
+
+        var consultaProm = await inventarioService.ConsultarExistenciasAsync(productoId, MetodoCosteo.PromedioPonderado);
+        Assert.True(consultaProm.Encontrado);
+        Assert.Equal(15.0000m, consultaProm.ExistenciaActual); // CP-10: Invarianza de cantidad física
+        Assert.Equal(375.00m, consultaProm.ValorInventario);
+        Assert.Equal(25.0000m, consultaProm.CostoUnitario);
+
+        // Historial Kardex en ambos métodos
+        var historialPeps = await inventarioService.ObtenerHistorialMovimientosAsync(productoId, MetodoCosteo.Peps);
+        Assert.True(historialPeps.Encontrado);
+        Assert.Equal(3, historialPeps.Movimientos.Count);
+        Assert.Equal(400.00m, historialPeps.Movimientos[2].SaldoValor);
+
+        var historialProm = await inventarioService.ObtenerHistorialMovimientosAsync(productoId, MetodoCosteo.PromedioPonderado);
+        Assert.True(historialProm.Encontrado);
+        Assert.Equal(3, historialProm.Movimientos.Count);
+        Assert.Equal(375.00m, historialProm.Movimientos[2].SaldoValor);
+
+        // 7. Auditoría final directa en base de datos con contexto desacoplado
+        await using var ctxAuditoria = fixture.CreateDbContext();
+        var productoDb = await ctxAuditoria.Productos.FindAsync(productoId);
+        Assert.NotNull(productoDb);
+        Assert.Equal(15.0000m, productoDb.ExistenciaActual);
+        Assert.Equal(400.00m, productoDb.ValorInventarioPeps);
+        Assert.Equal(375.00m, productoDb.ValorInventarioPromedio);
+        Assert.Equal(25.0000m, productoDb.CostoPromedioActual);
+
+        var totalMovimientosDb = await ctxAuditoria.Movimientos.CountAsync(m => m.ProductoId == productoId);
+        Assert.Equal(3, totalMovimientosDb);
+
+        var capasActivasDb = await ctxAuditoria.CapasInventarioPeps
+            .Where(c => c.ProductoId == productoId && c.CantidadDisponible > 0)
+            .OrderBy(c => c.Id)
+            .ToListAsync();
+        Assert.Equal(2, capasActivasDb.Count);
+        Assert.Equal(5.0000m, capasActivasDb[0].CantidadDisponible);
+        Assert.Equal(10.0000m, capasActivasDb[1].CantidadDisponible);
+    }
+    
+    private async Task EjecutarFlujoE02Async()
     {
-        _ = fixture;
-        throw new NotImplementedException(
-            "Fase RED (SI-036): Orquestación de flujo completo de inicio a fin E-02 pendiente de implementar en la fase GREEN.");
+        // -------------------------------------------------------------------------------------------------
+        // Escenario E-02 (Agotamiento multicapa y residuo D-03 / CP-15, CP-16, CP-17):
+        // 1. Alta de producto P-002
+        // 2. Entrada 1: 3 @ $10.00
+        // 3. Entrada 2: 4 @ $11.00
+        // 4. Salida 1: 5 u. (Multicapa PEPS: consume 3 @ $10.00 y 2 @ $11.00)
+        // 5. Salida 2: 2 u. (Agotamiento exacto a stock 0 con ajuste D-03)
+        // 6. Auditoría directa en BD con contexto desacoplado
+        // -------------------------------------------------------------------------------------------------
+        fixture.ResetDatabase();
+        var productoService = new ProductoService(fixture.Context);
+        var inventarioService = new InventarioService(fixture.Context);
+
+        // 1. Alta de producto P-002
+        var resultadoProducto = await productoService.RegistrarAsync("P-002", "Arandela 1/2", "pieza");
+        Assert.NotNull(resultadoProducto);
+        Assert.True(resultadoProducto.Exitoso);
+        var productoId = (int)resultadoProducto.EntidadId!;
+
+        // 2. Entrada 1: 3 @ $10.00
+        var t1 = new DateTime(2026, 10, 15, 10, 0, 0, DateTimeKind.Utc);
+        var e1 = await inventarioService.RegistrarEntradaAsync(productoId, t1, 3.0000m, 10.0000m);
+        Assert.True(e1.Exitoso);
+
+        // 3. Entrada 2: 4 @ $11.00
+        var t2 = t1.AddHours(2);
+        var e2 = await inventarioService.RegistrarEntradaAsync(productoId, t2, 4.0000m, 11.0000m);
+        Assert.True(e2.Exitoso);
+
+        // 4. Salida 1: 5 unidades (CP-15: Multicapa PEPS)
+        // Consume Capa 1 completa (3 @ 10.00 = 30.00) y parte de Capa 2 (2 @ 11.00 = 22.00) -> Costo PEPS: 52.00
+        // Existencia resultante: 2.0000. Saldo PEPS remanente: 2 @ 11.00 = 22.00
+        var t3 = t2.AddHours(2);
+        var s1 = await inventarioService.RegistrarSalidaAsync(productoId, t3, 5.0000m);
+        Assert.True(s1.Exitoso);
+
+        var consultaIntermediaPeps = await inventarioService.ConsultarExistenciasAsync(productoId, MetodoCosteo.Peps);
+        Assert.Equal(2.0000m, consultaIntermediaPeps.ExistenciaActual);
+        Assert.Equal(22.00m, consultaIntermediaPeps.ValorInventario);
+        Assert.Single(consultaIntermediaPeps.CapasActivas);
+        Assert.Equal(2.0000m, consultaIntermediaPeps.CapasActivas[0].CantidadDisponible);
+
+        // 5. Salida 2: 2 unidades (CP-16: Agotamiento exacto a stock 0, ajuste D-03 / CP-17)
+        var t4 = t3.AddHours(2);
+        var s2 = await inventarioService.RegistrarSalidaAsync(productoId, t4, 2.0000m);
+        Assert.True(s2.Exitoso);
+
+        // 6. Consulta dual tras agotamiento
+        var consultaFinalPeps = await inventarioService.ConsultarExistenciasAsync(productoId, MetodoCosteo.Peps);
+        Assert.Equal(0.0000m, consultaFinalPeps.ExistenciaActual);
+        Assert.Equal(0.00m, consultaFinalPeps.ValorInventario);
+        Assert.Empty(consultaFinalPeps.CapasActivas);
+
+        var consultaFinalProm = await inventarioService.ConsultarExistenciasAsync(productoId, MetodoCosteo.PromedioPonderado);
+        Assert.Equal(0.0000m, consultaFinalProm.ExistenciaActual);
+        Assert.Equal(0.00m, consultaFinalProm.ValorInventario); // Ajuste D-03: saldo 0.00 cuando existencia es 0
+
+        // Historial Kardex de E-02
+        var historialE02 = await inventarioService.ObtenerHistorialMovimientosAsync(productoId, MetodoCosteo.Peps);
+        Assert.Equal(4, historialE02.Movimientos.Count);
+        Assert.Equal(0.0000m, historialE02.Movimientos[3].ExistenciaResultante);
+        Assert.Equal(0.00m, historialE02.Movimientos[3].SaldoValor);
+
+        // 7. Auditoría directa en base de datos con contexto desacoplado
+        await using var ctxAuditoriaE02 = fixture.CreateDbContext();
+        var productoDbE02 = await ctxAuditoriaE02.Productos.FindAsync(productoId);
+        Assert.NotNull(productoDbE02);
+        Assert.Equal(0.0000m, productoDbE02.ExistenciaActual);
+        Assert.Equal(0.00m, productoDbE02.ValorInventarioPeps);
+        Assert.Equal(0.00m, productoDbE02.ValorInventarioPromedio);
+
+        var totalMovimientosE02 = await ctxAuditoriaE02.Movimientos.CountAsync(m => m.ProductoId == productoId);
+        Assert.Equal(4, totalMovimientosE02);
+
+        var capasConSaldo = await ctxAuditoriaE02.CapasInventarioPeps
+            .CountAsync(c => c.ProductoId == productoId && c.CantidadDisponible > 0);
+        Assert.Equal(0, capasConSaldo);
     }
 }
