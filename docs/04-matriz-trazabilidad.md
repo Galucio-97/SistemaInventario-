@@ -27,7 +27,7 @@
 | RB-08 Precisión decimal | CP-17, CP-19 | | |
 | RB-09 Redondeo documentado | CP-17 | | |
 | RB-10 Producto inactivo | CP-18 | | |
-| RB-11 Fecha retroactiva | _por diseñar si se confirma D-04_ | | |
+| RB-11 Fecha retroactiva | CP-20 | | |
 
 ## 2. Caso → Nivel → Prueba automatizada → Evidencia
 
@@ -52,6 +52,7 @@
 | CP-17 | Unitaria | Escenario E-03 | `PoliticaRedondeoTests`, `CalculadoraPromedioPonderadoTests`, `CalculadoraPepsTests` | `evidencias/SI-016/Promedio_Ponderado_Salidas.md`, `evidencias/SI-018/Green_Test.md` |
 | CP-18 | Integración / Funcional | Tabla de decisión | `InventarioServiceIntegrationTests` | `evidencias/SI-024/Green_Test.md` |
 | CP-19 | Integración / Regresión | Escenario / Invariante | `InvarianteValoresTests`, `Producto_Schema_DebeTenerPrecisionDecimalCorrecta` | `evidencias/SI-028/Green_Test.md`, `evidencias/DEF-001/` |
+| CP-20 | Unitaria + Integración | Valores límite / Partición | `ValidadorFechaMovimientoTests`, `InventarioServiceIntegrationTests` | `evidencias/SI-029/Green_Test.md` |
 
 ## 3. RNF-05 · Componentes y responsabilidades (completar al cierre)
 
@@ -61,9 +62,10 @@
 | `ValidadorCantidad`, `ValidadorCostoUnitario` | RB-01, RB-02, RB-03 | CP-05, CP-06, CP-07 |
 | `ValidadorExistencia` | RB-03 (salida <= existencia disponible) | CP-07, CP-16 |
 | `ValidadorMovimiento` | RB-01, RB-02, RB-03 | CP-05, CP-06, CP-07 |
+| `ValidadorFechaMovimiento` | RB-11, D-04 (rechazo de movimientos con fecha anterior al último registrado) | CP-20 |
 | `CalculadoraPeps` | Creación y consumo de capas | CP-08, CP-15 |
 | `CalculadoraPromedioPonderado` | Promedio móvil, costo de salida y ajuste por residuo D-03 | CP-09, CP-17 |
 | `ValidadorProducto` | RF-01, RNF-03 (código, nombre, unidad obligatorios, longitudes y validación en modificación) | CP-02, base CP-18 |
 | `ProductoService` | RF-01, RF-05, RB-10 (alta, consulta, modificación, estado, persistencia y listado) | CP-01, CP-02, CP-11, base CP-18 |
 | `Pages/Productos/` (`Index`, `Crear`, `Editar`) | RF-01, RF-05, RNF-03, RB-10 (interfaz de usuario) | CP-01, CP-02, CP-11 |
-| `InventarioService` | RF-02, RF-03, RF-05 con transacción atómica | CP-03, CP-04, CP-05, CP-06, CP-07, CP-11, CP-13, CP-15, CP-16, CP-18 |
+| `InventarioService` | RF-02, RF-03, RF-05, RB-11 con transacción atómica | CP-03, CP-04, CP-05, CP-06, CP-07, CP-11, CP-13, CP-15, CP-16, CP-18, CP-20 |
