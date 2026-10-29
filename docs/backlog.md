@@ -661,15 +661,15 @@ flowchart LR
 **Objetivo:** consultar el estado del inventario de un producto según el método elegido, sin alterar datos.
 
 **Criterios de aceptación:**
-- [ ] Devuelve existencia, costo unitario según el método, valor del inventario y capas PEPS activas
-- [ ] El costo unitario PEPS a mostrar sigue la definición D-09 (propuesta: `valor / existencia` a 4 decimales, junto al detalle de capas)
-- [ ] **CP-10:** con E-01 → existencia 15 en ambos métodos; valor 400.00 (PEPS) y 375.00 (Promedio)
-- [ ] Consultar con cualquier método no modifica movimientos, capas ni producto (se compara el estado antes y después)
-- [ ] Producto inexistente → "El producto no existe" (CP-11)
+- [x] Devuelve existencia, costo unitario según el método, valor del inventario y capas PEPS activas
+- [x] El costo unitario PEPS a mostrar sigue la definición D-09 (propuesta: `valor / existencia` a 4 decimales, junto al detalle de capas)
+- [x] **CP-10:** con E-01 → existencia 15 en ambos métodos; valor 400.00 (PEPS) y 375.00 (Promedio)
+- [x] Consultar con cualquier método no modifica movimientos, capas ni producto (se compara el estado antes y después)
+- [x] Producto inexistente → "El producto no existe" (CP-11)
 
 **Trazabilidad:** RF-04, RF-05 · CP-10, CP-11
 **Depende de:** SI-025
-**Evidencia:** salida de las pruebas
+**Evidencia:** `docs/evidencias/SI-031/Consulta_Existencias_Metodo.md` (Green_Test.md y Red_Test.md)
 
 ---
 
