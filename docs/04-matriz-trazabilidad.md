@@ -27,7 +27,7 @@
 | RB-08 Precisión decimal | CP-17, CP-19 | | |
 | RB-09 Redondeo documentado | CP-17 | | |
 | RB-10 Producto inactivo | CP-18 | | |
-| RB-11 Fecha retroactiva | _por diseñar si se confirma D-04_ | | |
+| RB-11 Fecha retroactiva | CP-20 | | |
 
 ## 2. Caso → Nivel → Prueba automatizada → Evidencia
 
@@ -35,11 +35,11 @@
 |---|---|---|---|---|
 | CP-01 | Integración + Funcional | Partición / Humo | `SmokeDatabaseTests`, `ProductoServiceIntegrationTests`, `ProductosPagesTests` | `evidencias/SI-020/Registro_Productos.md`, `evidencias/SI-023/Interfaz_Productos.md` |
 | CP-02 | Integración + Funcional | Partición | `ProductoServiceIntegrationTests`, `ValidadorProductoTests`, `ProductosPagesTests` | `evidencias/SI-020/Registro_Productos.md`, `evidencias/SI-023/Interfaz_Productos.md` |
-| CP-03 | Integración / Funcional | Escenario | `InventarioServiceIntegrationTests` | `evidencias/SI-024/Green_Test.md` |
-| CP-04 | Integración / Funcional | Tabla de decisión | `InventarioServiceIntegrationTests` | `evidencias/SI-025/Green_Test.md` |
-| CP-05 | Unitaria + Integración | Valores límite | `ValidadorCantidadTests`, `InventarioServiceIntegrationTests` | `evidencias/SI-012/Validacion_Cantidades.md`, `evidencias/SI-024/Green_Test.md` |
-| CP-06 | Unitaria + Integración | Valores límite | `ValidadorCostoUnitarioTests`, `InventarioServiceIntegrationTests` | `evidencias/SI-013/Validacion_Costo_Unitario.md`, `evidencias/SI-024/Green_Test.md` |
-| CP-07 | Unitaria + Funcional / Integración | Valores límite + Tabla | `ValidadorExistenciaTests`, `InventarioServiceIntegrationTests` | `evidencias/SI-014/Green_Test.md`, `evidencias/SI-025/Green_Test.md` |
+| CP-03 | Integración + Funcional | Escenario | `InventarioServiceIntegrationTests`, `MovimientosPagesTests` | `evidencias/SI-024/Green_Test.md`, `evidencias/SI-030/Interfaz_Entradas_Salidas.md` |
+| CP-04 | Integración + Funcional | Tabla de decisión | `InventarioServiceIntegrationTests`, `MovimientosPagesTests` | `evidencias/SI-025/Green_Test.md`, `evidencias/SI-030/Interfaz_Entradas_Salidas.md` |
+| CP-05 | Unitaria + Integración + Funcional | Valores límite | `ValidadorCantidadTests`, `InventarioServiceIntegrationTests`, `MovimientosPagesTests` | `evidencias/SI-012/Validacion_Cantidades.md`, `evidencias/SI-024/Green_Test.md`, `evidencias/SI-030/Interfaz_Entradas_Salidas.md` |
+| CP-06 | Unitaria + Integración + Funcional | Valores límite | `ValidadorCostoUnitarioTests`, `InventarioServiceIntegrationTests`, `MovimientosPagesTests` | `evidencias/SI-013/Validacion_Costo_Unitario.md`, `evidencias/SI-024/Green_Test.md`, `evidencias/SI-030/Interfaz_Entradas_Salidas.md` |
+| CP-07 | Unitaria + Integración + Funcional | Valores límite + Tabla | `ValidadorExistenciaTests`, `InventarioServiceIntegrationTests`, `MovimientosPagesTests` | `evidencias/SI-014/Green_Test.md`, `evidencias/SI-025/Green_Test.md`, `evidencias/SI-030/Interfaz_Entradas_Salidas.md` |
 | CP-08 | Unitaria + Funcional | Escenario E-01 | `CalculadoraPepsTests` | `evidencias/SI-017/Green_Test.md` |
 | CP-09 | Unitaria + Funcional | Escenario E-01 | `CalculadoraPromedioPonderadoTests` | `evidencias/SI-016/Promedio_Ponderado_Salidas.md` |
 | CP-10 | Integración + Funcional | Escenario E-01 | `ConsultaExistenciasIntegrationTests`, `ConsultaExistenciasPageTests`, `HistorialMovimientosIntegrationTests` | `evidencias/SI-031/Consulta_Existencias_Metodo.md` |
@@ -52,6 +52,7 @@
 | CP-17 | Unitaria | Escenario E-03 | `PoliticaRedondeoTests`, `CalculadoraPromedioPonderadoTests`, `CalculadoraPepsTests` | `evidencias/SI-016/Promedio_Ponderado_Salidas.md`, `evidencias/SI-018/Green_Test.md` |
 | CP-18 | Integración / Funcional | Tabla de decisión | `InventarioServiceIntegrationTests` | `evidencias/SI-024/Green_Test.md` |
 | CP-19 | Integración / Regresión | Escenario / Invariante | `InvarianteValoresTests`, `Producto_Schema_DebeTenerPrecisionDecimalCorrecta` | `evidencias/SI-028/Green_Test.md`, `evidencias/DEF-001/` |
+| CP-20 | Unitaria + Integración | Valores límite / Partición | `ValidadorFechaMovimientoTests`, `InventarioServiceIntegrationTests` | `evidencias/SI-029/Green_Test.md` |
 
 ## 3. RNF-05 · Componentes y responsabilidades (completar al cierre)
 
@@ -60,11 +61,13 @@
 | `PoliticaRedondeo` | Redondeo bancario de costos unitarios e importes | CP-17 |
 | `ValidadorCantidad`, `ValidadorCostoUnitario` | RB-01, RB-02, RB-03 | CP-05, CP-06, CP-07 |
 | `ValidadorExistencia` | RB-03 (salida <= existencia disponible) | CP-07, CP-16 |
+| `ValidadorProducto` | RF-01, RNF-03 (código, nombre, unidad obligatorios, longitudes y validación en modificación) | CP-02, base CP-18 |
 | `ValidadorMovimiento` | RB-01, RB-02, RB-03 | CP-05, CP-06, CP-07 |
+| `ValidadorFechaMovimiento` | RB-11, D-04 (rechazo de movimientos con fecha anterior al último registrado) | CP-20 |
 | `CalculadoraPeps` | Creación y consumo de capas | CP-08, CP-15 |
 | `CalculadoraPromedioPonderado` | Promedio móvil, costo de salida y ajuste por residuo D-03 | CP-09, CP-17 |
-| `ValidadorProducto` | RF-01, RNF-03 (código, nombre, unidad obligatorios, longitudes y validación en modificación) | CP-02, base CP-18 |
+| `Pages/Movimientos/` (`Entrada`, `Salida`) | RF-02, RF-03, RF-04, RNF-03, RB-10 (interfaz de movimientos) | CP-03, CP-04, CP-05, CP-06, CP-07, CP-18 |
 | `ProductoService` | RF-01, RF-05, RB-10 (alta, consulta, modificación, estado, persistencia y listado) | CP-01, CP-02, CP-11, base CP-18 |
 | `Pages/Productos/` (`Index`, `Crear`, `Editar`) | RF-01, RF-05, RNF-03, RB-10 (interfaz de usuario) | CP-01, CP-02, CP-11 |
-| `InventarioService` | RF-02, RF-03, RF-04, RF-05 con transacción atómica, consulta dual e historial kardex | CP-03, CP-04, CP-05, CP-06, CP-07, CP-10, CP-11, CP-13, CP-15, CP-16, CP-18 |
 | `Pages/Inventario/Consulta` | RF-04, RF-05, D-09 (consulta de existencias y capas por método) | CP-10, CP-11 |
+| `InventarioService` | RF-02, RF-03, RF-04, RF-05 con transacción atómica, consulta dual e historial kardex | CP-03, CP-04, CP-05, CP-06, CP-07, CP-10, CP-11, CP-13, CP-15, CP-16, CP-18 |
