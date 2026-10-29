@@ -72,7 +72,7 @@ flowchart TD
 | **SI-027** | Persistencia tras reinicio | v0.4.0 | Dev A | 1.0 h | **2 SP** | ✅ **Completado**: Prueba automatizada de escenario E-01 completo (`PersistenciaTests`) con ciclo de vida desacoplado de contextos en SQL Server 2022 y procedimiento manual para CP-12. |
 | **SI-028** | Invariante de valores almacenados | v0.4.0 | Dev A | 1.5 h | **3 SP** | ✅ **Completado**: Pruebas de integración del invariante matemático (Stock = Capas = Historial) tras cada movimiento en escenarios E-01 y E-02 (`InvarianteValoresTests`, CP-19). |
 | **SI-029** | Rechazo de fechas retroactivas | v0.4.0 | Dev A | 1.0 h | **2 SP** | ✅ **Completado**: Validación de integridad temporal (`ValidadorFechaMovimiento`) en entradas y salidas de `InventarioService`, rechazando fechas anteriores al último movimiento y admitiendo fecha igual o posterior (`CP-20`, RB-11, D-04). |
-| **SI-030** | UI registro de entradas y salidas | v0.4.0 | Dev B | 3.0 h | **5 SP** | Formularios Razor, selección dinámica, captura de errores. |
+| **SI-030** | UI registro de entradas y salidas | v0.4.0 | Dev B | 3.0 h | **5 SP** | ✅ **Completado**: Formularios Razor Pages de Entrada y Salida, selección de productos activos, comparativa PEPS vs Promedio y retención de datos en rechazos. |
 | **SI-031** | Consulta existencias por método | v0.5.0 | Dev A | 2.0 h | **3 SP** | Servicio de proyección dual (PEPS vs Promedio) sin alterar datos. |
 | **SI-032** | Historial de movimientos por método | v0.5.0 | Dev A | 1.5 h | **3 SP** | Formateo de Kardex según método seleccionado con saldos exactos. |
 | **SI-033** | UI consulta de inventario e historial | v0.5.0 | Dev B | 3.0 h | **5 SP** | Pantalla principal Kardex, selector dual, tabla de capas activas. |
