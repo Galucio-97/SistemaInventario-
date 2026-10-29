@@ -8,9 +8,9 @@
 
 * **Estado General:** Fase 0 (Foundation / `v0.0.1`) completada y en `main`. Fase 1 (Datos y Esquema / `v0.1.0`) completada al 100% en `main`. Fase 2 (Reglas y Motor de Costeo / `v0.2.0`) completada al 100% en `main`. Fase 3 (Productos / `v0.3.0`) servicios completados en `dev` (SI-020 a SI-022). Fase 4 (Movimientos transaccionales / `v0.4.0`) operaciones transaccionales de entrada y salida completadas en `dev` (SI-024 y SI-025).
 * **Tag de Línea Base (`main`):** `v0.2.0` (Commit `6701d36`).
-* **Rama de Trabajo Actual:** `feat/SI-032-Historial-Movimientos-Metodo` (RF-04, RF-05 Historial de movimientos por método de costeo).
+* **Rama de Trabajo Actual:** `feat/SI-033-Interfaz-Consulta-Inventario-Historial` (RF-04, RF-05 Interfaz de consulta de inventario e historial).
 * **Defectos Críticos/Altos Detectados y Gestionados:** 1 defecto real (`DEF-001`, severidad Alta, corregido y verificado con prueba de regresión).
-* **Infraestructura de Pruebas:** Automatización xUnit con 145 pruebas en verde (59 integración, 1 regresión, 74 unitarias/teorías, 11 funcionales UI) ejecutando en local y CI.
+* **Infraestructura de Pruebas:** Automatización xUnit con 148 pruebas en verde (59 integración, 1 regresión, 74 unitarias/teorías, 14 funcionales UI) ejecutando en local y CI.
 
 ---
 
@@ -39,7 +39,7 @@
 | **Casos Bloqueados / Pendientes** | 17 pendientes de implementación | 1 pendiente (CP-14 regresión final) | — |
 | **Defectos Detectados Totales** | 1 (`DEF-001`) | 1 (`DEF-001`) | — |
 | **Defectos Corregidos y Verificados** | 1 (`DEF-001`) | 1 (`DEF-001`) | — |
-| **Pruebas Automatizadas en Verde** | 100% de las suites activas | 145 pruebas en verde (100% de la suite) | — |
+| **Pruebas Automatizadas en Verde** | 100% de las suites activas | 148 pruebas en verde (100% de la suite) | — |
 
 ---
 
