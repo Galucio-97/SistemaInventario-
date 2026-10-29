@@ -15,6 +15,7 @@ builder.Services.AddDbContext<InventarioDbContext>(options =>
 // Add services to the container.
 builder.Services.AddScoped<ProductoService>();
 builder.Services.AddScoped<IInventarioService, InventarioService>();
+builder.Services.AddScoped<IEjercicioReferenciaService, EjercicioReferenciaService>();
 builder.Services.AddRazorPages();
 
 var app = builder.Build();

@@ -71,3 +71,4 @@
 | `Pages/Productos/` (`Index`, `Crear`, `Editar`) | RF-01, RF-05, RNF-03, RB-10 (interfaz de usuario) | CP-01, CP-02, CP-11 |
 | `Pages/Inventario/Consulta` | RF-04, RF-05, D-09 (consulta de existencias y capas por método) | CP-10, CP-11 |
 | `InventarioService` | RF-02, RF-03, RF-04, RF-05 con transacción atómica, consulta dual e historial kardex | CP-03, CP-04, CP-05, CP-06, CP-07, CP-10, CP-11, CP-13, CP-15, CP-16, CP-18 |
+| `EjercicioReferenciaService` | RF-04, RF-05, CP-08, CP-09 (carga automatizada e idempotente del oráculo E-01) | CP-08, CP-09 |

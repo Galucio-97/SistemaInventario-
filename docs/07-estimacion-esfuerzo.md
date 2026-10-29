@@ -76,7 +76,7 @@ flowchart TD
 | **SI-031** | Consulta existencias por método | v0.5.0 | Dev A | 2.0 h | **3 SP** | ✅ **Completado**: Servicio de proyección dual (PEPS vs Promedio), costeo unitario D-09, capas activas e interfaz de consulta (`InventarioService.ConsultarExistenciasAsync`, `Pages/Inventario/Consulta`). |
 | **SI-032** | Historial de movimientos por método | v0.5.0 | Dev A | 1.5 h | **3 SP** | ✅ **Completado**: Servicio de historial tipo kardex por método de costeo (PEPS vs Promedio), proyección cronológica e idempotencia (`InventarioService.ObtenerHistorialMovimientosAsync`). |
 | **SI-033** | UI consulta de inventario e historial | v0.5.0 | Dev B | 3.0 h | **5 SP** | ✅ **Completado**: Pantalla interactiva Kardex, selector dual de método, resumen visible con KPI cards, desglose de capas PEPS activas y tabla cronológica de movimientos (`Pages/Inventario/Consulta`). |
-| **SI-034** | Carga ejercicio de referencia en UI | v0.5.0 | Dev B | 1.0 h | **2 SP** | Botón de demostración rápida para la evaluación. |
+| **SI-034** | Carga ejercicio de referencia en UI | v0.5.0 | Dev B | 1.0 h | **2 SP** | ✅ **Completado**: Botón de demostración rápida en un clic para evaluación en vivo del oráculo E-01, idempotencia garantizada y pruebas automatizadas (`EjercicioReferenciaService`, `Pages/Inventario/Consulta`). |
 | **SI-035** | Vista comparativa PEPS vs Promedio | v0.5.0 | Dev B | 1.5 h | **2 SP** | Cuadro comparativo simultáneo de valoración y costos. |
 | **SI-036** | Pruebas funcionales flujo completo | v0.9.0 | Dev A | 3.0 h | **5 SP** | Automatización E2E de CP-01 a CP-19 contra base real. |
 | **SI-037** | Feature freeze y release candidate | v0.9.0 | Ambos | 0.5 h | **1 SP** | Congelamiento de código, etiquetado de tag Git v0.9.0-rc.1. |

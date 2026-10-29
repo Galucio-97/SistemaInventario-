@@ -16,7 +16,12 @@
                 Valuación en tiempo real comparando PEPS (Primeras Entradas, Primeras Salidas) y Promedio Ponderado.
             </p>
         </div>
-        <div>
+        <div class="d-flex gap-2">
+            <form method="post" asp-page-handler="CargarEjercicioE01" class="d-inline">
+                <button type="submit" class="btn btn-outline-success btn-sm shadow-sm">
+                    <i class="bi bi-play-circle-fill me-1"></i>Cargar Ejercicio E-01 (Demostración)
+                </button>
+            </form>
             <a asp-page="/Productos/Index" class="btn btn-outline-secondary btn-sm">
                 <i class="bi bi-arrow-left me-1"></i>Catálogo de Productos
             </a>
@@ -50,6 +55,16 @@
             </form>
         </div>
     </div>
+
+    @if (!string.IsNullOrEmpty(Model.MensajeExito))
+    {
+        <div class="alert alert-success alert-dismissible fade show d-flex align-items-center" role="alert">
+            <i class="bi bi-check-circle-fill me-2 fs-5"></i>
+            <div>@Model.MensajeExito</div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
 
     @if (!string.IsNullOrEmpty(Model.MensajeError))
     {
