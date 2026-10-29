@@ -314,4 +314,45 @@ public class InventarioService(InventarioDbContext context) : IInventarioService
             historialDto
         );
     }
+
+    /// <summary>
+    /// Obtiene el historial de movimientos en vista comparativa lado a lado (PEPS vs Promedio Ponderado) (RF-04, CP-10, SI-035).
+    /// </summary>
+    public async Task<IReadOnlyList<MovimientoComparativoDto>> ObtenerHistorialComparativoAsync(
+        int productoId, CancellationToken ct = default)
+    {
+        var movimientos = await context.Movimientos
+            .AsNoTracking()
+            .Where(m => m.ProductoId == productoId)
+            .OrderBy(m => m.Fecha)
+            .ThenBy(m => m.Id)
+            .ToListAsync(ct);
+
+        return movimientos.Select(m =>
+        {
+            var esEntrada = m.Tipo == TipoMovimiento.Entrada;
+
+            var costoUnitarioEntrada = esEntrada ? m.CostoUnitarioEntrada : 0m;
+            var costoTotalEntrada = esEntrada ? (m.Cantidad * m.CostoUnitarioEntrada) : 0m;
+
+            return new MovimientoComparativoDto
+            {
+                Id = m.Id,
+                Fecha = m.Fecha,
+                Tipo = m.Tipo,
+                Cantidad = m.Cantidad,
+                ExistenciaResultante = m.ExistenciaResultante,
+
+                // Columnas PEPS
+                CostoUnitarioPeps = esEntrada ? m.CostoUnitarioEntrada : m.CostoUnitarioPeps,
+                CostoTotalPeps = esEntrada ? costoTotalEntrada : m.CostoTotalPeps,
+                SaldoValorPeps = m.SaldoValorPeps,
+
+                // Columnas Promedio
+                CostoUnitarioPromedio = esEntrada ? m.CostoUnitarioEntrada : m.CostoUnitarioPromedio,
+                CostoTotalPromedio = esEntrada ? costoTotalEntrada : m.CostoTotalPromedio,
+                SaldoValorPromedio = m.SaldoValorPromedio
+            };
+        }).ToList();
+    }
 }

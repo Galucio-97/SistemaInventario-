@@ -110,7 +110,7 @@ flowchart LR
 | SI-032 | Historial de movimientos por método | v0.5.0 | A | D4 | 1.5 | Must | TERMINADO   |
 | SI-033 | Interfaz de consulta de inventario e historial | v0.5.0 | B | D5 | 3 | Must | Por hacer   |
 | SI-034 | Carga del ejercicio de referencia desde la interfaz | v0.5.0 | B | D5 | 1 | Could | TERMINADO   |
-| SI-035 | Vista comparativa PEPS vs Promedio | v0.5.0 | B | D5 | 1.5 | Could | Por hacer   |
+| SI-035 | Vista comparativa PEPS vs Promedio | v0.5.0 | B | D5 | 1.5 | Could | TERMINADO   |
 | SI-036 | Pruebas funcionales de flujo completo | v0.9.0-rc | A | D5 | 3 | Must | Por hacer   |
 | SI-037 | Feature freeze y release candidate | v0.9.0-rc | Ambos | D5 | 0.5 | Must | Por hacer   |
 | SI-038 | Ciclo 1: ejecución manual de CP-01 a CP-10 | v0.9.0-rc | B | D5–D6 | 3 | Must | Por hacer   |
@@ -729,12 +729,12 @@ flowchart LR
 **Objetivo:** mostrar ambos métodos lado a lado para evidenciar CP-10 en una sola captura.
 
 **Criterios de aceptación:**
-- [ ] Se muestran existencia, valor y costo de cada salida para ambos métodos en paralelo
-- [ ] Las cantidades físicas son idénticas en ambas columnas
+- [x] Se muestran existencia, valor y costo de cada salida para ambos métodos en paralelo
+- [x] Las cantidades físicas son idénticas en ambas columnas
 
 **Trazabilidad:** RF-04 · CP-10
 **Depende de:** SI-033
-**Evidencia:** captura
+**Evidencia:** `docs/evidencias/SI-035/Vista_Comparativa_Peps_Promedio.md` (Green_Test.md y Red_Test.md)
 
 ---
 

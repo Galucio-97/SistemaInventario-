@@ -28,6 +28,8 @@ public class ConsultaModel(
 
     public ResultadoHistorialMovimientos? Historial { get; private set; }
 
+    public IReadOnlyList<MovimientoComparativoDto> HistorialComparativo { get; private set; } = [];
+
     [TempData]
     public string? MensajeExito { get; set; }
 
@@ -67,6 +69,9 @@ public class ConsultaModel(
                 // Cargar el historial tipo kardex según el método seleccionado (SI-032)
                 Historial = await inventarioService.ObtenerHistorialMovimientosAsync(
                     ProductoId.Value, Metodo, cancellationToken);
+
+                HistorialComparativo = await inventarioService.ObtenerHistorialComparativoAsync(
+                    ProductoId.Value, cancellationToken);
             }
         }
     }
