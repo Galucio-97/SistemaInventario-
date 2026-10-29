@@ -32,14 +32,14 @@
 | Métrica | Fase 0 (`v0.0.1`) | Ciclo 1 (Funcional / Integración) | Ciclo 2 (Regresión Final) |
 |---|:---:|:---:|:---:|
 | **Fecha de Corte** | 17-oct-2026 | 18-oct-2026 | *Programado (Día 6)* |
-| **Casos Diseñados Totales** | 19 casos | 19 casos | 19 casos |
-| **Casos Ejecutados** | 2 casos preliminares (`CP-19` y base) | 17 casos ejecutados (`CP-01`, `CP-02`, `CP-03`, `CP-04`, `CP-05`, `CP-06`, `CP-07`, `CP-08`, `CP-09`, `CP-11`, `CP-12`, `CP-13`, `CP-15`, `CP-16`, `CP-17`, `CP-18`, `CP-19`) | — |
-| **Casos Aprobados (Pass)** | 2 | 17 | — |
+| **Casos Diseñados Totales** | 19 casos | 20 casos | 20 casos |
+| **Casos Ejecutados** | 2 casos preliminares (`CP-19` y base) | 18 casos ejecutados (`CP-01`, `CP-02`, `CP-03`, `CP-04`, `CP-05`, `CP-06`, `CP-07`, `CP-08`, `CP-09`, `CP-11`, `CP-12`, `CP-13`, `CP-15`, `CP-16`, `CP-17`, `CP-18`, `CP-19`, `CP-20`) | — |
+| **Casos Aprobados (Pass)** | 2 | 18 | — |
 | **Casos Fallidos (Fail)** | 0 (post-fix DEF-001) | 0 | — |
 | **Casos Bloqueados / Pendientes** | 17 pendientes de implementación | 2 pendientes de servicios/UI | — |
 | **Defectos Detectados Totales** | 1 (`DEF-001`) | 1 (`DEF-001`) | — |
 | **Defectos Corregidos y Verificados** | 1 (`DEF-001`) | 1 (`DEF-001`) | — |
-| **Pruebas Automatizadas en Verde** | 100% de las suites activas | 132 pruebas en verde (100% de la suite) | — |
+| **Pruebas Automatizadas en Verde** | 100% de las suites activas | 140 pruebas en verde (100% de la suite) | — |
 
 ---
 
@@ -66,6 +66,7 @@
 | **CP-17** | RB-08, RB-09 | Unitaria | Escenario E-03 | **✅ APROBADO (Unitaria + D-03)** | `PoliticaRedondeoTests`, `CalculadoraPromedioPonderadoTests`, `CalculadoraPepsTests` | `evidencias/SI-016/Promedio_Ponderado_Salidas.md`, `evidencias/SI-018/Green_Test.md` |
 | **CP-18** | RF-01, RB-10 | Integración / Func. | Tabla de Decisión (R2) | **✅ APROBADO (Integración)** | `InventarioServiceIntegrationTests` | `evidencias/SI-024/Green_Test.md` |
 | **CP-19** | RNF-01, RB-08 | Integración | Escenario / Invariante | **✅ APROBADO (Integración)** | `InvarianteValoresTests` | `evidencias/SI-028/Green_Test.md` |
+| **CP-20** | RB-11, D-04 | Unitaria + Integración | Valores Límite / Partición | **✅ APROBADO (Unitaria + Int.)** | `ValidadorFechaMovimientoTests`, `InventarioServiceIntegrationTests` | `evidencias/SI-029/Green_Test.md` |
 
 ---
 
