@@ -20,4 +20,8 @@ public interface IInventarioService
     Task<ResultadoHistorialMovimientos> ObtenerHistorialMovimientosAsync(
         int productoId, MetodoCosteo metodo, CancellationToken ct = default
     );
+
+    Task<IReadOnlyList<MovimientoComparativoDto>> ObtenerHistorialComparativoAsync(
+        int productoId, CancellationToken ct = default
+    );
 }
