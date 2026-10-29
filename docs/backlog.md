@@ -104,8 +104,8 @@ flowchart LR
 | SI-026 | Atomicidad ante fallos | v0.4.0 | A | D3 | 2 | Must | TERMINADO   |
 | SI-027 | Persistencia tras reinicio | v0.4.0 | A | D4 | 1 | Must | TERMINADO   |
 | SI-028 | Invariante de valores almacenados | v0.4.0 | A | D4 | 1.5 | Must | TERMINADO   |
-| SI-029 | Rechazo de fechas retroactivas | v0.4.0 | A | D4 | 1 | Should | Por hacer   |
-| SI-030 | Interfaz de registro de entradas y salidas | v0.4.0 | B | D4 | 3 | Must | Por hacer   |
+| SI-029 | Rechazo de fechas retroactivas | v0.4.0 | A | D4 | 1 | Should | TERMINADO   |
+| SI-030 | Interfaz de registro de entradas y salidas | v0.4.0 | B | D4 | 3 | Must | TERMINADO   |
 | SI-031 | Consulta de existencias por método de costeo | v0.5.0 | A | D4 | 2 | Must | TERMINADO   |
 | SI-032 | Historial de movimientos por método | v0.5.0 | A | D4 | 1.5 | Must | Por hacer   |
 | SI-033 | Interfaz de consulta de inventario e historial | v0.5.0 | B | D5 | 3 | Must | Por hacer   |
@@ -626,13 +626,13 @@ flowchart LR
 **Objetivo:** mantener el orden PEPS consistente sin recalcular el historial.
 
 **Criterios de aceptación:**
-- [ ] Se rechaza un movimiento con fecha anterior al último movimiento del producto, con mensaje claro y sin cambios en la BD
-- [ ] Se acepta un movimiento con la misma fecha que el último
-- [ ] Se agrega la ficha del caso a `03` y una fila RB-11 a la matriz
+- [x] Se rechaza un movimiento con fecha anterior al último movimiento del producto, con mensaje claro y sin cambios en la BD
+- [x] Se acepta un movimiento con la misma fecha que el último
+- [x] Se agrega la ficha del caso a `03` y una fila RB-11 a la matriz
 
 **Trazabilidad:** RB-11 · D-04
 **Depende de:** SI-025, SI-001
-**Evidencia:** salida de la prueba
+**Evidencia:** `docs/evidencias/SI-029/Green_Test.md`
 
 ---
 
@@ -642,14 +642,14 @@ flowchart LR
 **Objetivo:** registrar movimientos desde la interfaz y ver los rechazos.
 
 **Criterios de aceptación:**
-- [ ] Formulario de entrada: producto (solo activos), fecha, cantidad y costo unitario
-- [ ] Formulario de salida: producto, fecha y cantidad, mostrando la existencia disponible
-- [ ] Tras registrar se muestra el resultado: existencia nueva y costo de la salida por método
-- [ ] Los rechazos (CP-05, 06, 07, 18) se muestran con el mensaje del sistema y el formulario conserva los datos capturados
+- [x] Formulario de entrada: producto (solo activos), fecha, cantidad y costo unitario
+- [x] Formulario de salida: producto, fecha y cantidad, mostrando la existencia disponible
+- [x] Tras registrar se muestra el resultado: existencia nueva y costo de la salida por método
+- [x] Los rechazos (CP-05, 06, 07, 18) se muestran con el mensaje del sistema y el formulario conserva los datos capturados
 
 **Trazabilidad:** RF-02, RF-03 · RNF-03 · CP-03 a CP-07 (manual)
 **Depende de:** SI-025
-**Evidencia:** capturas de registro exitoso y de cada rechazo
+**Evidencia:** `docs/evidencias/SI-030/Interfaz_Entradas_Salidas.md` (Green_Test.md y Red_Test.md)
 
 ---
 

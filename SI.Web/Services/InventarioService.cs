@@ -39,7 +39,19 @@ public class InventarioService(InventarioDbContext context) : IInventarioService
         
         if (!producto.Activo)
             return new ResultadoOperacion(false, MensajeProductoInactivo);
+        
+        var fechaUltimoMovimiento = await context.Movimientos.AsNoTracking()
+            .Where(m => m.ProductoId == productoId)
+            .OrderByDescending(m => m.Fecha)
+            .ThenByDescending(m => m.Id)
+            .Select(m => m.Fecha)
+            .FirstOrDefaultAsync(ct);
+        
+        var fechaEsValida = ValidadorFechaMovimiento.Validar(fecha, fechaUltimoMovimiento);
 
+        if (!fechaEsValida.EsValido)
+            return new ResultadoOperacion(false, fechaEsValida.MensajeError);
+            
         var calculoPromedioPonderado = CalculadoraPromedioPonderado.CalcularEntrada(
             producto.ExistenciaActual, producto.ValorInventarioPromedio, cantidad, costoUnitario
         );
@@ -115,6 +127,18 @@ public class InventarioService(InventarioDbContext context) : IInventarioService
             producto.CostoPromedioActual,
             cantidad
         );
+        
+        var fechaUltimoMovimiento = await context.Movimientos.AsNoTracking()
+            .Where(m => m.ProductoId == productoId)
+            .OrderByDescending(m => m.Fecha)
+            .ThenByDescending(m => m.Id)
+            .Select(m => m.Fecha)
+            .FirstOrDefaultAsync(ct);
+        
+        var fechaEsValida = ValidadorFechaMovimiento.Validar(fecha, fechaUltimoMovimiento);
+
+        if (!fechaEsValida.EsValido)
+            return new ResultadoOperacion(false, fechaEsValida.MensajeError);
         
         var capas = await context.CapasInventarioPeps
             .Where(c => c.ProductoId == productoId && c.CantidadDisponible > 0)

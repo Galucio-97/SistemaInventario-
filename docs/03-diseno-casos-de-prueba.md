@@ -247,7 +247,6 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Requisito | RB-08, RB-09, RNF-01 |
 | Técnica / Nivel | Escenario E-03 / Unitaria |
 | Esperado | Prom S1 = **10.00** (no 10.01) · Prom S2 = **50.03** (ajuste D-03) · saldo final **0.00** con existencia 0 |
-| Obtenido / Estado / Evidencia | Redondeo bancario (ToEven) a 2 y 4 decimales validado; ajuste por residuo D-03 verificado al 100% en salida S2 (costo 50.03 y saldo 0.00 con existencia 0) · **Aprobado (Unitaria)** · 18-oct-2026 · Dev B · `evidencias/SI-016/Promedio_Ponderado_Salidas.md` |
 | Obtenido / Estado / Evidencia | Redondeo bancario (ToEven) a 2 y 4 decimales validado; ajuste por residuo D-03 verificado al 100% en Promedio (costo 50.03 y saldo 0.00) y en PEPS E-03 (S1=10.00, S2=50.03 y saldo final 0.00) · **Aprobado (Unitaria)** · 20-oct-2026 · Dev A · `evidencias/SI-018/Green_Test.md` |
 
 ### CP-18 — Movimiento sobre producto inactivo
@@ -267,3 +266,13 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Técnica / Nivel | Escenario E-01, E-02 / Integración |
 | Esperado | Tras cada movimiento: `Productos.ValorInventarioPeps = Σ(CantidadDisponible × CostoUnitario)` de capas · `= SaldoValorPeps` del último movimiento · `Productos.ExistenciaActual = Σ entradas − Σ salidas` · `ValorInventarioPromedio = SaldoValorPromedio` del último movimiento |
 | Obtenido / Estado / Evidencia | **SUPERADO** / Automatizado en `InvarianteValoresTests.cs` (CP-19 verificado paso a paso en E-01, E-02 y sensibilidad a fallas) / `docs/evidencias/SI-028/Green_Test.md` |
+
+### CP-20 — Rechazo de movimientos con fecha retroactiva
+| Campo | Valor |
+|---|---|
+| Requisito | RB-11, D-04 |
+| Técnica / Nivel | Valores límite / Partición de equivalencia / Unitaria + Integración |
+| Precondiciones | Producto con al menos un movimiento registrado con fecha $T$ |
+| Datos | Movimiento (Entrada o Salida) con fecha anterior $T - \Delta t$, fecha igual $T$, y fecha posterior $T + \Delta t$ |
+| Esperado | Rechazo con mensaje "La fecha del movimiento no puede ser anterior al último movimiento registrado" y sin modificaciones en BD cuando fecha $< T$; Aceptación y persistencia correcta cuando fecha $\ge T$ o cuando no existen movimientos previos |
+| Obtenido / Estado / Evidencia | **SUPERADO** / Automatizado en `ValidadorFechaMovimientoTests.cs` (Unitaria) e `InventarioServiceIntegrationTests.cs` (Integración) / `docs/evidencias/SI-029/Green_Test.md` |
