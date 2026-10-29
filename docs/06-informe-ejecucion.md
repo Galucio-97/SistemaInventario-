@@ -32,8 +32,8 @@
 | Métrica | Fase 0 (`v0.0.1`) | Ciclo 1 (Funcional / Integración) | Ciclo 2 (Regresión Final) |
 |---|:---:|:---:|:---:|
 | **Fecha de Corte** | 17-oct-2026 | 18-oct-2026 | *Programado (Día 6)* |
-| **Casos Diseñados Totales** | 19 casos | 19 casos | 19 casos |
-| **Casos Ejecutados** | 2 casos preliminares (`CP-19` y base) | 18 casos ejecutados (`CP-01`, `CP-02`, `CP-03`, `CP-04`, `CP-05`, `CP-06`, `CP-07`, `CP-08`, `CP-09`, `CP-10`, `CP-11`, `CP-12`, `CP-13`, `CP-15`, `CP-16`, `CP-17`, `CP-18`, `CP-19`) | — |
+| **Casos Diseñados Totales** | 19 casos | 20 casos | 20 casos |
+| **Casos Ejecutados** | 2 casos preliminares (`CP-19` y base) | 18 casos ejecutados (`CP-01`, `CP-02`, `CP-03`, `CP-04`, `CP-05`, `CP-06`, `CP-07`, `CP-08`, `CP-09`, `CP-10`, `CP-11`, `CP-12`, `CP-13`, `CP-15`, `CP-16`, `CP-17`, `CP-18`, `CP-19`, `CP-20`) | — |
 | **Casos Aprobados (Pass)** | 2 | 18 | — |
 | **Casos Fallidos (Fail)** | 0 (post-fix DEF-001) | 0 | — |
 | **Casos Bloqueados / Pendientes** | 17 pendientes de implementación | 1 pendiente (CP-14 regresión final) | — |
@@ -49,8 +49,8 @@
 |:---|:---|:---:|:---:|:---:|:---|:---|
 | **CP-01** | RF-01, RNF-02 | Integración + Funcional | Partición / Humo | **✅ APROBADO (Integración + UI)** | `SmokeDatabaseTests`, `ProductoServiceIntegrationTests`, `ProductosPagesTests` | `evidencias/SI-020/Registro_Productos.md`, `evidencias/SI-023/Interfaz_Productos.md` |
 | **CP-02** | RF-01, RNF-03 | Unitaria + Integración + Funcional | Partición (Inválida) | **✅ APROBADO (Integración + UI)** | `ValidadorProductoTests`, `ProductoServiceIntegrationTests`, `ProductosPagesTests` | `evidencias/SI-020/Registro_Productos.md`, `evidencias/SI-023/Interfaz_Productos.md` |
-| **CP-03** | RF-02, RB-04, RB-05 | Integración | Basada en Escenarios | **✅ APROBADO (Integración)** | `InventarioServiceIntegrationTests` | `evidencias/SI-024/Green_Test.md` |
-| **CP-04** | RF-03, RB-07 | Integración / Funcional | Tabla de Decisión (R5) | **✅ APROBADO (Integración)** | `InventarioServiceIntegrationTests` | `evidencias/SI-025/Green_Test.md` |
+| **CP-03** | RF-02, RB-04, RB-05 | Integración + Funcional | Basada en Escenarios | **✅ APROBADO (Integración + UI)** | `InventarioServiceIntegrationTests`, `MovimientosPagesTests` | `evidencias/SI-024/Green_Test.md`, `evidencias/SI-030/Interfaz_Entradas_Salidas.md` |
+| **CP-04** | RF-03, RB-07 | Integración + Funcional | Tabla de Decisión (R5) | **✅ APROBADO (Integración + UI)** | `InventarioServiceIntegrationTests`, `MovimientosPagesTests` | `evidencias/SI-025/Green_Test.md`, `evidencias/SI-030/Interfaz_Entradas_Salidas.md` |
 | **CP-05** | RB-01, RNF-03 | Unitaria + Int. | Valores Límite | **✅ APROBADO (Unitaria)** | `ValidadorCantidadTests` | `evidencias/SI-012/Validacion_Cantidades.md` |
 | **CP-06** | RB-02, RNF-03 | Unitaria | Valores Límite | **✅ APROBADO (Unitaria)** | `ValidadorCostoUnitarioTests` | `evidencias/SI-013/Validacion_Costo_Unitario.md` |
 | **CP-07** | RB-03, RNF-04 | Unitaria + Func. | Límite / Tabla (R4) | **✅ APROBADO (Unitaria)** | `ValidadorExistenciaTests` | `evidencias/SI-014/Green_Test.md` |
@@ -66,6 +66,7 @@
 | **CP-17** | RB-08, RB-09 | Unitaria | Escenario E-03 | **✅ APROBADO (Unitaria + D-03)** | `PoliticaRedondeoTests`, `CalculadoraPromedioPonderadoTests`, `CalculadoraPepsTests` | `evidencias/SI-016/Promedio_Ponderado_Salidas.md`, `evidencias/SI-018/Green_Test.md` |
 | **CP-18** | RF-01, RB-10 | Integración / Func. | Tabla de Decisión (R2) | **✅ APROBADO (Integración)** | `InventarioServiceIntegrationTests` | `evidencias/SI-024/Green_Test.md` |
 | **CP-19** | RNF-01, RB-08 | Integración | Escenario / Invariante | **✅ APROBADO (Integración)** | `InvarianteValoresTests` | `evidencias/SI-028/Green_Test.md` |
+| **CP-20** | RB-11, D-04 | Unitaria + Integración | Valores Límite / Partición | **✅ APROBADO (Unitaria + Int.)** | `ValidadorFechaMovimientoTests`, `InventarioServiceIntegrationTests` | `evidencias/SI-029/Green_Test.md` |
 
 ---
 
