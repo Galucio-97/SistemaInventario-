@@ -102,9 +102,9 @@ flowchart LR
 | SI-024 | Registrar entrada con transacción | v0.4.0 | A | D3 | 3 | Must | TERMINADO   |
 | SI-025 | Registrar salida con transacción | v0.4.0 | A | D3 | 3 | Must | TERMINADO   |
 | SI-026 | Atomicidad ante fallos | v0.4.0 | A | D3 | 2 | Must | TERMINADO   |
-| SI-027 | Persistencia tras reinicio | v0.4.0 | A | D4 | 1 | Must | Por hacer   |
-| SI-028 | Invariante de valores almacenados | v0.4.0 | A | D4 | 1.5 | Must | Por hacer   |
-| SI-029 | Rechazo de fechas retroactivas | v0.4.0 | A | D4 | 1 | Should | Por hacer   |
+| SI-027 | Persistencia tras reinicio | v0.4.0 | A | D4 | 1 | Must | TERMINADO   |
+| SI-028 | Invariante de valores almacenados | v0.4.0 | A | D4 | 1.5 | Must | TERMINADO   |
+| SI-029 | Rechazo de fechas retroactivas | v0.4.0 | A | D4 | 1 | Should | TERMINADO   |
 | SI-030 | Interfaz de registro de entradas y salidas | v0.4.0 | B | D4 | 3 | Must | TERMINADO   |
 | SI-031 | Consulta de existencias por método de costeo | v0.5.0 | A | D4 | 2 | Must | Por hacer   |
 | SI-032 | Historial de movimientos por método | v0.5.0 | A | D4 | 1.5 | Must | Por hacer   |
@@ -593,12 +593,12 @@ flowchart LR
 **Objetivo:** demostrar que los datos sobreviven al cierre de la aplicación (RNF-02).
 
 **Criterios de aceptación:**
-- [ ] **Automática:** se registra E-01, se desecha el contexto, se abre uno nuevo y producto, movimientos, capas y valores coinciden con E-01
-- [ ] **Manual (procedimiento en la ficha CP-12):** registrar en la interfaz, detener la aplicación, volver a ejecutarla y consultar
+- [x] **Automática:** se registra E-01, se desecha el contexto, se abre uno nuevo y producto, movimientos, capas y valores coinciden con E-01
+- [x] **Manual (procedimiento en la ficha CP-12):** registrar en la interfaz, detener la aplicación, volver a ejecutarla y consultar
 
 **Trazabilidad:** RNF-02 · RB-05 · CP-12
 **Depende de:** SI-025
-**Evidencia:** salida de la prueba + capturas antes y después del reinicio
+**Evidencia:** `docs/evidencias/SI-027/Green_Test.md`
 
 ---
 
@@ -608,15 +608,15 @@ flowchart LR
 **Objetivo:** garantizar que los valores guardados en el producto nunca se desvíen de las capas ni del historial (H-06).
 
 **Criterios de aceptación:**
-- [ ] Tras **cada** movimiento de E-01 y E-02 se cumple:
+- [x] Tras **cada** movimiento de E-01 y E-02 se cumple:
   - valor PEPS del producto = Σ (cantidad disponible × costo) de las capas = saldo PEPS del último movimiento
   - valor Promedio del producto = saldo Promedio del último movimiento
   - existencia del producto = Σ entradas − Σ salidas = existencia resultante del último movimiento
-- [ ] La prueba falla si se rompe cualquiera de las tres igualdades
+- [x] La prueba falla si se rompe cualquiera de las tres igualdades
 
 **Trazabilidad:** RNF-01 · RF-05 · RB-08 · CP-19
 **Depende de:** SI-025
-**Evidencia:** salida de la prueba
+**Evidencia:** `docs/evidencias/SI-028/Green_Test.md`
 
 ---
 
@@ -626,13 +626,13 @@ flowchart LR
 **Objetivo:** mantener el orden PEPS consistente sin recalcular el historial.
 
 **Criterios de aceptación:**
-- [ ] Se rechaza un movimiento con fecha anterior al último movimiento del producto, con mensaje claro y sin cambios en la BD
-- [ ] Se acepta un movimiento con la misma fecha que el último
-- [ ] Se agrega la ficha del caso a `03` y una fila RB-11 a la matriz
+- [x] Se rechaza un movimiento con fecha anterior al último movimiento del producto, con mensaje claro y sin cambios en la BD
+- [x] Se acepta un movimiento con la misma fecha que el último
+- [x] Se agrega la ficha del caso a `03` y una fila RB-11 a la matriz
 
 **Trazabilidad:** RB-11 · D-04
 **Depende de:** SI-025, SI-001
-**Evidencia:** salida de la prueba
+**Evidencia:** `docs/evidencias/SI-029/Green_Test.md`
 
 ---
 

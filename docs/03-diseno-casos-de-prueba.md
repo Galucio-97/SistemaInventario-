@@ -202,7 +202,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Técnica / Nivel | Escenario / Integración + manual |
 | Pasos | Auto: registrar E-01, desechar el `DbContext`, abrir uno nuevo, consultar. Manual: detener la app (`Ctrl+C`), volver a ejecutar `dotnet run`, consultar en la UI |
 | Esperado | Producto, 3 movimientos, capas y valores idénticos a E-01 |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | **SUPERADO** / Automatizado en `PersistenciaTests.cs` (CP-12 escenario E-01 completo tras reinicio/desacoplamiento de contexto) / `docs/evidencias/SI-027/Green_Test.md` |
 
 ### CP-13 — Fallo durante una operación sin actualizaciones parciales
 | Campo | Valor |
@@ -265,4 +265,14 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Requisito | RNF-01, RF-05 |
 | Técnica / Nivel | Escenario E-01, E-02 / Integración |
 | Esperado | Tras cada movimiento: `Productos.ValorInventarioPeps = Σ(CantidadDisponible × CostoUnitario)` de capas · `= SaldoValorPeps` del último movimiento · `Productos.ExistenciaActual = Σ entradas − Σ salidas` · `ValorInventarioPromedio = SaldoValorPromedio` del último movimiento |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | **SUPERADO** / Automatizado en `InvarianteValoresTests.cs` (CP-19 verificado paso a paso en E-01, E-02 y sensibilidad a fallas) / `docs/evidencias/SI-028/Green_Test.md` |
+
+### CP-20 — Rechazo de movimientos con fecha retroactiva
+| Campo | Valor |
+|---|---|
+| Requisito | RB-11, D-04 |
+| Técnica / Nivel | Valores límite / Partición de equivalencia / Unitaria + Integración |
+| Precondiciones | Producto con al menos un movimiento registrado con fecha $T$ |
+| Datos | Movimiento (Entrada o Salida) con fecha anterior $T - \Delta t$, fecha igual $T$, y fecha posterior $T + \Delta t$ |
+| Esperado | Rechazo con mensaje "La fecha del movimiento no puede ser anterior al último movimiento registrado" y sin modificaciones en BD cuando fecha $< T$; Aceptación y persistencia correcta cuando fecha $\ge T$ o cuando no existen movimientos previos |
+| Obtenido / Estado / Evidencia | **SUPERADO** / Automatizado en `ValidadorFechaMovimientoTests.cs` (Unitaria) e `InventarioServiceIntegrationTests.cs` (Integración) / `docs/evidencias/SI-029/Green_Test.md` |

@@ -735,4 +735,227 @@ public class InventarioServiceIntegrationTests(TestDbContextFixture fixture)
         Assert.Equal(0.0000m, capas[0].CantidadDisponible);
         Assert.Equal(2.0000m, capas[1].CantidadDisponible);
     }
+
+    [Fact]
+    [Trait("CP", "CP-20")]
+    [Trait("RB", "RB-11")]
+    [Trait("Nivel", "Integracion")]
+    public async Task RegistrarEntradaAsync_CuandoFechaEsAnteriorAUltimoMovimiento_RechazaYNoModificaBaseDeDatos()
+    {
+        // Arrange — Producto con un movimiento inicial registrado el 2026-10-10
+        fixture.ResetDatabase();
+        int productoId;
+
+        await using (var contextSetup = fixture.CreateDbContext())
+        {
+            var p = new Producto
+            {
+                Codigo = "P-001",
+                Nombre = "Tornillo 1/4",
+                UnidadMedida = "pieza",
+                Activo = true,
+                ExistenciaActual = 0m,
+                CostoPromedioActual = 0m,
+                ValorInventarioPeps = 0m,
+                ValorInventarioPromedio = 0m
+            };
+            contextSetup.Productos.Add(p);
+            await contextSetup.SaveChangesAsync();
+            productoId = p.Id;
+
+            IInventarioService inventarioService = new InventarioService(contextSetup);
+            var res = await inventarioService.RegistrarEntradaAsync(
+                productoId, new DateTime(2026, 10, 10, 12, 0, 0), 10.0000m, 20.0000m);
+            Assert.True(res.Exitoso);
+        }
+
+        // Act — Intentar registrar entrada retroactiva (2026-10-09)
+        await using var contextOperacion = fixture.CreateDbContext();
+        var service = new InventarioService(contextOperacion);
+        var fechaRetroactiva = new DateTime(2026, 10, 9, 12, 0, 0);
+
+        var resultado = await service.RegistrarEntradaAsync(productoId, fechaRetroactiva, 5.0000m, 25.0000m);
+
+        // Assert
+        Assert.False(resultado.Exitoso);
+        Assert.Equal(ValidadorFechaMovimiento.MensajeFechaRetroactiva, resultado.MensajeError);
+
+        // Verificación con contexto desacoplado de lectura: la BD no fue modificada
+        await using var contextLectura = fixture.CreateDbContext();
+        var totalMovimientos = await contextLectura.Movimientos.CountAsync(m => m.ProductoId == productoId);
+        Assert.Equal(1, totalMovimientos);
+
+        var producto = await contextLectura.Productos.FindAsync(productoId);
+        Assert.NotNull(producto);
+        Assert.Equal(10.0000m, producto.ExistenciaActual);
+        Assert.Equal(200.00m, producto.ValorInventarioPeps);
+        Assert.Equal(200.00m, producto.ValorInventarioPromedio);
+    }
+
+    [Fact]
+    [Trait("CP", "CP-20")]
+    [Trait("RB", "RB-11")]
+    [Trait("Nivel", "Integracion")]
+    public async Task RegistrarEntradaAsync_CuandoFechaEsIgualAUltimoMovimiento_AceptaYRegistraCorrectamente()
+    {
+        // Arrange — Producto con un movimiento inicial registrado el 2026-10-10 12:00:00
+        fixture.ResetDatabase();
+        int productoId;
+
+        await using (var contextSetup = fixture.CreateDbContext())
+        {
+            var p = new Producto
+            {
+                Codigo = "P-001",
+                Nombre = "Tornillo 1/4",
+                UnidadMedida = "pieza",
+                Activo = true,
+                ExistenciaActual = 0m,
+                CostoPromedioActual = 0m,
+                ValorInventarioPeps = 0m,
+                ValorInventarioPromedio = 0m
+            };
+            contextSetup.Productos.Add(p);
+            await contextSetup.SaveChangesAsync();
+            productoId = p.Id;
+
+            IInventarioService inventarioService = new InventarioService(contextSetup);
+            var res = await inventarioService.RegistrarEntradaAsync(
+                productoId, new DateTime(2026, 10, 10, 12, 0, 0), 10.0000m, 20.0000m);
+            Assert.True(res.Exitoso);
+        }
+
+        // Act — Registrar entrada con la misma fecha (2026-10-10 12:00:00)
+        await using var contextOperacion = fixture.CreateDbContext();
+        var service = new InventarioService(contextOperacion);
+        var mismaFecha = new DateTime(2026, 10, 10, 12, 0, 0);
+
+        var resultado = await service.RegistrarEntradaAsync(productoId, mismaFecha, 5.0000m, 20.0000m);
+
+        // Assert
+        Assert.True(resultado.Exitoso);
+        Assert.NotNull(resultado.EntidadId);
+
+        await using var contextLectura = fixture.CreateDbContext();
+        var totalMovimientos = await contextLectura.Movimientos.CountAsync(m => m.ProductoId == productoId);
+        Assert.Equal(2, totalMovimientos);
+
+        var producto = await contextLectura.Productos.FindAsync(productoId);
+        Assert.NotNull(producto);
+        Assert.Equal(15.0000m, producto.ExistenciaActual);
+    }
+
+    [Fact]
+    [Trait("CP", "CP-20")]
+    [Trait("RB", "RB-11")]
+    [Trait("Nivel", "Integracion")]
+    public async Task RegistrarSalidaAsync_CuandoFechaEsAnteriorAUltimoMovimiento_RechazaYNoModificaBaseDeDatos()
+    {
+        // Arrange — Producto con entrada el 2026-10-10 12:00:00
+        fixture.ResetDatabase();
+        int productoId;
+
+        await using (var contextSetup = fixture.CreateDbContext())
+        {
+            var p = new Producto
+            {
+                Codigo = "P-001",
+                Nombre = "Tornillo 1/4",
+                UnidadMedida = "pieza",
+                Activo = true,
+                ExistenciaActual = 0m,
+                CostoPromedioActual = 0m,
+                ValorInventarioPeps = 0m,
+                ValorInventarioPromedio = 0m
+            };
+            contextSetup.Productos.Add(p);
+            await contextSetup.SaveChangesAsync();
+            productoId = p.Id;
+
+            IInventarioService inventarioService = new InventarioService(contextSetup);
+            var res = await inventarioService.RegistrarEntradaAsync(
+                productoId, new DateTime(2026, 10, 10, 12, 0, 0), 10.0000m, 20.0000m);
+            Assert.True(res.Exitoso);
+        }
+
+        // Act — Intentar registrar salida retroactiva (2026-10-08)
+        await using var contextOperacion = fixture.CreateDbContext();
+        var service = new InventarioService(contextOperacion);
+        var fechaRetroactiva = new DateTime(2026, 10, 8, 10, 0, 0);
+
+        var resultado = await service.RegistrarSalidaAsync(productoId, fechaRetroactiva, 3.0000m);
+
+        // Assert
+        Assert.False(resultado.Exitoso);
+        Assert.Equal(ValidadorFechaMovimiento.MensajeFechaRetroactiva, resultado.MensajeError);
+
+        // Verificación con contexto desacoplado de lectura
+        await using var contextLectura = fixture.CreateDbContext();
+        var totalMovimientos = await contextLectura.Movimientos.CountAsync(m => m.ProductoId == productoId);
+        Assert.Equal(1, totalMovimientos);
+
+        var producto = await contextLectura.Productos.FindAsync(productoId);
+        Assert.NotNull(producto);
+        Assert.Equal(10.0000m, producto.ExistenciaActual);
+        Assert.Equal(200.00m, producto.ValorInventarioPeps);
+
+        var capa = await contextLectura.CapasInventarioPeps.FirstAsync(c => c.ProductoId == productoId);
+        Assert.Equal(10.0000m, capa.CantidadDisponible);
+    }
+
+    [Fact]
+    [Trait("CP", "CP-20")]
+    [Trait("RB", "RB-11")]
+    [Trait("Nivel", "Integracion")]
+    public async Task RegistrarSalidaAsync_CuandoFechaEsIgualAUltimoMovimiento_AceptaYRegistraCorrectamente()
+    {
+        // Arrange — Producto con entrada el 2026-10-10 12:00:00
+        fixture.ResetDatabase();
+        int productoId;
+
+        await using (var contextSetup = fixture.CreateDbContext())
+        {
+            var p = new Producto
+            {
+                Codigo = "P-001",
+                Nombre = "Tornillo 1/4",
+                UnidadMedida = "pieza",
+                Activo = true,
+                ExistenciaActual = 0m,
+                CostoPromedioActual = 0m,
+                ValorInventarioPeps = 0m,
+                ValorInventarioPromedio = 0m
+            };
+            contextSetup.Productos.Add(p);
+            await contextSetup.SaveChangesAsync();
+            productoId = p.Id;
+
+            IInventarioService inventarioService = new InventarioService(contextSetup);
+            var res = await inventarioService.RegistrarEntradaAsync(
+                productoId, new DateTime(2026, 10, 10, 12, 0, 0), 10.0000m, 20.0000m);
+            Assert.True(res.Exitoso);
+        }
+
+        // Act — Registrar salida con la misma fecha (2026-10-10 12:00:00)
+        await using var contextOperacion = fixture.CreateDbContext();
+        var service = new InventarioService(contextOperacion);
+        var mismaFecha = new DateTime(2026, 10, 10, 12, 0, 0);
+
+        var resultado = await service.RegistrarSalidaAsync(productoId, mismaFecha, 3.0000m);
+
+        // Assert
+        Assert.True(resultado.Exitoso);
+        Assert.NotNull(resultado.EntidadId);
+
+        await using var contextLectura = fixture.CreateDbContext();
+        var totalMovimientos = await contextLectura.Movimientos.CountAsync(m => m.ProductoId == productoId);
+        Assert.Equal(2, totalMovimientos);
+
+        var producto = await contextLectura.Productos.FindAsync(productoId);
+        Assert.NotNull(producto);
+        Assert.Equal(7.0000m, producto.ExistenciaActual);
+
+        var capa = await contextLectura.CapasInventarioPeps.FirstAsync(c => c.ProductoId == productoId);
+        Assert.Equal(7.0000m, capa.CantidadDisponible);
+    }
 }
