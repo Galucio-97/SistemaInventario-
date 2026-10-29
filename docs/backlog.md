@@ -108,7 +108,7 @@ flowchart LR
 | SI-030 | Interfaz de registro de entradas y salidas | v0.4.0 | B | D4 | 3 | Must | TERMINADO   |
 | SI-031 | Consulta de existencias por método de costeo | v0.5.0 | A | D4 | 2 | Must | TERMINADO   |
 | SI-032 | Historial de movimientos por método | v0.5.0 | A | D4 | 1.5 | Must | TERMINADO   |
-| SI-033 | Interfaz de consulta de inventario e historial | v0.5.0 | B | D5 | 3 | Must | Por hacer   |
+| SI-033 | Interfaz de consulta de inventario e historial | v0.5.0 | B | D5 | 3 | Must | TERMINADO   |
 | SI-034 | Carga del ejercicio de referencia desde la interfaz | v0.5.0 | B | D5 | 1 | Could | TERMINADO   |
 | SI-035 | Vista comparativa PEPS vs Promedio | v0.5.0 | B | D5 | 1.5 | Could | TERMINADO   |
 | SI-036 | Pruebas funcionales de flujo completo | v0.9.0-rc | A | D5 | 3 | Must | Por hacer   |
@@ -695,15 +695,15 @@ flowchart LR
 **Objetivo:** que RF-04 y RF-05 sean observables y se puedan capturar.
 
 **Criterios de aceptación:**
-- [ ] Hay un selector de producto y de método (PEPS / Promedio)
-- [ ] Resumen visible: existencia, costo unitario según método y valor del inventario
-- [ ] Se muestran el historial del método elegido y las capas PEPS activas
-- [ ] Importes con 2 decimales y costos unitarios con 4, sin redondear de nuevo en la vista
-- [ ] Producto inexistente → mensaje claro
+- [x] Hay un selector de producto y de método (PEPS / Promedio)
+- [x] Resumen visible: existencia, costo unitario según método y valor del inventario
+- [x] Se muestran el historial del método elegido y las capas PEPS activas
+- [x] Importes con 2 decimales y costos unitarios con 4, sin redondear de nuevo en la vista
+- [x] Producto inexistente → mensaje claro
 
 **Trazabilidad:** RF-04, RF-05 · CP-08, 09, 10, 11 (manual)
 **Depende de:** SI-032
-**Evidencia:** capturas de E-01 con PEPS y con Promedio
+**Evidencia:** `docs/evidencias/SI-033/Interfaz_Consulta_Inventario_Historial.md` (Green_Test.md)
 
 ---
 
