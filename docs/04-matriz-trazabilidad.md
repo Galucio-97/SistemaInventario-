@@ -40,8 +40,8 @@
 | CP-05 | Unitaria + Integración + Funcional | Valores límite | `ValidadorCantidadTests`, `InventarioServiceIntegrationTests`, `MovimientosPagesTests` | `evidencias/SI-012/Validacion_Cantidades.md`, `evidencias/SI-024/Green_Test.md`, `evidencias/SI-030/Interfaz_Entradas_Salidas.md` |
 | CP-06 | Unitaria + Integración + Funcional | Valores límite | `ValidadorCostoUnitarioTests`, `InventarioServiceIntegrationTests`, `MovimientosPagesTests` | `evidencias/SI-013/Validacion_Costo_Unitario.md`, `evidencias/SI-024/Green_Test.md`, `evidencias/SI-030/Interfaz_Entradas_Salidas.md` |
 | CP-07 | Unitaria + Integración + Funcional | Valores límite + Tabla | `ValidadorExistenciaTests`, `InventarioServiceIntegrationTests`, `MovimientosPagesTests` | `evidencias/SI-014/Green_Test.md`, `evidencias/SI-025/Green_Test.md`, `evidencias/SI-030/Interfaz_Entradas_Salidas.md` |
-| CP-08 | Unitaria + Funcional | Escenario E-01 | `CalculadoraPepsTests` | `evidencias/SI-017/Green_Test.md` |
-| CP-09 | Unitaria + Funcional | Escenario E-01 | `CalculadoraPromedioPonderadoTests` | `evidencias/SI-016/Promedio_Ponderado_Salidas.md` |
+| CP-08 | Unitaria + Funcional | Escenario E-01 | `CalculadoraPepsTests`, `EjercicioReferenciaIntegrationTests` | `evidencias/SI-017/Green_Test.md`, `evidencias/SI-034/Carga_Ejercicio_Referencia.md` |
+| CP-09 | Unitaria + Funcional | Escenario E-01 | `CalculadoraPromedioPonderadoTests`, `EjercicioReferenciaIntegrationTests` | `evidencias/SI-016/Promedio_Ponderado_Salidas.md`, `evidencias/SI-034/Carga_Ejercicio_Referencia.md` |
 | CP-10 | Integración + Funcional | Escenario E-01 | `ConsultaExistenciasIntegrationTests`, `ConsultaExistenciasPageTests`, `HistorialMovimientosIntegrationTests` | `evidencias/SI-031/Consulta_Existencias_Metodo.md` |
 | CP-11 | Funcional / Integración | Tabla de decisión | `ProductoServiceIntegrationTests`, `InventarioServiceIntegrationTests`, `ProductosPagesTests` | `evidencias/SI-021/Consulta_Listado_Productos.md`, `evidencias/SI-023/Interfaz_Productos.md`, `evidencias/SI-024/Green_Test.md` |
 | CP-12 | Integración + manual | Escenario | `PersistenciaTests` | `evidencias/SI-027/Green_Test.md` |
@@ -71,3 +71,4 @@
 | `Pages/Productos/` (`Index`, `Crear`, `Editar`) | RF-01, RF-05, RNF-03, RB-10 (interfaz de usuario) | CP-01, CP-02, CP-11 |
 | `Pages/Inventario/Consulta` | RF-04, RF-05, D-09 (consulta de existencias y capas por método) | CP-10, CP-11 |
 | `InventarioService` | RF-02, RF-03, RF-04, RF-05 con transacción atómica, consulta dual e historial kardex | CP-03, CP-04, CP-05, CP-06, CP-07, CP-10, CP-11, CP-13, CP-15, CP-16, CP-18 |
+| `EjercicioReferenciaService` | RF-04, RF-05, CP-08, CP-09 (carga automatizada e idempotente del oráculo E-01) | CP-08, CP-09 |

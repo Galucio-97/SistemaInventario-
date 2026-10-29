@@ -156,4 +156,33 @@ public class ConsultaExistenciasPageTests(TestDbContextFixture fixture)
         Assert.Equal(375.0000m, page.ResultadoComparativo.ValorInventario);
         Assert.Equal(25.0000m, page.ResultadoComparativo.CostoUnitario);
     }
+    [Fact]
+    [Trait("CP", "CP-08")]
+    [Trait("CP", "CP-09")]
+    [Trait("RF", "RF-04")]
+    [Trait("RF", "RF-05")]
+    [Trait("Nivel", "Funcional")]
+    public async Task ConsultaModel_OnPostCargarEjercicioE01Async_RedirigeAConsultaConProductoId()
+    {
+        // Arrange
+        fixture.ResetDatabase();
+        await using var ctx = fixture.CreateDbContext();
+        var inventarioService = new InventarioService(ctx);
+        var productoService = new ProductoService(ctx);
+        var ejercicioService = new EjercicioReferenciaService(productoService, inventarioService);
+
+        var page = new ConsultaModel(inventarioService, productoService, ejercicioService);
+        ConfigurarContextoPagina(page);
+
+        // Act
+        var result = await page.OnPostCargarEjercicioE01Async();
+
+        // Assert
+        var redirect = Assert.IsType<RedirectToPageResult>(result);
+        Assert.Equal("./Consulta", redirect.PageName);
+        Assert.NotNull(redirect.RouteValues);
+        Assert.True(redirect.RouteValues.ContainsKey("ProductoId"));
+        Assert.True((int)redirect.RouteValues["ProductoId"]! > 0);
+        Assert.NotNull(page.TempData["MensajeExito"]);
+    }
 }

@@ -109,7 +109,7 @@ flowchart LR
 | SI-031 | Consulta de existencias por método de costeo | v0.5.0 | A | D4 | 2 | Must | TERMINADO   |
 | SI-032 | Historial de movimientos por método | v0.5.0 | A | D4 | 1.5 | Must | TERMINADO   |
 | SI-033 | Interfaz de consulta de inventario e historial | v0.5.0 | B | D5 | 3 | Must | Por hacer   |
-| SI-034 | Carga del ejercicio de referencia desde la interfaz | v0.5.0 | B | D5 | 1 | Could | Por hacer   |
+| SI-034 | Carga del ejercicio de referencia desde la interfaz | v0.5.0 | B | D5 | 1 | Could | TERMINADO   |
 | SI-035 | Vista comparativa PEPS vs Promedio | v0.5.0 | B | D5 | 1.5 | Could | Por hacer   |
 | SI-036 | Pruebas funcionales de flujo completo | v0.9.0-rc | A | D5 | 3 | Must | Por hacer   |
 | SI-037 | Feature freeze y release candidate | v0.9.0-rc | Ambos | D5 | 0.5 | Must | Por hacer   |
@@ -713,13 +713,13 @@ flowchart LR
 **Objetivo:** demostrar E-01 en vivo con un clic durante la evaluación.
 
 **Criterios de aceptación:**
-- [ ] Una acción crea un producto de demostración y registra los movimientos de E-01 **usando los mismos servicios** que la interfaz normal
-- [ ] Si el producto de demostración ya existe, no se duplica
-- [ ] El resultado coincide con el oráculo E-01
+- [x] Una acción crea un producto de demostración y registra los movimientos de E-01 **usando los mismos servicios** que la interfaz normal
+- [x] Si el producto de demostración ya existe, no se duplica
+- [x] El resultado coincide con el oráculo E-01
 
 **Trazabilidad:** CP-08, CP-09
 **Depende de:** SI-033
-**Evidencia:** captura
+**Evidencia:** `docs/evidencias/SI-034/Carga_Ejercicio_Referencia.md` (Green_Test.md y Red_Test.md)
 
 ---
 

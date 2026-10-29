@@ -11,7 +11,8 @@ namespace SI.Web.Pages.Inventario;
 
 public class ConsultaModel(
     IInventarioService inventarioService,
-    ProductoService productoService) : PageModel
+    ProductoService productoService,
+    IEjercicioReferenciaService? ejercicioReferenciaService = null) : PageModel
 {
     [BindProperty(SupportsGet = true)]
     public int? ProductoId { get; set; }
@@ -26,6 +27,9 @@ public class ConsultaModel(
     public ResultadoConsultaExistencias? ResultadoComparativo { get; private set; }
 
     public ResultadoHistorialMovimientos? Historial { get; private set; }
+
+    [TempData]
+    public string? MensajeExito { get; set; }
 
     public string? MensajeError { get; private set; }
 
@@ -65,5 +69,30 @@ public class ConsultaModel(
                     ProductoId.Value, Metodo, cancellationToken);
             }
         }
+    }
+
+    /// <summary>
+    /// Acción con un solo clic para cargar el ejercicio de referencia E-01 (SI-034, CP-08, CP-09).
+    /// </summary>
+    public async Task<IActionResult> OnPostCargarEjercicioE01Async(CancellationToken cancellationToken = default)
+    {
+        if (ejercicioReferenciaService is null)
+        {
+            MensajeError = "El servicio de carga de ejercicio de referencia no está disponible.";
+            await OnGetAsync(cancellationToken);
+            return Page();
+        }
+
+        var resultado = await ejercicioReferenciaService.CargarEjercicioE01Async(cancellationToken);
+        if (resultado.Exitoso)
+        {
+            MensajeExito = resultado.Mensaje;
+            TempData["MensajeExito"] = resultado.Mensaje;
+            return RedirectToPage("./Consulta", new { ProductoId = resultado.ProductoId, Metodo });
+        }
+
+        MensajeError = resultado.Mensaje;
+        await OnGetAsync(cancellationToken);
+        return Page();
     }
 }
