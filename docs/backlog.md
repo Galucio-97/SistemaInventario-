@@ -106,7 +106,7 @@ flowchart LR
 | SI-028 | Invariante de valores almacenados | v0.4.0 | A | D4 | 1.5 | Must | TERMINADO   |
 | SI-029 | Rechazo de fechas retroactivas | v0.4.0 | A | D4 | 1 | Should | Por hacer   |
 | SI-030 | Interfaz de registro de entradas y salidas | v0.4.0 | B | D4 | 3 | Must | Por hacer   |
-| SI-031 | Consulta de existencias por método de costeo | v0.5.0 | A | D4 | 2 | Must | Por hacer   |
+| SI-031 | Consulta de existencias por método de costeo | v0.5.0 | A | D4 | 2 | Must | TERMINADO   |
 | SI-032 | Historial de movimientos por método | v0.5.0 | A | D4 | 1.5 | Must | Por hacer   |
 | SI-033 | Interfaz de consulta de inventario e historial | v0.5.0 | B | D5 | 3 | Must | Por hacer   |
 | SI-034 | Carga del ejercicio de referencia desde la interfaz | v0.5.0 | B | D5 | 1 | Could | Por hacer   |
