@@ -223,4 +223,10 @@ public class InventarioService(InventarioDbContext context) : IInventarioService
 
         throw new InvalidOperationException($"Método de costeo no soportado: {metodo}");
     }
+
+    public Task<ResultadoHistorialMovimientos> ObtenerHistorialMovimientosAsync(
+        int productoId, MetodoCosteo metodo, CancellationToken ct = default)
+    {
+        throw new NotImplementedException("Método no implementado aún (Fase RED - SI-032).");
+    }
 }
