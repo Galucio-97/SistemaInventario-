@@ -184,7 +184,7 @@ Capas PEPS finales: `[5 @ 20.00, 10 @ 30.00]`.
 | Técnica / Nivel | Escenario E-01 / Funcional |
 | Pasos | 1. Consultar inventario con PEPS. 2. Consultar con Promedio. 3. Comparar con el estado de BD previo a las consultas |
 | Esperado | Existencia 15 en ambas; valor 400.00 (PEPS) vs 375.00 (Prom); C.U. de la salida 20.0000 vs 25.0000; **número de movimientos y sus fechas/cantidades/costos de entrada sin cambios** |
-| Obtenido / Estado / Evidencia | _pendiente_ |
+| Obtenido / Estado / Evidencia | Consulta dual verificada sobre escenario E-01: existencia 15 en ambos métodos, valor 400.00 en PEPS y 375.00 en Promedio; costo unitario PEPS 26.6667 según D-09 con 2 capas activas; idempotencia e inalterabilidad de datos confirmada · **Aprobado (Integración + UI)** · 28-oct-2026 · Dev A · `evidencias/SI-031/Consulta_Existencias_Metodo.md` |
 
 ### CP-11 — Consultar un producto inexistente
 | Campo | Valor |

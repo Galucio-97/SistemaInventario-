@@ -1,0 +1,250 @@
+@page
+@using SI.Web.Enums
+@model SI.Web.Pages.Inventario.ConsultaModel
+@{
+    ViewData["Title"] = "Consulta de Existencias y Valuación";
+}
+
+<div class="container py-3">
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+        <div>
+            <h2 class="h3 fw-bold mb-1 text-primary">
+                <i class="bi bi-boxes me-2"></i>Consulta de Existencias por Método de Costeo
+            </h2>
+            <p class="text-muted mb-0 small">
+                Valuación en tiempo real comparando PEPS (Primeras Entradas, Primeras Salidas) y Promedio Ponderado.
+            </p>
+        </div>
+        <div>
+            <a asp-page="/Productos/Index" class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-arrow-left me-1"></i>Catálogo de Productos
+            </a>
+        </div>
+    </div>
+
+    <!-- Filtros de Consulta -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body bg-light">
+            <form method="get" class="row g-3 align-items-end">
+                <div class="col-md-6">
+                    <label asp-for="ProductoId" class="form-label fw-semibold">Seleccionar Producto</label>
+                    <select asp-for="ProductoId" asp-items="Model.ProductosDisponibles" class="form-select" id="selectProducto">
+                        <option value="">-- Selecciona un producto para consultar --</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="Metodo" class="form-label fw-semibold">Método de Costeo Primario</label>
+                    <select asp-for="Metodo" class="form-select">
+                        <option value="@MetodoCosteo.Peps">PEPS (Primeras Entradas, Primeras Salidas)</option>
+                        <option value="@MetodoCosteo.PromedioPonderado">Promedio Ponderado</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2 d-grid">
+                    <button type="submit" class="btn btn-primary fw-semibold">
+                        <i class="bi bi-search me-1"></i>Consultar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.MensajeError))
+    {
+        <div class="alert alert-danger d-flex align-items-center" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2 fs-5"></i>
+            <div>@Model.MensajeError</div>
+        </div>
+    }
+
+    @if (Model.Resultado != null && Model.Resultado.Encontrado)
+    {
+        var res = Model.Resultado;
+        var alt = Model.ResultadoComparativo;
+
+        <!-- Encabezado del Producto Consultado -->
+        <div class="card mb-4 border-0 shadow-sm">
+            <div class="card-header bg-primary text-white py-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="badge bg-light text-primary me-2 fs-6">@res.Codigo</span>
+                        <span class="fs-5 fw-bold">@res.Nombre</span>
+                    </div>
+                    <span class="badge bg-info text-dark">Unidad: @res.UnidadMedida</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row g-3 text-center">
+                    <div class="col-md-3">
+                        <div class="p-3 border rounded bg-white shadow-sm h-100">
+                            <span class="text-muted d-block small text-uppercase fw-semibold mb-1">Existencia Física</span>
+                            <span class="fs-3 fw-bold text-dark">@res.ExistenciaActual.ToString("N4")</span>
+                            <span class="text-muted small d-block">@res.UnidadMedida</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="p-3 border rounded bg-white shadow-sm h-100">
+                            <span class="text-muted d-block small text-uppercase fw-semibold mb-1">
+                                Costo Unitario (@(res.Metodo == MetodoCosteo.Peps ? "PEPS Ef." : "Promedio"))
+                            </span>
+                            <span class="fs-3 fw-bold text-success">$@res.CostoUnitario.ToString("N4")</span>
+                            <span class="text-muted small d-block">MXN por @res.UnidadMedida</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="p-3 border rounded bg-white shadow-sm h-100">
+                            <span class="text-muted d-block small text-uppercase fw-semibold mb-1">
+                                Valuación (@res.Metodo)
+                            </span>
+                            <span class="fs-3 fw-bold text-primary">$@res.ValorInventario.ToString("N2")</span>
+                            <span class="text-muted small d-block">MXN Total</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="p-3 border rounded bg-light shadow-sm h-100">
+                            <span class="text-muted d-block small text-uppercase fw-semibold mb-1">Método Primario</span>
+                            <span class="badge @(res.Metodo == MetodoCosteo.Peps ? "bg-primary" : "bg-warning text-dark") fs-6 mt-2">
+                                @(res.Metodo == MetodoCosteo.Peps ? "PEPS" : "Promedio Ponderado")
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabla Comparativa Dual: PEPS vs Promedio Ponderado -->
+        @if (alt != null)
+        {
+            var pepsData = res.Metodo == MetodoCosteo.Peps ? res : alt;
+            var promData = res.Metodo == MetodoCosteo.PromedioPonderado ? res : alt;
+            var diferencia = pepsData.ValorInventario - promData.ValorInventario;
+
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header bg-white py-3">
+                    <h5 class="mb-0 fw-bold text-secondary">
+                        <i class="bi bi-arrow-left-right me-2 text-primary"></i>Comparativa de Valuación (PEPS vs Promedio Ponderado)
+                    </h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover mb-0 align-middle text-center">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="text-start ps-4">Parámetro</th>
+                                    <th class="text-primary">Método PEPS</th>
+                                    <th class="text-warning text-dark">Método Promedio Ponderado</th>
+                                    <th>Diferencia (PEPS - Promedio)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-start ps-4 fw-semibold">Existencia Física</td>
+                                    <td>@pepsData.ExistenciaActual.ToString("N4") @pepsData.UnidadMedida</td>
+                                    <td>@promData.ExistenciaActual.ToString("N4") @promData.UnidadMedida</td>
+                                    <td class="text-muted">0.0000 (Idéntica)</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-start ps-4 fw-semibold">Costo Unitario Vigente</td>
+                                    <td class="fw-bold text-success">$@pepsData.CostoUnitario.ToString("N4")</td>
+                                    <td class="fw-bold text-success">$@promData.CostoUnitario.ToString("N4")</td>
+                                    <td class="fw-semibold @(pepsData.CostoUnitario - promData.CostoUnitario >= 0 ? "text-primary" : "text-danger")">
+                                        $@((pepsData.CostoUnitario - promData.CostoUnitario).ToString("+0.0000;-0.0000;0.0000"))
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-start ps-4 fw-semibold">Valor Total del Inventario</td>
+                                    <td class="fs-5 fw-bold text-primary">$@pepsData.ValorInventario.ToString("N2")</td>
+                                    <td class="fs-5 fw-bold text-warning text-dark">$@promData.ValorInventario.ToString("N2")</td>
+                                    <td class="fs-5 fw-bold @(diferencia >= 0 ? "text-success" : "text-danger")">
+                                        $@(diferencia.ToString("+0.00;-0.00;0.00"))
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <!-- Desglose de Capas PEPS (Si hay capas activas) -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 fw-bold text-secondary">
+                    <i class="bi bi-stack me-2 text-primary"></i>Desglose de Capas PEPS Activas
+                </h5>
+                <span class="badge bg-secondary">
+                    @res.CapasActivas.Count capas con existencia > 0
+                </span>
+            </div>
+            <div class="card-body p-0">
+                @if (res.CapasActivas.Count == 0 && res.Metodo == MetodoCosteo.Peps)
+                {
+                    <div class="p-4 text-center text-muted">
+                        <i class="bi bi-inbox fs-1 d-block mb-2"></i>
+                        No hay capas PEPS con saldo disponible para este producto.
+                    </div>
+                }
+                else if (res.Metodo == MetodoCosteo.PromedioPonderado && (Model.ResultadoComparativo == null || Model.ResultadoComparativo.CapasActivas.Count == 0))
+                {
+                    <div class="p-4 text-center text-muted">
+                        <i class="bi bi-info-circle fs-3 d-block mb-2"></i>
+                        El método Promedio Ponderado no utiliza capas FIFO. Las existencias se valúan de forma acumulativa unificada.
+                    </div>
+                }
+                else
+                {
+                    var capasMostrar = res.Metodo == MetodoCosteo.Peps ? res.CapasActivas : Model.ResultadoComparativo!.CapasActivas;
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover mb-0 align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="text-center"># Capa</th>
+                                    <th>Fecha de Entrada</th>
+                                    <th class="text-end">Cantidad Original</th>
+                                    <th class="text-end">Cantidad Disponible</th>
+                                    <th class="text-end">Costo Unitario</th>
+                                    <th class="text-end pe-4">Subtotal Valuado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{ int indice = 1; }
+                                @foreach (var capa in capasMostrar)
+                                {
+                                    <tr>
+                                        <td class="text-center fw-bold text-secondary">Capa @indice</td>
+                                        <td>@capa.FechaEntrada.ToString("yyyy-MM-dd HH:mm")</td>
+                                        <td class="text-end">@capa.CantidadOriginal.ToString("N4")</td>
+                                        <td class="text-end fw-bold text-primary">@capa.CantidadDisponible.ToString("N4")</td>
+                                        <td class="text-end text-success">$@capa.CostoUnitario.ToString("N4")</td>
+                                        <td class="text-end pe-4 fw-bold">$@capa.Subtotal.ToString("N2")</td>
+                                    </tr>
+                                    indice++;
+                                }
+                            </tbody>
+                            <tfoot class="table-group-divider table-light">
+                                <tr class="fw-bold">
+                                    <td colspan="3" class="text-end">Totales PEPS:</td>
+                                    <td class="text-end text-primary">@capasMostrar.Sum(c => c.CantidadDisponible).ToString("N4")</td>
+                                    <td></td>
+                                    <td class="text-end pe-4 text-success">$@capasMostrar.Sum(c => c.Subtotal).ToString("N2")</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+    else if (!Model.ProductoId.HasValue)
+    {
+        <div class="card border-dashed p-5 text-center text-muted bg-light">
+            <i class="bi bi-search fs-1 mb-2 text-primary"></i>
+            <h5 class="fw-bold">Selecciona un producto para consultar</h5>
+            <p class="mb-0">Elige un producto en el menú superior para ver su existencia actual, desglose de capas PEPS y comparativa de valuación.</p>
+        </div>
+    }
+</div>

@@ -178,4 +178,73 @@ public class InventarioService(InventarioDbContext context) : IInventarioService
 
         return new ResultadoOperacion(true, null, movimiento.Id);
     }
+
+        /// <summary>
+    /// Consulta existencias y valuación de inventario por método de costeo (RF-04, RF-05, CP-10, CP-11, D-09).
+    /// Operación idempotente de solo lectura, sin efectos colaterales en la base de datos.
+    /// </summary>
+    public async Task<ResultadoConsultaExistencias> ConsultarExistenciasAsync(
+        int productoId, MetodoCosteo metodo, CancellationToken ct = default)
+    {
+        var producto = await context.Productos
+            .AsNoTracking()
+            .FirstOrDefaultAsync(p => p.Id == productoId, ct);
+
+        if (producto is null)
+        {
+            return ResultadoConsultaExistencias.NoEncontrado("El producto no existe.");
+        }
+
+        if (metodo == MetodoCosteo.PromedioPonderado)
+        {
+            return ResultadoConsultaExistencias.Exitoso(
+                productoId: producto.Id,
+                codigo: producto.Codigo,
+                nombre: producto.Nombre,
+                unidadMedida: producto.UnidadMedida,
+                metodo: MetodoCosteo.PromedioPonderado,
+                existenciaActual: producto.ExistenciaActual,
+                costoUnitario: producto.CostoPromedioActual,
+                valorInventario: producto.ValorInventarioPromedio,
+                capasActivas: Array.Empty<CapaPepsDto>()
+            );
+        }
+
+        if (metodo == MetodoCosteo.Peps)
+        {
+            var capas = await context.CapasInventarioPeps
+                .AsNoTracking()
+                .Where(c => c.ProductoId == productoId && c.CantidadDisponible > 0)
+                .OrderBy(c => c.FechaEntrada)
+                .ThenBy(c => c.Id)
+                .Select(c => new CapaPepsDto
+                {
+                    Id = c.Id,
+                    FechaEntrada = c.FechaEntrada,
+                    CantidadOriginal = c.CantidadInicial,
+                    CantidadDisponible = c.CantidadDisponible,
+                    CostoUnitario = c.CostoUnitario
+                })
+                .ToListAsync(ct);
+
+            // D-09: Costo unitario promedio efectivo en PEPS = ValorTotal / Existencia (redondeado a 4 decimales)
+            var costoUnitarioPeps = producto.ExistenciaActual > 0
+                ? Math.Round(producto.ValorInventarioPeps / producto.ExistenciaActual, 4, MidpointRounding.AwayFromZero)
+                : 0.0000m;
+
+            return ResultadoConsultaExistencias.Exitoso(
+                productoId: producto.Id,
+                codigo: producto.Codigo,
+                nombre: producto.Nombre,
+                unidadMedida: producto.UnidadMedida,
+                metodo: MetodoCosteo.Peps,
+                existenciaActual: producto.ExistenciaActual,
+                costoUnitario: costoUnitarioPeps,
+                valorInventario: producto.ValorInventarioPeps,
+                capasActivas: capas
+            );
+        }
+
+        throw new InvalidOperationException($"Método de costeo no soportado: {metodo}");
+    }
 }
