@@ -74,7 +74,7 @@ flowchart TD
 | **SI-029** | Rechazo de fechas retroactivas | v0.4.0 | Dev A | 1.0 h | **2 SP** | ✅ **Completado**: Validación de integridad temporal (`ValidadorFechaMovimiento`) en entradas y salidas de `InventarioService`, rechazando fechas anteriores al último movimiento y admitiendo fecha igual o posterior (`CP-20`, RB-11, D-04). |
 | **SI-030** | UI registro de entradas y salidas | v0.4.0 | Dev B | 3.0 h | **5 SP** | ✅ **Completado**: Formularios Razor Pages de Entrada y Salida, selección de productos activos, comparativa PEPS vs Promedio y retención de datos en rechazos. |
 | **SI-031** | Consulta existencias por método | v0.5.0 | Dev A | 2.0 h | **3 SP** | ✅ **Completado**: Servicio de proyección dual (PEPS vs Promedio), costeo unitario D-09, capas activas e interfaz de consulta (`InventarioService.ConsultarExistenciasAsync`, `Pages/Inventario/Consulta`). |
-| **SI-032** | Historial de movimientos por método | v0.5.0 | Dev A | 1.5 h | **3 SP** | Formateo de Kardex según método seleccionado con saldos exactos. |
+| **SI-032** | Historial de movimientos por método | v0.5.0 | Dev A | 1.5 h | **3 SP** | ✅ **Completado**: Servicio de historial tipo kardex por método de costeo (PEPS vs Promedio), proyección cronológica e idempotencia (`InventarioService.ObtenerHistorialMovimientosAsync`). |
 | **SI-033** | UI consulta de inventario e historial | v0.5.0 | Dev B | 3.0 h | **5 SP** | Pantalla principal Kardex, selector dual, tabla de capas activas. |
 | **SI-034** | Carga ejercicio de referencia en UI | v0.5.0 | Dev B | 1.0 h | **2 SP** | Botón de demostración rápida para la evaluación. |
 | **SI-035** | Vista comparativa PEPS vs Promedio | v0.5.0 | Dev B | 1.5 h | **2 SP** | Cuadro comparativo simultáneo de valoración y costos. |

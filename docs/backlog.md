@@ -107,7 +107,7 @@ flowchart LR
 | SI-029 | Rechazo de fechas retroactivas | v0.4.0 | A | D4 | 1 | Should | TERMINADO   |
 | SI-030 | Interfaz de registro de entradas y salidas | v0.4.0 | B | D4 | 3 | Must | TERMINADO   |
 | SI-031 | Consulta de existencias por método de costeo | v0.5.0 | A | D4 | 2 | Must | TERMINADO   |
-| SI-032 | Historial de movimientos por método | v0.5.0 | A | D4 | 1.5 | Must | Por hacer   |
+| SI-032 | Historial de movimientos por método | v0.5.0 | A | D4 | 1.5 | Must | TERMINADO   |
 | SI-033 | Interfaz de consulta de inventario e historial | v0.5.0 | B | D5 | 3 | Must | Por hacer   |
 | SI-034 | Carga del ejercicio de referencia desde la interfaz | v0.5.0 | B | D5 | 1 | Could | Por hacer   |
 | SI-035 | Vista comparativa PEPS vs Promedio | v0.5.0 | B | D5 | 1.5 | Could | Por hacer   |
@@ -679,13 +679,13 @@ flowchart LR
 **Objetivo:** mostrar el historial (tipo kardex) con los costos del método seleccionado.
 
 **Criterios de aceptación:**
-- [ ] Lista los movimientos en orden cronológico con fecha, tipo, cantidad, costo unitario, costo total, existencia resultante y saldo de valor del método elegido
-- [ ] Con E-01, el historial coincide fila por fila con la tabla del oráculo en `03`
-- [ ] Cambiar de método no cambia número de filas, fechas ni cantidades
+- [x] Lista los movimientos en orden cronológico con fecha, tipo, cantidad, costo unitario, costo total, existencia resultante y saldo de valor del método elegido
+- [x] Con E-01, el historial coincide fila por fila con la tabla del oráculo en `03`
+- [x] Cambiar de método no cambia número de filas, fechas ni cantidades
 
 **Trazabilidad:** RF-05, RF-04 · CP-10
 **Depende de:** SI-031
-**Evidencia:** salida de las pruebas
+**Evidencia:** `docs/evidencias/SI-032/Historial_Movimientos_Metodo.md` (Green_Test.md y Red_Test.md)
 
 ---
 

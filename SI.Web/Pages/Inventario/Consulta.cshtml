@@ -1,15 +1,16 @@
 @page
 @using SI.Web.Enums
+@using SI.Web.Data.Entities
 @model SI.Web.Pages.Inventario.ConsultaModel
 @{
-    ViewData["Title"] = "Consulta de Existencias y Valuación";
+    ViewData["Title"] = "Consulta de Existencias y Kardex";
 }
 
 <div class="container py-3">
     <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
         <div>
             <h2 class="h3 fw-bold mb-1 text-primary">
-                <i class="bi bi-boxes me-2"></i>Consulta de Existencias por Método de Costeo
+                <i class="bi bi-boxes me-2"></i>Consulta de Existencias e Historial de Movimientos (Kardex)
             </h2>
             <p class="text-muted mb-0 small">
                 Valuación en tiempo real comparando PEPS (Primeras Entradas, Primeras Salidas) y Promedio Ponderado.
@@ -238,13 +239,70 @@
                 }
             </div>
         </div>
+
+        <!-- Historial de Movimientos (Kardex) por Método (SI-032) -->
+        @if (Model.Historial != null && Model.Historial.Movimientos.Count > 0)
+        {
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0 fw-bold text-secondary">
+                        <i class="bi bi-clock-history me-2 text-primary"></i>Historial de Movimientos (Kardex - @(Model.Historial.Metodo == MetodoCosteo.Peps ? "PEPS" : "Promedio Ponderado"))
+                    </h5>
+                    <span class="badge bg-primary">
+                        @Model.Historial.Movimientos.Count movimientos registrados
+                    </span>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover mb-0 align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="text-center">#</th>
+                                    <th>Fecha</th>
+                                    <th class="text-center">Tipo</th>
+                                    <th class="text-end">Cantidad</th>
+                                    <th class="text-end">Costo Unitario (@(Model.Historial.Metodo == MetodoCosteo.Peps ? "PEPS" : "Promedio"))</th>
+                                    <th class="text-end">Costo Total</th>
+                                    <th class="text-end">Existencia Resultante</th>
+                                    <th class="text-end pe-4">Saldo Valor (@(Model.Historial.Metodo == MetodoCosteo.Peps ? "PEPS" : "Promedio"))</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{ int numMov = 1; }
+                                @foreach (var mov in Model.Historial.Movimientos)
+                                {
+                                    var esEntrada = mov.Tipo == TipoMovimiento.Entrada;
+                                    <tr>
+                                        <td class="text-center text-muted fw-bold">@numMov</td>
+                                        <td>@mov.Fecha.ToString("yyyy-MM-dd HH:mm")</td>
+                                        <td class="text-center">
+                                            <span class="badge @(esEntrada ? "bg-success" : "bg-danger")">
+                                                @(esEntrada ? "+ Entrada" : "- Salida")
+                                            </span>
+                                        </td>
+                                        <td class="text-end fw-semibold @(esEntrada ? "text-success" : "text-danger")">
+                                            @(esEntrada ? "+" : "-")@mov.Cantidad.ToString("N4")
+                                        </td>
+                                        <td class="text-end text-success">$@mov.CostoUnitario.ToString("N4")</td>
+                                        <td class="text-end fw-bold">$@mov.CostoTotal.ToString("N2")</td>
+                                        <td class="text-end fw-bold text-dark">@mov.ExistenciaResultante.ToString("N4")</td>
+                                        <td class="text-end pe-4 fw-bold text-primary">$@mov.SaldoValor.ToString("N2")</td>
+                                    </tr>
+                                    numMov++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
     }
     else if (!Model.ProductoId.HasValue)
     {
         <div class="card border-dashed p-5 text-center text-muted bg-light">
             <i class="bi bi-search fs-1 mb-2 text-primary"></i>
             <h5 class="fw-bold">Selecciona un producto para consultar</h5>
-            <p class="mb-0">Elige un producto en el menú superior para ver su existencia actual, desglose de capas PEPS y comparativa de valuación.</p>
+            <p class="mb-0">Elige un producto en el menú superior para ver su existencia actual, desglose de capas PEPS, historial tipo Kardex y comparativa de valuación.</p>
         </div>
     }
 </div>

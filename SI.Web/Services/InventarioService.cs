@@ -247,4 +247,71 @@ public class InventarioService(InventarioDbContext context) : IInventarioService
 
         throw new InvalidOperationException($"Método de costeo no soportado: {metodo}");
     }
+
+        /// <summary>
+    /// Obtiene el historial de movimientos de inventario tipo kardex según el método de costeo (RF-04, RF-05, CP-10, SI-032).
+    /// </summary>
+    public async Task<ResultadoHistorialMovimientos> ObtenerHistorialMovimientosAsync(
+        int productoId, MetodoCosteo metodo, CancellationToken ct = default)
+    {
+        var producto = await context.Productos
+            .AsNoTracking()
+            .FirstOrDefaultAsync(p => p.Id == productoId, ct);
+
+        if (producto is null)
+        {
+            return ResultadoHistorialMovimientos.NoEncontrado("El producto no existe.");
+        }
+
+        // Consultar los movimientos en orden cronológico (Fecha ASC, Id ASC)
+        var movimientos = await context.Movimientos
+            .AsNoTracking()
+            .Where(m => m.ProductoId == productoId)
+            .OrderBy(m => m.Fecha)
+            .ThenBy(m => m.Id)
+            .ToListAsync(ct);
+
+        // Proyectar cada movimiento según el método de costeo seleccionado
+        var historialDto = movimientos.Select(m =>
+        {
+            var esEntrada = m.Tipo == TipoMovimiento.Entrada;
+
+            decimal costoUnitario;
+            decimal costoTotal;
+            decimal saldoValor;
+
+            if (metodo == MetodoCosteo.PromedioPonderado)
+            {
+                costoUnitario = esEntrada ? m.CostoUnitarioEntrada : m.CostoUnitarioPromedio;
+                costoTotal = esEntrada ? (m.Cantidad * m.CostoUnitarioEntrada) : m.CostoTotalPromedio;
+                saldoValor = m.SaldoValorPromedio;
+            }
+            else
+            {
+                costoUnitario = esEntrada ? m.CostoUnitarioEntrada : m.CostoUnitarioPeps;
+                costoTotal = esEntrada ? (m.Cantidad * m.CostoUnitarioEntrada) : m.CostoTotalPeps;
+                saldoValor = m.SaldoValorPeps;
+            }
+
+            return new MovimientoHistorialDto
+            {
+                Id = m.Id,
+                Fecha = m.Fecha,
+                Tipo = m.Tipo,
+                Cantidad = m.Cantidad,
+                CostoUnitario = costoUnitario,
+                CostoTotal = costoTotal,
+                ExistenciaResultante = m.ExistenciaResultante,
+                SaldoValor = saldoValor
+            };
+        }).ToList();
+
+        return ResultadoHistorialMovimientos.Exitoso(
+            producto.Id,
+            producto.Codigo,
+            producto.Nombre,
+            metodo,
+            historialDto
+        );
+    }
 }

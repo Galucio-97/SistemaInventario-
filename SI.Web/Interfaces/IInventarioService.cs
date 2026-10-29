@@ -16,4 +16,8 @@ public interface IInventarioService
     Task<ResultadoConsultaExistencias> ConsultarExistenciasAsync(
         int productoId, MetodoCosteo metodo, CancellationToken ct = default
     );
+
+    Task<ResultadoHistorialMovimientos> ObtenerHistorialMovimientosAsync(
+        int productoId, MetodoCosteo metodo, CancellationToken ct = default
+    );
 }
