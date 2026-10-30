@@ -9,7 +9,7 @@
 * **Estado General:** Fase 0 (Foundation / `v0.0.1`) completada y en `main`. Fase 1 (Datos y Esquema / `v0.1.0`) completada al 100% en `main`. Fase 2 (Reglas y Motor de Costeo / `v0.2.0`) completada al 100% en `main`. Fase 3 (Productos / `v0.3.0`) servicios completados en `dev` (SI-020 a SI-022). Fase 4 (Movimientos transaccionales / `v0.4.0`) operaciones transaccionales de entrada y salida completadas en `dev` (SI-024 y SI-025).
 * **Tag de Línea Base (`main`):** `v0.2.0` (Commit `6701d36`).
 * **Rama de Trabajo Actual:** `feat/SI-036-Pruebas_funcionales_flujo_completo` (RF-01 a RF-05 Pruebas funcionales de flujo completo E2E).
-* **Defectos Críticos/Altos Detectados y Gestionados:** 1 defecto real (`DEF-001`, severidad Alta, corregido y verificado con prueba de regresión).
+* **Defectos Críticos/Altos Detectados y Gestionados:** 2 defectos reales (`DEF-001` y `DEF-002`, ambos de severidad Alta, corregidos y verificados con pruebas de regresión automatizadas).
 * **Infraestructura de Pruebas:** Automatización xUnit con 171 pruebas en verde (61 integración, 1 regresión, 74 unitarias/teorías, 35 funcionales UI y flujos E2E) ejecutando en local y CI.
 
 ---
@@ -37,8 +37,8 @@
 | **Casos Aprobados (Pass)** | 2 | 18 | — |
 | **Casos Fallidos (Fail)** | 0 (post-fix DEF-001) | 0 | — |
 | **Casos Bloqueados / Pendientes** | 17 pendientes de implementación | 1 pendiente (CP-14 regresión final) | — |
-| **Defectos Detectados Totales** | 1 (`DEF-001`) | 1 (`DEF-001`) | — |
-| **Defectos Corregidos y Verificados** | 1 (`DEF-001`) | 1 (`DEF-001`) | — |
+| **Defectos Detectados Totales** | 1 (`DEF-001`) | 2 (`DEF-001`, `DEF-002`) | — |
+| **Defectos Corregidos y Verificados** | 1 (`DEF-001`) | 2 (`DEF-001`, `DEF-002`) | — |
 | **Pruebas Automatizadas en Verde** | 100% de las suites activas | 171 pruebas en verde (100% de la suite) | — |
 
 ---
@@ -75,6 +75,7 @@
 | ID | Título | Severidad | Detectado en | Estado | Causa Raíz | Commit de Fix | Prueba de Regresión |
 |:---:|:---|:---:|:---:|:---:|:---|:---:|:---|
 | **DEF-001** | Costo promedio persistido con 2 decimales y existencia en `int` | **Alta** | Revisión de arquitectura / esquema inicial | **✅ Corregido y Verificado** | Ausencia de `HasPrecision` en `ProductoConfiguration` y tipo CLR `int` en entidad `Producto`. Truncaba decimales en promedios móviles como 10.5714 $\rightarrow$ 10.57. | `27e1a05` (migración `20261017224554_AgregarProductos`) | `Def001PrecisionProductoTests` (GREEN) |
+| **DEF-002** | Pérdida de portabilidad en `SI.Web` por acoplamiento a SQLEXPRESS local en `appsettings.Development.json` | **Alta** | Revisión estática de commits en `dev` / macOS | **✅ Corregido y Verificado** | Sobrescritura de configuración compartida con ruta Windows local y ternario acoplado al SO en lugar de usar variables de entorno / user-secrets. | `fc25ed1`, `bd59058` | `Def002PortabilidadConexionTests` (GREEN) |
 
 ---
 

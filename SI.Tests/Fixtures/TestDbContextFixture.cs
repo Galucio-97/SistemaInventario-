@@ -12,7 +12,7 @@ public sealed class TestDbContextFixture : IDisposable
     // Cadena de conexión configurable mediante variable de entorno (utilizada en CI / local)
     public static string ConnectionString =>
         Environment.GetEnvironmentVariable("ConnectionStrings__TestConnection")
-        ?? (OperatingSystem.IsWindows() ? "Server=localhost\\SQLEXPRESS;Database=SistemaInventarioDb_Tests;Integrated Security=True;TrustServerCertificate=True;MultipleActiveResultSets=true" : "Server=localhost,1433;Database=SistemaInventarioDb_Tests;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;MultipleActiveResultSets=true");
+        ?? "Server=localhost,1433;Database=SistemaInventarioDb_Tests;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;MultipleActiveResultSets=true";
 
     // Contexto preconfigurado para inspección de Schema / Metamodelo en memoria
     public InventarioDbContext Context { get; }

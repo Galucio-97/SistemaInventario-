@@ -53,6 +53,7 @@
 | CP-18 | Integración / Funcional | Tabla de decisión | `InventarioServiceIntegrationTests` | `evidencias/SI-024/Green_Test.md` |
 | CP-19 | Integración / Regresión | Escenario / Invariante | `InvarianteValoresTests`, `Producto_Schema_DebeTenerPrecisionDecimalCorrecta` | `evidencias/SI-028/Green_Test.md`, `evidencias/DEF-001/` |
 | CP-20 | Unitaria + Integración | Valores límite / Partición | `ValidadorFechaMovimientoTests`, `InventarioServiceIntegrationTests` | `evidencias/SI-029/Green_Test.md` |
+| DEF-002 | Regresión | Configuración / Portabilidad | `Def002PortabilidadConexionTests` | `evidencias/DEF-002/` |
 
 ## 3. RNF-05 · Componentes y responsabilidades (completar al cierre)
 
